@@ -15,10 +15,10 @@ We will be creating a program that can run many types of two
  will be closed. 
  
 #### Overview
-![Program Overview](resources/cellOverview.jpg)
+![Program Overview](Resources/cellOverview.jpg)
 
 #### User Interface
-![Example GUI](resources/gridUI.jpg)
+![Example GUI](Resources/gridUI.jpg)
 
 #### Design Details
 For visualization.class, we can use javafx. Input will 
