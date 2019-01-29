@@ -2,14 +2,17 @@ import java.util.ArrayList;
 
 public class Grid{
 
-    private Grid originalgrid;
-    private Grid Gridwithvalue;
-    private Grid Gridwithstates;
 
-    private Grid(){
-        int[][] myGrid;
+    private Cell[][] currentGrid;
+    private ArrayList<Cell>[][] nextGrid;
+
+    //default constuctor
+    public Grid(){
+
     }
-    private Grid(ArrayList<int> List){
-        Cell[][] Gridwithstates;
+
+    //constructor
+    public Grid(/*param*/){
+
     }
 }
