@@ -2,11 +2,11 @@ public abstract class Simulation {
 
     private void initialize(){}
 
-    private void updateGrid(){
+    public Cell updateGrid(){
 
     }
 
-    private void checkconflicts(){}
+    private Cell checkConflicts(){}
 
 
 }
