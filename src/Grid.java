@@ -22,13 +22,13 @@ public class Grid{
     }
 
     private void runSimulation(Cell[][] grid){
-        for(int row = 0; row < size; row++){
-            for(int col = 0; col < size; col++){
+        for(int row = 0; row < gridSize; row++){
+            for(int col = 0; col < gridSize; col++){
                 nextGrid[row][col].add(simulation.updateGrid(currentGrid[row][col]));
             }
         }
-        for(int row = 0; row < size; row++){
-            for(int col = 0; col < size; col++){
+        for(int row = 0; row < gridSize; row++){
+            for(int col = 0; col < gridSize; col++){
                 currentGrid[row][col] = simulation.checkConflicts(nextGrid[row][col]);
                 nextGrid[row][col].clear();
             }
