@@ -20,6 +20,13 @@ public class Grid{
         nextGrid = new ArrayList<Cell>[size][size];
         gridSize = size;
     }
+    public Cell[][] getCurrentGrid(){
+        return this.currentGrid;
+    }
+
+    public ArrayList<Cell>[][] getNextGrid(){
+        return this.nextGrid;
+    }
 
     private void runSimulation(Cell[][] grid){
         for(int row = 0; row < gridSize; row++){
