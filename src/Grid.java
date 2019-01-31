@@ -1,48 +1,42 @@
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
+import javafx.scene.image.ImageView;
+import java.io.File;
 
-public class Grid{
+public abstract class Grid{
 
-    private int defaultGridSize = 10;
-    private Cell[][] currentGrid;
-    private ArrayList<Cell>[][] nextGrid;
-    private int gridSize;
-    Simulation simulation = new Simulation();
+    int[][] myCurrentState;
+    int[][] myNextState;
+    Simulation mySimulation;
+    ImageView myImageView;
+    File myFile;
+    int myDisplaySize;
+    int gridWidth;
+    int gridHeight;
 
-    //default constuctor
-    public Grid(){
-        currentGrid = new Cell[defaultGridSize][defaultGridSize];
-        nextGrid = new ArrayList<Cell>[defaultGridSize][defaultGridSize];
+    public Grid(File file, int displaySize){
+        //construct grid from XML File
     }
 
-    public Grid initializeGrid(File chosen){
-        return Grid;
-    }
-    //constructor
-    public Grid(int size){
-        currentGrid = new Cell[size][size];
-        nextGrid = new ArrayList<Cell>[size][size];
-        gridSize = size;
-    }
-    public Cell[][] getCurrentGrid(){
-        return this.currentGrid;
+    public ImageView show(){
+        return myImageView;
     }
 
-    public ArrayList<Cell>[][] getNextGrid(){
-        return this.nextGrid;
-    }
-
-    private void runSimulation(Cell[][] grid){
-        for(int row = 0; row < gridSize; row++){
-            for(int col = 0; col < gridSize; col++){
-                nextGrid[row][col].add(simulation.updateGrid(currentGrid[row][col]));
+    public void updateGrid(){
+        Cell myCell;
+        ArrayList<Cell> neighbors;
+        for (int i = 0; i < gridWidth; i++){
+            for (int j = 0; j < gridHeight; j++){
+                myCell = new Cell(i, j, myCurrentState[i][j]);
+                neighbors = mySimulation.getNeighbors(myCell, myCurrentState);
+                myNextState[i][j] = mySimulation.getNextStateOfCell(myCell, neighbors);
             }
         }
-        for(int row = 0; row < gridSize; row++){
-            for(int col = 0; col < gridSize; col++){
-                currentGrid[row][col] = simulation.checkConflicts(nextGrid[row][col]);
-                nextGrid[row][col].clear();
-            }
-        }
+    }
+
+    public void initialize(){
+        //reread file and create a new grid
     }
 
 }
