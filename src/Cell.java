@@ -1,11 +1,11 @@
-import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 
 public class Cell {
 
     private int myRow;
     private int myCol;
     private int myState;
-    private ImageView image;
+    private Rectangle image;
 
     public Cell(int row, int col, int state){
         myRow = row;
