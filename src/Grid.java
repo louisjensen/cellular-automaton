@@ -19,9 +19,8 @@ public abstract class Grid{
         //construct grid from XML File
     }
 
-    public ImageView getIV(){
-        return myImageView;
-    }
+    public abstract ImageView getIV(); // will depend on what type of grid it is
+
 
     public void updateGrid(){
         Cell myCell;
