@@ -19,7 +19,7 @@ public abstract class Grid{
         //construct grid from XML File
     }
 
-    public ImageView show(){
+    public ImageView getIV(){
         return myImageView;
     }
 
