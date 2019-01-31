@@ -114,7 +114,7 @@ public class Visualization extends Application {
             myGrid.setVisible(true);
         });
 
-        myGrid.initialize():
+        myGrid.initialize();
 
         root.getChildren().add(myGrid);
         root.getChildren().add(FileUploadButton);
