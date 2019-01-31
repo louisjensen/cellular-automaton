@@ -1,6 +1,7 @@
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import javafx.scene.image.ImageView;
@@ -11,7 +12,6 @@ public abstract class Grid{
     Cell[][] myCurrentState;
     Cell[][] myNextState;
     Simulation mySimulation;
-    //ImageView myImageView;
     GridPane myGridpane;
     File myFile;
     int myDisplaySize;
@@ -20,14 +20,27 @@ public abstract class Grid{
 
     public Grid(File file, int displaySize){
         //construct grid from XML File
+        myFile = file;
+        myDisplaySize = displaySize;
         myGridpane = new GridPane();
 
 
 
     }
 
-    public abstract ImageView getIV(); // will depend on what type of grid it is
-
+    public  GridPane getIV() { // will depend on what type of grid it is
+        int cellRow;
+        int cellCol;
+        Rectangle cellRectangle;
+        Cell currentCell;
+        myGridpane.setMinSize(myDisplaySize, myDisplaySize);
+        for (int row = 0; row < myCurrentState.length; row ++){
+            for (int col = 0; col < myCurrentState[0].length; col ++){
+                currentCell = myCurrentState[row][col];
+                
+            }
+        }
+    }
 
 
 

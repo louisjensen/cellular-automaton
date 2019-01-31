@@ -5,7 +5,7 @@ public class Cell {
     private int myRow;
     private int myCol;
     private int myState;
-    private Rectangle image;
+    private Rectangle myImage;
 
     public Cell(int row, int col, int state){
         myRow = row;
@@ -21,5 +21,9 @@ public class Cell {
     }
     public int getState(){
         return myState;
+    }
+
+    public Rectangle getImage(){
+        return myImage;
     }
 }
