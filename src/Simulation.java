@@ -24,7 +24,4 @@ public abstract class Simulation { // since this doesn't have any instance varia
         return new ArrayList<Cell>();
     }
 
-
-
-
 }
