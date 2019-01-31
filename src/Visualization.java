@@ -97,8 +97,11 @@ public class Visualization extends Application {
 
     }
 
-    private void step(double elapsedtime){
-        Grid.updateGrid(elapsedtime);
+    private void step(double elapsedtime) {
+
+        for (double elapsedtime a > 1; a++) {
+            Grid.updateGrid();
+        }
     }
 
     private Scene setupVisualization(Stage stage, Paint backgorund) {
