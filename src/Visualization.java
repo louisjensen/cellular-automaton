@@ -9,10 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-import java.io.File;
 import javafx.animation.Timeline;
 
 public class Visualization extends Application {
@@ -24,16 +22,11 @@ public class Visualization extends Application {
     private String PlayButtonImage = "PlayButton.png";
     private String PauseButtonImage = "PauseButton.png";
     private String InitializeButtonImage = "InitializeButton.png";
-    public static final Paint BACKGROUND = Color.AZURE;
-    public static final int ScreenWIDTH = 3000;
-    public static final int ScreenHEIGHT = 1500;
-    private int Gridsize;
-    private Grid myGrid;
-    private int tileSize;
-    public Simulation mySimulation;
+    private static final Paint BACKGROUND = Color.AZURE;
+    private static final int ScreenWIDTH = 3000;
+    private static final int ScreenHEIGHT = 1500;
+    private ImageView myGrid;
     private Timeline animation;
-    public File SimulationName;
-    public static final Paint BACKGROUND = Color.WHITE;
 
     //make button and set text and position
     public Button makeButton(String text, String file, int height, int width, int locationx, int locationy) {
@@ -47,31 +40,9 @@ public class Visualization extends Application {
         return myButton;
     }
 
-    //make grid
-    private GridPane makeGrid(Grid myGrid) {
-
-        GridPane gridPane = new GridPane();
-
-        // for visualizing the different squares:
-        gridPane.setHgap(2);
-        gridPane.setVgap(2);
-        gridPane.setStyle("-fx-background-color: grey;");
-
-        for (int y = 0 ; y < myGrid.length() ; y++) {
-            for (int x = 0 ; x < myGrid[y].length ; x++) {
-                ImageView imageView = new ImageView(myGrid[y][x]);
-                imageView.setFitWidth(tileSize);
-                imageView.setFitHeight(tileSize);
-                gridPane.add(imageView, x, y);
-            }
-        }
-        gridPane.setLayoutX();
-        gridPane.setLayoutY();
-        return gridPane;
-    }
 
     //make simulationbutton(dropdown possible)
-   /* private MenuButton MakeSimulationMenuButton() {
+    private MenuButton MakeSimulationMenuButton() {
         MenuItem menuItem1 = new MenuItem("Option 1");
         menuItem1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -101,10 +72,8 @@ public class Visualization extends Application {
 
         return  SimulationButton;
         }
-*/
 
     public void start (Stage stage) {
-
         myScene = setupVisualization(stage, BACKGROUND);
         stage.setScene(myScene);
         stage.setTitle(Title);
@@ -115,20 +84,15 @@ public class Visualization extends Application {
 
     public void setAnimation(Stage stage){ animation = new Timeline();
 
+
     }
 
     public Scene setupVisualization(Stage stage, Paint backgorund) {
+
         Group root = new Group();
         Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT, backgorund);
 
-
-        Button FileUploadButton = makeButton("Upload File", FileUplodaBUttonImage, 0,0, 0,0);
-        FileUploadButton.setOnMouseClicked((event)->{
-            FileLoader fileLoader = new FileLoader();
-            File fileChosen = fileLoader.chooseFile();
-            myGrid = Grid.initializeGrid(fileChosen);
-            SimulationName = fileChosen;
-        });
+        MenuButton FileUploadButton = MakeSimulationMenuButton();
 
         Button GridSizeButton = makeButton("Choose Grid Size", GridSizeButtonImage, 0,0,0,0);
         GridSizeButton.setOnMouseClicked(); // should return GridSize; but I'm unsure whether we have to read in certain grid size or user can choose.
@@ -145,19 +109,14 @@ public class Visualization extends Application {
 
         Button ResetButton = makeButton();
 
-
-        GridPane myGridPane = makeGrid(myGrid);
-        myGridPane.setVisible(false);
-
         Button InitializeButton = makeButton("Initialize", InitializeButtonImage, 0, 0, 0, 0);
         InitializeButton.setOnMouseClicked((event)->{
-            myGridPane.setVisible(true);
+            myGrid.setVisible(true);
         });
 
+        myGrid.initialize():
 
-
-        root.getChildren().add(myGridPane);
-        root.getChildren().add(SimulationButton);
+        root.getChildren().add(myGrid);
         root.getChildren().add(FileUploadButton);
         root.getChildren().add(GridSizeButton);
         root.getChildren().add(PlayButton);
@@ -167,11 +126,6 @@ public class Visualization extends Application {
         return myScene;
 
     }
-    //
-
-    public Simulation setSimulation(String name) {
-            return new Simulation;
-        }
 
     public static void main (String[] args) {
         launch(args);
