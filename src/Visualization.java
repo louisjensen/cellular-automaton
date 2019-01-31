@@ -58,6 +58,7 @@ public class Visualization extends Application {
         openButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent e) {
+
                 File file = fileChooser.showOpenDialog(stage);
                 if (file != null) {
                     openFile(file);
@@ -97,8 +98,7 @@ public class Visualization extends Application {
 
     }
 
-    private void step(double elapsedtime){
-        Grid.updateGrid(elapsedtime);
+    private void step(double elapsedtime){ Grid.updateGrid(elapsedtime);
     }
 
     private Scene setupVisualization(Stage stage, Paint backgorund) {

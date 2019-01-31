@@ -23,7 +23,7 @@ public abstract class Grid{
         return myImageView;
     }
 
-    public void updateGrid(){
+    public void updateGrid(double elapsedtime){
         Cell myCell;
         ArrayList<Cell> neighbors;
         for (int i = 0; i < gridWidth; i++){
