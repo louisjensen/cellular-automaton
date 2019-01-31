@@ -14,6 +14,9 @@ public class Grid{
         nextGrid = new ArrayList<Cell>[defaultGridSize][defaultGridSize];
     }
 
+    public Grid initializeGrid(File chosen){
+        return Grid;
+    }
     //constructor
     public Grid(int size){
         currentGrid = new Cell[size][size];

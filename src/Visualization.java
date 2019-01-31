@@ -71,7 +71,7 @@ public class Visualization extends Application {
     }
 
     //make simulationbutton(dropdown possible)
-    private MenuButton MakeSimulationMenuButton() {
+   /* private MenuButton MakeSimulationMenuButton() {
         MenuItem menuItem1 = new MenuItem("Option 1");
         menuItem1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -101,7 +101,7 @@ public class Visualization extends Application {
 
         return  SimulationButton;
         }
-
+*/
 
     public void start (Stage stage) {
 
@@ -114,18 +114,19 @@ public class Visualization extends Application {
     }
 
     public void setAnimation(Stage stage){ animation = new Timeline();
+
     }
 
     public Scene setupVisualization(Stage stage, Paint backgorund) {
         Group root = new Group();
         Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT, backgorund);
 
-        MenuButton SimulationButton = MakeSimulationMenuButton();
 
         Button FileUploadButton = makeButton("Upload File", FileUplodaBUttonImage, 0,0, 0,0);
         FileUploadButton.setOnMouseClicked((event)->{
             FileLoader fileLoader = new FileLoader();
             File fileChosen = fileLoader.chooseFile();
+            myGrid = Grid.initializeGrid(fileChosen);
             SimulationName = fileChosen;
         });
 
@@ -142,6 +143,9 @@ public class Visualization extends Application {
             animation.pause();
         });
 
+        Button ResetButton = makeButton();
+
+
         GridPane myGridPane = makeGrid(myGrid);
         myGridPane.setVisible(false);
 
@@ -149,6 +153,8 @@ public class Visualization extends Application {
         InitializeButton.setOnMouseClicked((event)->{
             myGridPane.setVisible(true);
         });
+
+
 
         root.getChildren().add(myGridPane);
         root.getChildren().add(SimulationButton);
@@ -162,16 +168,6 @@ public class Visualization extends Application {
 
     }
     //
-    public void chooseSimulation(String name, Stage s) {
-        mySimulation = setSimulation(name);
-        Visualization newgame = new Visualization();
-        Scene newscene = newgame.setupVisualization(BACKGROUND,s);
-        s.setScene(newscene);
-        s.setTitle(Title);
-        s.setResizable(false);
-        s.show();
-
-    }
 
     public Simulation setSimulation(String name) {
             return new Simulation;
