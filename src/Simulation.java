@@ -8,9 +8,9 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * @param neighbors what are the "neighbors" of cell. Determined by the Simulation type.
      * @return next state of cell
      */
-    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors){
+    public Cell getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors){
         //
-        return 1;
+        return new Cell(0,0,0);
     }
 
     /**
@@ -19,7 +19,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * @param grid entire grid of cells
      * @return list of the neighbors of cell in grid.
      */
-    public ArrayList<Cell> getNeighbors(Cell cell, int[][] grid){
+    public ArrayList<Cell> getNeighbors(Cell cell, Cell[][] grid){
 
         return new ArrayList<Cell>();
     }

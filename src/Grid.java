@@ -6,8 +6,8 @@ import java.io.File;
 
 public abstract class Grid{
 
-    int[][] myCurrentState;
-    int[][] myNextState;
+    Cell[][] myCurrentState;
+    Cell[][] myNextState;
     Simulation mySimulation;
     ImageView myImageView;
     File myFile;
@@ -19,7 +19,9 @@ public abstract class Grid{
         //construct grid from XML File
     }
 
-    public abstract ImageView getIV(); // will depend on what type of grid it is
+    public ImageView getIV(){// will depend on what type of grid it is
+
+    } 
 
 
     public void updateGrid(){
@@ -27,7 +29,7 @@ public abstract class Grid{
         ArrayList<Cell> neighbors;
         for (int i = 0; i < gridWidth; i++){
             for (int j = 0; j < gridHeight; j++){
-                myCell = new Cell(i, j, myCurrentState[i][j]);
+                myCell = new Cell(i, j, myCurrentState[i][j].getState());
                 neighbors = mySimulation.getNeighbors(myCell, myCurrentState);
                 myNextState[i][j] = mySimulation.getNextStateOfCell(myCell, neighbors);
             }
