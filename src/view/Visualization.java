@@ -16,6 +16,10 @@ import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
+// New
+import javafx.geometry.Pos;
+//New
+
 public class Visualization extends Application {
     private String Title = "Cell Automaton";
     private String SimulationButtonImage = "InitializeButton.png";
@@ -32,7 +36,6 @@ public class Visualization extends Application {
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private Scene myScene;
     private Grid myGrid;
-    private ImageView myGridIV;
     private Timeline animation;
 
     //make button and set text and position
@@ -109,12 +112,18 @@ public class Visualization extends Application {
         Button InitializeButton = makeButton("Initialize", InitializeButtonImage, 100, 100, 100, 900);
         BorderPane.setAlignment(InitializeButton, Pos.BASELINE_LEFT);
         InitializeButton.setOnMouseClicked((event)->{
-            myGridIV.setVisible(true);
+            myGrid.getGridPane().setVisible(true);
         });
 
-       /* myGrid = Grid();
-        myGridIV = myGrid.getIV();
-        myGridIV.setVisible(false);*/
+        // NEW STUFF
+
+        myGrid = new Grid(750);
+        myGrid.getGridPane().setVisible(true);
+        BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
+        root.getChildren().add(myGrid.getGridPane());
+        //myGridIV = myGrid.getGridPane();
+        //myGrid.getGridPane().setVisible(false);
+        // NEW STUFF
 
         BorderPane borderPane = new BorderPane();
         borderPane.setLeft(PauseButton);
