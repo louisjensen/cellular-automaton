@@ -119,6 +119,8 @@ public class Visualization extends Application {
 
         myGrid = new Grid(750);
         myGrid.getGridPane().setVisible(true);
+        myGrid.getGridPane().setLayoutX(300);
+        myGrid.getGridPane().setLayoutY(100);
         BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
         root.getChildren().add(myGrid.getGridPane());
         //myGridIV = myGrid.getGridPane();
