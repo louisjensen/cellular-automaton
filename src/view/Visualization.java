@@ -25,8 +25,8 @@ public class Visualization extends Application {
     private String PauseButtonImage = "PauseButton.png";
     private String InitializeButtonImage = "InitializeButton.png";
     private static final Paint BACKGROUND = Color.AZURE;
-    private static final int ScreenWIDTH = 3000;
-    private static final int ScreenHEIGHT = 3000;
+    private static final int ScreenWIDTH = 1100;
+    private static final int ScreenHEIGHT = 1100;
     private static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -58,14 +58,14 @@ public class Visualization extends Application {
 
     private void setAnimation(Stage stage){
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
-        var animation = new Timeline();
+        animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
-
     }
 
     private void step(double elapsedtime) {
+        System.out.println("printed");
     }
 
     private Scene setupVisualization(Stage stage, Paint backgorund) {
