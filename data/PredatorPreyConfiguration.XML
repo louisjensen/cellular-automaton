@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+    <type>predatorPrey</type>
+    <horizontalSize>25</horizontalSize>
+    <verticalSize>25</verticalSize>
+    <specifics>
+        <property>proportionFish 0.3</property>
+        <property>proportionShark 0.3</property>
+        <property>initSharkEnergy 5</property>
+        <property>energyGainedPerFish 3</property>
+        <property>ticksToReproduce 4</property>
+    </specifics>
+    <author>Louis Jensen</author>
+</simulation>
