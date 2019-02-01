@@ -10,10 +10,10 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * @param neighbors what are the "neighbors" of cell. Determined by the Simulation type.
      * @return next state of cell
      */
-    public Cell getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors){
+    //public Cell getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors){
         //
-        return new Cell(0,0,0);
-    }
+        //return new Cell(0,0,0);
+    //}
 
     /**
      * Returns a list of the neighboring cells of cell. Based on
