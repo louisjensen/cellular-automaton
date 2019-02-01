@@ -16,6 +16,10 @@ import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 
+// New
+import javafx.geometry.Pos;
+//New
+
 public class Visualization extends Application {
     private String Title = "Cell Automaton";
     private String SimulationButtonImage = "InitializeButton.png";
@@ -112,8 +116,10 @@ public class Visualization extends Application {
         });
 
         // NEW STUFF
-        myGrid = new Grid(500);
+
+        myGrid = new Grid(750);
         myGrid.getGridPane().setVisible(true);
+        BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
         root.getChildren().add(myGrid.getGridPane());
         //myGridIV = myGrid.getGridPane();
         //myGrid.getGridPane().setVisible(false);
