@@ -32,7 +32,6 @@ public class Visualization extends Application {
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private Scene myScene;
     private Grid myGrid;
-    private ImageView myGridIV;
     private Timeline animation;
 
     //make button and set text and position
@@ -109,12 +108,16 @@ public class Visualization extends Application {
         Button InitializeButton = makeButton("Initialize", InitializeButtonImage, 100, 100, 100, 900);
         BorderPane.setAlignment(InitializeButton, Pos.BASELINE_LEFT);
         InitializeButton.setOnMouseClicked((event)->{
-            myGridIV.setVisible(true);
+            myGrid.getGridPane().setVisible(true);
         });
 
-       /* myGrid = Grid();
-        myGridIV = myGrid.getIV();
-        myGridIV.setVisible(false);*/
+        // NEW STUFF
+        myGrid = new Grid(500);
+        myGrid.getGridPane().setVisible(true);
+        root.getChildren().add(myGrid.getGridPane());
+        //myGridIV = myGrid.getGridPane();
+        //myGrid.getGridPane().setVisible(false);
+        // NEW STUFF
 
         BorderPane borderPane = new BorderPane();
         borderPane.setLeft(PauseButton);
