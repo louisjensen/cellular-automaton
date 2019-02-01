@@ -2,7 +2,7 @@ package view;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.layout.Border;
+import javafx.stage.FileChooser;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -15,16 +15,12 @@ import javafx.stage.Stage;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
-
-// New
-import javafx.geometry.Pos;
-//New
+import java.io.File;
 
 public class Visualization extends Application {
     private String Title = "Cell Automaton";
-    private String SimulationButtonImage = "InitializeButton.png";
     private String ResetButtonImage = "ResetButton.png";
-    private String GridSizeButtonImage = "SizeButton.png";
+    private String FileUploadButtonImage = "FileUploadButton.png";
     private String PlayButtonImage = "PlayButton.png";
     private String PauseButtonImage = "PauseButton.png";
     private String InitializeButtonImage = "InitializeButton.png";
@@ -37,6 +33,7 @@ public class Visualization extends Application {
     private Scene myScene;
     private Grid myGrid;
     private Timeline animation;
+    private String filepath;
 
     //make button and set text and position
     private Button makeButton(String text, String file, int height, int width, int x, int y) {
@@ -49,16 +46,6 @@ public class Visualization extends Application {
         button.setLayoutY(y);
         return button;
     }
-
-
-    //button to choose which file to upload
-    private Button MakeFileUploadButton(Stage stage){
-        Button openButton = new Button("Open a Picture...");
-        openButton.setOnMouseClicked((event)->{
-        });
-        return openButton;
-    }
-
 
     public void start (Stage stage) {
         myScene = setupVisualization(stage, BACKGROUND);
@@ -84,12 +71,19 @@ public class Visualization extends Application {
     private Scene setupVisualization(Stage stage, Paint backgorund) {
 
         BorderPane root = new BorderPane();
+        Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT);
+        FileChooser fileChooser = new FileChooser();
         root.setPadding(new Insets(15, 20, 10, 10));
 
-        Button FileUploadButton = MakeFileUploadButton(stage);
+        Button FileUploadButton = makeButton("UploadFile", FileUploadButtonImage, 100, 100, 100, 100);
         BorderPane.setAlignment(FileUploadButton, Pos.TOP_LEFT);
-        Button GridSizeButton = makeButton("Choose Grid Size", GridSizeButtonImage, 100,100, 100, 100);
-        //GridSizeButton.setOnMouseClicked(); // should return GridSize; but I'm unsure whether we have to read in certain grid size or user can choose.
+        FileUploadButton.setOnMouseClicked(e -> {
+            File selectedFile = fileChooser.showOpenDialog(stage);
+            if (selectedFile != null) {
+                filepath = selectedFile.toString();
+            }
+                });
+
 
         Button PlayButton = makeButton("Play", PlayButtonImage, 100,100, 100, 300);
         BorderPane.setAlignment(PlayButton, Pos.BOTTOM_LEFT);
@@ -117,26 +111,15 @@ public class Visualization extends Application {
 
         // NEW STUFF
 
-        myGrid = new Grid(750);
+        myGrid = new Grid(filepath, 750);
         myGrid.getGridPane().setVisible(true);
         myGrid.getGridPane().setLayoutX(300);
         myGrid.getGridPane().setLayoutY(100);
         BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
+
         root.getChildren().add(myGrid.getGridPane());
-        //myGridIV = myGrid.getGridPane();
-        //myGrid.getGridPane().setVisible(false);
-        // NEW STUFF
-
-        BorderPane borderPane = new BorderPane();
-        borderPane.setLeft(PauseButton);
-
-        root.setTop(borderPane);
-        Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT);
-
-        //root.getChildren().add(myGridIV);
         root.getChildren().add(FileUploadButton);
         root.getChildren().add(ResetButton);
-        root.getChildren().add(GridSizeButton);
         root.getChildren().add(PlayButton);
         root.getChildren().add(PauseButton);
         root.getChildren().add(InitializeButton);
