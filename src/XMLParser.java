@@ -10,8 +10,14 @@ import java.io.File;
 public abstract class XMLParser {
 
     private Element simulationType;
+    private String nameOfSimulation;
+    private Element xSize;
+    private int xLength;
+    private Element ySize;
+    private int yLength;
+    private NodeList simData;
 
-    public void readXML(){
+    private void readXML(){
         try {
             File file = new File("\\data\\SegregationConfiguration.XML");
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -20,15 +26,21 @@ public abstract class XMLParser {
             doc.getDocumentElement().normalize();
 
             simulationType = doc.getElementById("type");
-            System.out.println(simulationType);
-            String s = simulationType.getTextContent();
+            nameOfSimulation = simulationType.getTextContent();
+            xSize = doc.getElementById("xSize");
+            xLength = Integer.parseInt(xSize.getTextContent());
+            ySize = doc.getElementById("ySize");
+            yLength = Integer.parseInt(ySize.getTextContent());
+
+            simData = doc.getElementsByTagName("specifics");
+            for(int i =0; i < simData.getLength(); i++){
+                Element e = (Element) simData.item(i);
+            }
         }
 
         catch (Exception e) {
            e.printStackTrace();
         }
     }
-
-
     
 }
