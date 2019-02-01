@@ -10,10 +10,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * @param neighbors what are the "neighbors" of cell. Determined by the Simulation type.
      * @return next state of cell
      */
-    //public Cell getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors){
-        //
-        //return new Cell(0,0,0);
-    //}
+    public abstract Cell getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors);
 
     /**
      * Returns a list of the neighboring cells of cell. Based on
@@ -21,9 +18,26 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * @param grid entire grid of cells
      * @return list of the neighbors of cell in grid.
      */
-    public ArrayList<Cell> getNeighbors(Cell cell, Cell[][] grid){
+    public abstract ArrayList<Cell> getNeighbors(Cell cell, Cell[][] grid);
 
-        return new ArrayList<Cell>();
+    /**
+     * Returns an int that is mapped to a certain state
+     * @param stateString
+     * @return int (state)
+     */
+    public abstract int getState(String stateString);
+
+    /**
+     * Checks if the row and col are "safe" in grid. Must be in bounds and the state of the Cell must not be -1
+     * @param row
+     * @param col
+     * @param grid
+     * @return true if the row and col are "safe"
+     */
+    public boolean isSafe(int row, int col, Cell[][] grid){
+        int cellState = grid[row][col].getState();
+        int gridRowMax = grid.length;
+        int gridColMax = grid[0].length;
+        return (cellState != -1 && (row >= 0 && row < gridRowMax) && (col >= 0 && col < gridColMax));
     }
-
 }
