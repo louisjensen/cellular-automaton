@@ -33,7 +33,7 @@ public class Visualization extends Application {
     private Scene myScene;
     private Grid myGrid;
     private Timeline animation;
-    private String filepath;
+    public String filepath = " ";
 
     //make button and set text and position
     private Button makeButton(String text, String file, int height, int width, int x, int y) {
@@ -69,7 +69,6 @@ public class Visualization extends Application {
     }
 
     private Scene setupVisualization(Stage stage, Paint backgorund) {
-
         BorderPane root = new BorderPane();
         Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT);
         FileChooser fileChooser = new FileChooser();
@@ -80,9 +79,10 @@ public class Visualization extends Application {
         FileUploadButton.setOnMouseClicked(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
-                filepath = selectedFile.toString();
+                String filepath1 = selectedFile.toString();
+                filepath = filepath1;
             }
-                });
+        });
 
 
         Button PlayButton = makeButton("Play", PlayButtonImage, 100,100, 100, 300);
@@ -106,18 +106,15 @@ public class Visualization extends Application {
         Button InitializeButton = makeButton("Initialize", InitializeButtonImage, 100, 100, 100, 900);
         BorderPane.setAlignment(InitializeButton, Pos.BASELINE_LEFT);
         InitializeButton.setOnMouseClicked((event)->{
+            myGrid = new Grid(filepath, 750);
             myGrid.getGridPane().setVisible(true);
+            myGrid.getGridPane().setLayoutX(300);
+            myGrid.getGridPane().setLayoutY(100);
+            BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
+            myGrid.getGridPane().setVisible(true);
+            root.getChildren().add(myGrid.getGridPane());
         });
 
-        // NEW STUFF
-
-        myGrid = new Grid(filepath, 750);
-        myGrid.getGridPane().setVisible(true);
-        myGrid.getGridPane().setLayoutX(300);
-        myGrid.getGridPane().setLayoutY(100);
-        BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
-
-        root.getChildren().add(myGrid.getGridPane());
         root.getChildren().add(FileUploadButton);
         root.getChildren().add(ResetButton);
         root.getChildren().add(PlayButton);
