@@ -15,9 +15,8 @@ public class XMLParser {
     private int ySize;
     private HashMap<String, Double> myMap = new HashMap<String, Double>();
 
-    public XMLParser(String filePath){
+    public XMLParser(File file){
         try {
-            File file = new File(filePath);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             dbf.setNamespaceAware(true);
             DocumentBuilder dBuilder = dbf.newDocumentBuilder();

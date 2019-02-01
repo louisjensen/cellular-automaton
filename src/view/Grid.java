@@ -6,6 +6,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.io.File;
+import java.util.HashMap;
 
 public class Grid{ // make abstract later
 
@@ -18,13 +19,20 @@ public class Grid{ // make abstract later
     private int myGridWidth;
     private int myGridHeight;
     private int myCellSize;
+ final HashMap<String, Simulation> simulationLookupTable = new HashMap<String, Simulation>(){{
+   /*     put("gameOfLife", new Simulation;
+        put("segregation", new Simulation); */
+    }};
 
     public Grid(File file, int displaySize){
+        XMLParser xml = new XMLParser(file);
+
         //construct grid from XML File
         myFile = file;
         myDisplaySize = displaySize;
-        myGridWidth = 50; // for testing
-        myGridHeight = 50; // for testing
+        //mySimulation = simulationLookupTable.get( xml.getSimulationType());
+        myGridWidth = xml.getGridX(); // for testing
+        myGridHeight = xml.getGridY(); // for testing
         myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
         calculateCellSize();
         myGridPane = new GridPane();
