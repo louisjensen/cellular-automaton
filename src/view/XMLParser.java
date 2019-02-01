@@ -1,47 +1,59 @@
 package view;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.HashMap;
 
-public abstract class XMLParser {
+public class XMLParser {
 
-    private Element simulationType;
+    private String simulationType;
+    private int xSize;
+    private int ySize;
+    private HashMap<String, Double> myMap = new HashMap<String, Double>();
 
-    public void readXML(){
+    public XMLParser(String filePath){
         try {
-            File file = new File("\\data\\SegregationConfiguration.XML");
+            File file = new File(filePath);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setNamespaceAware(true);
             DocumentBuilder dBuilder = dbf.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
 
-            simulationType = doc.getElementById("type");
-            System.out.println(simulationType);
-            String s = simulationType.getTextContent();
+            simulationType = doc.getElementsByTagName("type").item(0).getTextContent();
+            xSize = Integer.parseInt(doc.getElementsByTagName("horizontalSize").item(0).getTextContent());
+            ySize = Integer.parseInt(doc.getElementsByTagName("verticalSize").item(0).getTextContent());
+            NodeList list = doc.getElementsByTagName("property");
+            for(int i = 0; i < list.getLength(); i++){
+                String s = list.item(i).getTextContent();
+                String[] split = s.split(" ");
+                myMap.put(split[0], Double.parseDouble(split[1]));
+                System.out.println(split[0] + " space " + split[1]);
+            }
         }
-
         catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
-     /*private void openFile(File file) {
-        Desktop desktop = Desktop.getDesktop();
-        try {
-            desktop.open(file);
-        } catch (IOException ex) {
-            Logger.getLogger(
-                    FileLoader.class.getName()).log(
-                    Level.SEVERE, null, ex
-            );
-        }
-    }*/
+    public String getSimulationType(){
+        return simulationType;
+    }
 
+    public int getGridX(){
+        return xSize;
+    }
 
+    public int getGridY(){
+        return ySize;
+    }
+
+    public HashMap<String, Double> getSpecifics(){
+        return myMap;
+    }
 
 }
