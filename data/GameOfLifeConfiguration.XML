@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
-    <type>segregation</type>
+    <type>gameOfLife</type>
     <horizontalSize>25</horizontalSize>
     <verticalSize>25</verticalSize>
     <specifics>
-        <property>tolerance 0.5</property>
-        <property>proportionBlue 0.45</property>
-        <property>proportionRed 0.45</property>
+        <property>proportionAlive 0.25</property>
     </specifics>
     <author>Louis Jensen</author>
 </simulation>
