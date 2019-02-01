@@ -1,7 +1,10 @@
 package view;
 
 import javafx.application.Application;
-import javafx.scene.Group;
+import javafx.geometry.Pos;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -33,13 +36,14 @@ public class Visualization extends Application {
     private Timeline animation;
 
     //make button and set text and position
-    private Button makeButton(String text, String file, int height, int width, int locationx, int locationy) {
+    private Button makeButton(String text, String file, int height, int width, int x, int y) {
         Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
-        Button button = new Button(text,new ImageView(image));
-        button.setMaxSize(height, width);
-        button.setLayoutX(locationx);
-        button.setLayoutY(locationy);
-        button.setWrapText(true);
+        ImageView imageview = new ImageView(image);
+        imageview.setFitWidth(width);
+        imageview.setFitHeight(height);
+        Button button = new Button(text,imageview);
+        button.setLayoutX(x);
+        button.setLayoutY(y);
         return button;
     }
 
@@ -76,30 +80,34 @@ public class Visualization extends Application {
 
     private Scene setupVisualization(Stage stage, Paint backgorund) {
 
-        Group root = new Group();
-        Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT, backgorund);
+        BorderPane root = new BorderPane();
+        root.setPadding(new Insets(15, 20, 10, 10));
 
         Button FileUploadButton = MakeFileUploadButton(stage);
-
-        Button GridSizeButton = makeButton("Choose Grid Size", GridSizeButtonImage, 0,0,0,0);
+        BorderPane.setAlignment(FileUploadButton, Pos.TOP_LEFT);
+        Button GridSizeButton = makeButton("Choose Grid Size", GridSizeButtonImage, 100,100, 100, 100);
         //GridSizeButton.setOnMouseClicked(); // should return GridSize; but I'm unsure whether we have to read in certain grid size or user can choose.
 
-        Button PlayButton = makeButton("Play", PlayButtonImage, 0,0,0,0);
+        Button PlayButton = makeButton("Play", PlayButtonImage, 100,100, 100, 300);
+        BorderPane.setAlignment(PlayButton, Pos.BOTTOM_LEFT);
         PlayButton.setOnMouseClicked((event)->{
             animation.play();
         });
 
-        Button PauseButton = makeButton("Pause", PauseButtonImage, 0, 0, 0, 0);
+        Button PauseButton = makeButton("Pause", PauseButtonImage, 100, 100, 100, 500);
+        BorderPane.setAlignment(PauseButton, Pos.CENTER);
         PauseButton.setOnMouseClicked((event)->{
             animation.pause();
         });
 
-        Button ResetButton = makeButton("Reset", ResetButtonImage, 0,0,0,0);
+        Button ResetButton = makeButton("Reset", ResetButtonImage, 100,100, 100, 700);
+        BorderPane.setAlignment(ResetButton, Pos.BASELINE_LEFT);
         ResetButton.setOnMouseClicked((event)->{
             animation.stop();
         });
 
-        Button InitializeButton = makeButton("Initialize", InitializeButtonImage, 0, 0, 0, 0);
+        Button InitializeButton = makeButton("Initialize", InitializeButtonImage, 100, 100, 100, 900);
+        BorderPane.setAlignment(InitializeButton, Pos.BASELINE_LEFT);
         InitializeButton.setOnMouseClicked((event)->{
             myGridIV.setVisible(true);
         });
@@ -107,6 +115,12 @@ public class Visualization extends Application {
        /* myGrid = Grid();
         myGridIV = myGrid.getIV();
         myGridIV.setVisible(false);*/
+
+        BorderPane borderPane = new BorderPane();
+        borderPane.setLeft(PauseButton);
+
+        root.setTop(borderPane);
+        Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT);
 
         //root.getChildren().add(myGridIV);
         root.getChildren().add(FileUploadButton);
