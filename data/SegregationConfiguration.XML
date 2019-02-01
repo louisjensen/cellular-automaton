@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<simulation>
-    <type id="simulationType">segregation</type>
-    <horizontalSize>25</horizontalSize>
-    <verticalSize>25</verticalSize>
-    <tolerance>0.5</tolerance>
-    <proportionEmpty>0.1</proportionEmpty>
-</simulation>
