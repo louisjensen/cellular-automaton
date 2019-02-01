@@ -1,3 +1,4 @@
+package view;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -28,6 +29,18 @@ public abstract class XMLParser {
            e.printStackTrace();
         }
     }
+
+     /*private void openFile(File file) {
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.open(file);
+        } catch (IOException ex) {
+            Logger.getLogger(
+                    FileLoader.class.getName()).log(
+                    Level.SEVERE, null, ex
+            );
+        }
+    }*/
 
 
 
