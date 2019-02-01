@@ -1,5 +1,6 @@
+package view;
+
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -7,17 +8,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
-import java.io.File;
-import javafx.stage.FileChooser;
-import java.awt.Desktop;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Visualization extends Application {
     private String Title = "Cell Automaton";
@@ -29,7 +23,7 @@ public class Visualization extends Application {
     private String InitializeButtonImage = "InitializeButton.png";
     private static final Paint BACKGROUND = Color.AZURE;
     private static final int ScreenWIDTH = 3000;
-    private static final int ScreenHEIGHT = 1500;
+    private static final int ScreenHEIGHT = 3000;
     private static final int FRAMES_PER_SECOND = 60;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -40,44 +34,24 @@ public class Visualization extends Application {
 
     //make button and set text and position
     private Button makeButton(String text, String file, int height, int width, int locationx, int locationy) {
-        Image myimage = new Image(getClass().getClassLoader().getResourceAsStream(file));
-        ImageView imageView = new ImageView(myimage);
-        Button myButton = new Button(text,imageView);
-        myButton.setMaxSize(height, width);
-        myButton.setLayoutX(locationx);
-        myButton.setLayoutY(locationy);
-        myButton.setWrapText(true);
-        return myButton;
+        Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
+        Button button = new Button(text,new ImageView(image));
+        button.setMaxSize(height, width);
+        button.setLayoutX(locationx);
+        button.setLayoutY(locationy);
+        button.setWrapText(true);
+        return button;
     }
 
 
     //button to choose which file to upload
-    private Button MakeFileUploadButton(Stage stage) {
-        FileChooser fileChooser = new FileChooser();
+    private Button MakeFileUploadButton(Stage stage){
         Button openButton = new Button("Open a Picture...");
-        openButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(final ActionEvent e) {
-                File file = fileChooser.showOpenDialog(stage);
-                if (file != null) {
-                    openFile(file);
-                }
-            }
+        openButton.setOnMouseClicked((event)->{
         });
         return openButton;
     }
 
-    private void openFile(File file) {
-        Desktop desktop = Desktop.getDesktop();
-        try {
-            desktop.open(file);
-        } catch (IOException ex) {
-            Logger.getLogger(
-                    FileLoader.class.getName()).log(
-                    Level.SEVERE, null, ex
-            );
-        }
-    }
 
     public void start (Stage stage) {
         myScene = setupVisualization(stage, BACKGROUND);
@@ -98,10 +72,6 @@ public class Visualization extends Application {
     }
 
     private void step(double elapsedtime) {
-
-        for (double elapsedtime a > 1; a++) {
-            Grid.updateGrid();
-        }
     }
 
     private Scene setupVisualization(Stage stage, Paint backgorund) {
@@ -112,7 +82,7 @@ public class Visualization extends Application {
         Button FileUploadButton = MakeFileUploadButton(stage);
 
         Button GridSizeButton = makeButton("Choose Grid Size", GridSizeButtonImage, 0,0,0,0);
-        GridSizeButton.setOnMouseClicked(); // should return GridSize; but I'm unsure whether we have to read in certain grid size or user can choose.
+        //GridSizeButton.setOnMouseClicked(); // should return GridSize; but I'm unsure whether we have to read in certain grid size or user can choose.
 
         Button PlayButton = makeButton("Play", PlayButtonImage, 0,0,0,0);
         PlayButton.setOnMouseClicked((event)->{
@@ -125,9 +95,8 @@ public class Visualization extends Application {
         });
 
         Button ResetButton = makeButton("Reset", ResetButtonImage, 0,0,0,0);
-        ResetButton.setOnMouseClicked(PauseButton.setOnMouseClicked((event)->{
+        ResetButton.setOnMouseClicked((event)->{
             animation.stop();
-            //how to reset
         });
 
         Button InitializeButton = makeButton("Initialize", InitializeButtonImage, 0, 0, 0, 0);
@@ -135,12 +104,13 @@ public class Visualization extends Application {
             myGridIV.setVisible(true);
         });
 
-        myGrid = Grid();
+       /* myGrid = Grid();
         myGridIV = myGrid.getIV();
-        myGridIV.setVisible(false);
+        myGridIV.setVisible(false);*/
 
-        root.getChildren().add(myGridIV);
+        //root.getChildren().add(myGridIV);
         root.getChildren().add(FileUploadButton);
+        root.getChildren().add(ResetButton);
         root.getChildren().add(GridSizeButton);
         root.getChildren().add(PlayButton);
         root.getChildren().add(PauseButton);
