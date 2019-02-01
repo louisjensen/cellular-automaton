@@ -4,7 +4,8 @@
     <horizontalSize>25</horizontalSize>
     <verticalSize>25</verticalSize>
     <specifics>
-        <property>proportionAlive 0.25</property>
+        <property>alive 0.25</property>
+        <property>dead 0.75</property>
     </specifics>
     <author>Louis Jensen</author>
 </simulation>
