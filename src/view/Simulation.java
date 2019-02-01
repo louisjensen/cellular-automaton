@@ -1,3 +1,5 @@
+package view;
+
 import java.util.ArrayList;
 
 public abstract class Simulation { // since this doesn't have any instance variables, perhaps make this an enum class

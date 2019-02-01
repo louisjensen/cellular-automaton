@@ -1,10 +1,10 @@
-import javafx.scene.image.ImageView;
+package view;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
-import javafx.scene.image.ImageView;
 import java.io.File;
 
 public abstract class Grid{
@@ -37,10 +37,14 @@ public abstract class Grid{
         for (int row = 0; row < myCurrentState.length; row ++){
             for (int col = 0; col < myCurrentState[0].length; col ++){
                 currentCell = myCurrentState[row][col];
-                w
+
             }
         }
     }
+    public GridPane getIV(){
+        return myGridpane;
+    }; // will depend on what type of grid it is
+
 
 
 

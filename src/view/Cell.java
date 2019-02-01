@@ -1,6 +1,7 @@
+package view;
 import javafx.scene.shape.Rectangle;
 
-public class Cell {
+public class Cell{
 
     private int myRow;
     private int myCol;
