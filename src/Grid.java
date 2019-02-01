@@ -37,7 +37,7 @@ public abstract class Grid{
         for (int row = 0; row < myCurrentState.length; row ++){
             for (int col = 0; col < myCurrentState[0].length; col ++){
                 currentCell = myCurrentState[row][col];
-                
+                w
             }
         }
     }
