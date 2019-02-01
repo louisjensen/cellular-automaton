@@ -14,7 +14,7 @@ public class Grid{ // make abstract later
     private Cell[][] myNextState;
     private Simulation mySimulation;
     private GridPane myGridPane;
-    private File myFile;
+    private String myFilePath;
     private int myDisplaySize;
     private int myGridWidth;
     private int myGridHeight;
@@ -24,11 +24,11 @@ public class Grid{ // make abstract later
         put("segregation", new Simulation); */
     }};
 
-    public Grid(File file, int displaySize){
-        XMLParser xml = new XMLParser(file);
+    public Grid(String filePath, int displaySize){
+        myFilePath = filePath;
+        XMLParser xml = new XMLParser(myFilePath);
 
         //construct grid from XML File
-        myFile = file;
         myDisplaySize = displaySize;
         //mySimulation = simulationLookupTable.get( xml.getSimulationType());
         myGridWidth = xml.getGridX(); // for testing
