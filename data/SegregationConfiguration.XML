@@ -5,5 +5,7 @@
     <verticalSize id="ySize">25</verticalSize>
     <specifics>
         <tolerance>0.5</tolerance>
-        <proportionEmpty>0.1</proportionEmpty>
+        <startingPercentageBlue>0.4</startingPercentageBlue>
+        <startingPercentageRed>0.4</startingPercentageRed>
+    </specifics>
 </simulation>

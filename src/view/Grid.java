@@ -1,9 +1,8 @@
-import javafx.scene.image.ImageView;
+package view;
+
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.ColumnConstraints;
 
 import java.util.ArrayList;
-import javafx.scene.image.ImageView;
 import java.io.File;
 
 public abstract class Grid{
@@ -26,7 +25,9 @@ public abstract class Grid{
 
     }
 
-    public abstract ImageView getIV(); // will depend on what type of grid it is
+    public GridPane getIV(){
+        return myGridpane;
+    }; // will depend on what type of grid it is
 
 
 
