@@ -101,6 +101,7 @@ public class Grid{ // make abstract later
 
     public void initialize(){
         //reread file and create a new grid
+
     }
 
 }
