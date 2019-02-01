@@ -11,14 +11,22 @@ public class Cell{
     private int myState;
     private int mySize; // length/width (it is a square)
     private Rectangle myImage;
+    private Paint color;
 
     public Cell(int row, int col, int size, int state){
         myRow = row;
         myCol = col;
         mySize = size;
         myState = state;
+        if(state == 0){
+            color = Color.RED;
+        } else if (state == 1){
+            color = Color.BLUE;
+        } else {
+            color = Color.GREEN;
+        }
 
-        myImage = new Rectangle(mySize, mySize, Color.RED);
+        myImage = new Rectangle(mySize, mySize, color);
         myImage.setStroke(Color.BLACK);
     }
 
@@ -34,5 +42,9 @@ public class Cell{
 
     public Rectangle getImage(){
         return myImage;
+    }
+
+    public int getSize(){
+        return mySize;
     }
 }
