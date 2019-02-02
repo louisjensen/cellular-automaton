@@ -19,12 +19,14 @@ public class Cell{
         mySize = size;
         myState = state;
         //testing
-        if(state == 0){
+        if(state == 1){
             color = Color.RED;
-        } else if (state == 1){
+        } else if (state == 2){
             color = Color.BLUE;
-        } else {
+        } else if (state == 3) {
             color = Color.GREEN;
+        } else {
+            color = Color.WHITE;
         }
         //testing
         myImage = new Rectangle(mySize, mySize, color);

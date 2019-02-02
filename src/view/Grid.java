@@ -21,6 +21,7 @@ public class Grid { // make abstract later
     private int myGridHeight;
     private int myCellSize;
     private Random rand = new Random();
+    int randInt;
 
     final HashMap<String, Simulation> simulationLookupTable = new HashMap<String, Simulation>(){{
             //put("gameOfLife", new Simulation;
@@ -34,8 +35,10 @@ public class Grid { // make abstract later
         //construct grid from XML File
         myDisplaySize = displaySize;
         //mySimulation = simulationLookupTable.get( xml.getSimulationType());
-        myGridWidth = xml.getGridX(); // for testing
-        myGridHeight = xml.getGridY(); // for testing
+    //    myGridWidth = xml.getGridX();
+        myGridWidth = 20;// for testing
+   //     myGridHeight = xml.getGridY();
+        myGridHeight = 20;// for testing
         myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
         calculateCellSize();
         myGridPane = new GridPane();
@@ -105,30 +108,23 @@ public class Grid { // make abstract later
     public void initialize(){
         //reread file and create a new grid
 
-        double propState0 = 0.4;
-        double propState1 = 0.3;
-        double propState2 = 0.3;
-        int mapArea = myGridHeight * myGridWidth;
-        int numState0 = (int) (mapArea * propState0);
-        int numState1 = (int) (mapArea * propState1);
-        int numState2 = (int) (mapArea * propState2);
+        double propState1 = 0.1;
+        double propState2 = 0.1;
+        double propState3 = 0.8;
+        int numState1 = (int) (propState1 * 100);
+        int numState2 = (int) (propState2 * 100) + numState1;
+        int numState3 = (int) (propState3 * 100) + numState2;
         for (int row = 0; row < myCurrentState.length; row ++){
             for (int col = 0; col < myCurrentState[0].length; col ++){
-                while(myCurrentState[row][col] != null){ //while cell hasnt been filled
-                    int n = rand.nextInt(2);
-                    if(n==0 && numState0>0) {
-                        myCurrentState[row][col] = new Cell(row, col, myCellSize, 0);
-                        numState0--;
-                    }
-                    if(n==1 && numState1>0) {
+                    randInt = rand.nextInt(100) + 1;
+                    System.out.println(randInt);
+                    if(randInt < numState1) {
                         myCurrentState[row][col] = new Cell(row, col, myCellSize, 1);
-                        numState1--;
-                    }
-                    if(n==2 && numState2>0) {
+                    } else if(randInt < numState2) {
                         myCurrentState[row][col] = new Cell(row, col, myCellSize, 2);
-                        numState2--;
+                    } else {
+                        myCurrentState[row][col] = new Cell(row, col, myCellSize, 3);
                     }
-                }
             }
         }
 
