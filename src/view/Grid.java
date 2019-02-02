@@ -28,8 +28,9 @@ public class Grid { // make abstract later
     private XMLParser xml;
 
     final HashMap<String, Simulation> simulationLookupTable = new HashMap<String, Simulation>(){{
-            //put("gameOfLife", new Simulation;
+            put("GameOfLife", new GameOfLife());
             //put("segregation", new Simulation);
+            put("Fire", new SpreadingOfFire());
         }};
 
     public Grid(String filePath, int displaySize){
@@ -38,11 +39,11 @@ public class Grid { // make abstract later
 
         //construct grid from XML File
         myDisplaySize = displaySize;
-        //mySimulation = simulationLookupTable.get( xml.getSimulationType());
-    //    myGridWidth = xml.getGridX();
-        myGridWidth = 20;// for testing
-   //     myGridHeight = xml.getGridY();
-        myGridHeight = 20;// for testing
+        mySimulation = simulationLookupTable.get( xml.getSimulationType());
+        myGridWidth = xml.getGridX();
+        //myGridWidth = 20;// for testing
+        myGridHeight = xml.getGridY();
+     //   myGridHeight = 20;// for testing
         myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
         calculateCellSize();
         myGridPane = new GridPane();
@@ -116,10 +117,9 @@ public class Grid { // make abstract later
     public void initialize(){
         //reread file and create a new grid
         HashMap<String, Double> map = xml.getMap();
-        HashMap<String, Integer> stateLookupTable = mySimulation.getStateLookupTable();
+        HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
         List<Double> proportionStates = new ArrayList<>();
         List<Integer> percentageStates = new ArrayList<>();
-        int count = 0;
         int currentTotal = 0;
         int percentage;
         for (String key : map.keySet()){
