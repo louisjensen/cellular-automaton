@@ -30,7 +30,7 @@ public class Grid { // make abstract later
     final HashMap<String, Simulation> simulationLookupTable = new HashMap<String, Simulation>(){{
             put("GameOfLife", new GameOfLife());
             //put("segregation", new Simulation);
-            put("Fire", new SpreadingOfFire());
+            put("SpreadingOfFire", new SpreadingOfFire());
         }};
 
     public Grid(String filePath, int displaySize){
