@@ -18,18 +18,7 @@ public class Cell{
         myCol = col;
         mySize = size;
         myState = state;
-        //testing
-        if(state == 1){
-            color = Color.RED;
-        } else if (state == 2){
-            color = Color.BLUE;
-        } else if (state == 3) {
-            color = Color.GREEN;
-        } else {
-            color = Color.WHITE;
-        }
-        //testing
-        myImage = new Rectangle(mySize, mySize, color);
+        myImage = new Rectangle(mySize, mySize, Color.WHITE);
         myImage.setStroke(Color.BLACK);
     }
 
@@ -49,5 +38,9 @@ public class Cell{
 
     public int getSize(){
         return mySize;
+    }
+
+    public void setColor(Paint color){
+        myImage.setFill(color);
     }
 }

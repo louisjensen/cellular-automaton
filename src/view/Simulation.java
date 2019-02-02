@@ -64,4 +64,12 @@ public abstract class Simulation { // since this doesn't have any instance varia
         int gridColMax = grid[0].length;
         return (cellState != -1 && (row >= 0 && row < gridRowMax) && (col >= 0 && col < gridColMax));
     }
+
+    public HashMap<Integer, Color> getMyColorLookupTable(){
+        return myColorLookupTable;
+    }
+
+    public HashMap<String, Integer> getMyStateLookupTable(){
+        return myStateLookupTable;
+    }
 }
