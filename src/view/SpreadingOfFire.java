@@ -11,9 +11,9 @@ public class SpreadingOfFire extends Simulation {
 
 
     final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
-        put("Empty",  0);
-        put("Tree", 1);
-        put("Burning", 2);
+        put("dead",  0);
+        put("alive", 1);
+        put("burning", 2);
     }};
 
     final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
@@ -28,6 +28,12 @@ public class SpreadingOfFire extends Simulation {
         add(new Point( 1, 0));
         add(new Point(-1, 0));
     }};
+
+    public SpreadingOfFire(){
+        myPossibleNeighbors = possibleNeighbors;
+        myStateLookupTable = stateLookupTable;
+        myColorLookupTable = colorLookupTable;
+    }
 
     public Cell getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors){
         int numFire = 0;
@@ -65,5 +71,6 @@ public class SpreadingOfFire extends Simulation {
      * @param grid
      * @return true if the row and col are "safe"
      */
+
 
 }
