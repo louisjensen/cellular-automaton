@@ -18,6 +18,7 @@ public class Cell{
         myCol = col;
         mySize = size;
         myState = state;
+        //testing
         if(state == 0){
             color = Color.RED;
         } else if (state == 1){
@@ -25,7 +26,7 @@ public class Cell{
         } else {
             color = Color.GREEN;
         }
-
+        //testing
         myImage = new Rectangle(mySize, mySize, color);
         myImage.setStroke(Color.BLACK);
     }

@@ -5,12 +5,19 @@ package view;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.Point;
+import javafx.scene.paint.Color;
+
 
 public class GameOfLife extends Simulation{
 
     final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("dead",  0);
         put("alive", 1);
+    }};
+
+    final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
+        put(0, Color.WHITE);
+        put(1, Color.BLACK);
     }};
 
     final ArrayList<Point> possibleNeighbors = new ArrayList<Point>(){{
