@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.List;
 
 public class Grid { // make abstract later
 
@@ -22,6 +23,7 @@ public class Grid { // make abstract later
     private int myCellSize;
     private Random rand = new Random();
     int randInt;
+    private XMLParser xml;
 
     final HashMap<String, Simulation> simulationLookupTable = new HashMap<String, Simulation>(){{
             //put("gameOfLife", new Simulation;
@@ -30,7 +32,7 @@ public class Grid { // make abstract later
 
     public Grid(String filePath, int displaySize){
         myFilePath = filePath;
-        XMLParser xml = new XMLParser(myFilePath);
+        xml = new XMLParser(myFilePath);
 
         //construct grid from XML File
         myDisplaySize = displaySize;
@@ -107,7 +109,34 @@ public class Grid { // make abstract later
 
     public void initialize(){
         //reread file and create a new grid
+        HashMap<String, Double> map = xml.getMap();
+        HashMap<String, Integer> stateLookupTable = mySimulation.getStateLookupTable();
+        List<Double> proportionStates = new ArrayList<>();
+        List<Integer> percentageStates = new ArrayList<>();
+        int count = 0;
+        int currentTotal = 0;
+        int percentage;
+        for (String key : map.keySet()){
+            proportionStates.add(map.get(key));
+        }
+        for (int i = 0; i < proportionStates.size(); i++){
+            percentage = (currentTotal + (int) (proportionStates.get(i) * 100));
+            percentageStates.add(percentage);
+            currentTotal = percentage;
+        }
+        for (int i = 0; i < myGridWidth; i++){
+            for (int j = 0; j < myGridHeight; j++){
+                randInt = rand.nextInt(100) + 1;
+                for (int k = 0; k < percentageStates.size(); k++){
+                    if(randInt <= percentageStates.get(k)) {
+                        myCurrentState[i][j] = new Cell(i, j, myCellSize, k);
+                        break;
+                    }
+                }
+            }
+        }
 
+        /*
         double propState1 = 0.1;
         double propState2 = 0.1;
         double propState3 = 0.8;
@@ -127,7 +156,7 @@ public class Grid { // make abstract later
                     }
             }
         }
-
+        */
     }
 
 }
