@@ -8,6 +8,8 @@ import java.util.HashMap;
 
 public class SpreadingOfFire extends Simulation {
 
+
+
     final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("Empty",  0);
         put("Tree", 1);
@@ -27,9 +29,27 @@ public class SpreadingOfFire extends Simulation {
         add(new Point(-1, 0));
     }};
 
-
     public Cell getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors){
+        int numFire = 0;
+        int numEmpty = 0;
+        Cell cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 0);
 
+        for (Cell neighbor: neighbors){
+            if (neighbor.getState() == 2)
+                numFire +=1;
+        }
+
+        if(cell.getState() == 0) {
+            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 0);
+        }
+        if(cell.getState() == 2) {
+            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 0);
+        }
+        if(cell.getState() ==1 && numFire > 0){
+            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 2);
+        }
+
+        return cellNextState;
     }
     /**
      * Returns an int that is mapped to a certain state
@@ -45,11 +65,5 @@ public class SpreadingOfFire extends Simulation {
      * @param grid
      * @return true if the row and col are "safe"
      */
-    public boolean isSafe(int row, int col, Cell[][] grid){
-        int cellState = grid[row][col].getState();
-        int gridRowMax = grid.length;
-        int gridColMax = grid[0].length;
-        return (cellState != -1 && (row >= 0 && row < gridRowMax) && (col >= 0 && col < gridColMax));
-    }
 
 }
