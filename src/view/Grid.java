@@ -111,7 +111,7 @@ public class Grid { // make abstract later
                 neighbors = mySimulation.getNeighbors(myCell, myCurrentState);
                 myNextState[i][j] = mySimulation.getNextStateOfCell(myCell, neighbors);
             }
-        }
+        } 
     }
 
     public void initialize(){
