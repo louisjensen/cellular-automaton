@@ -10,7 +10,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
     public ArrayList<Point> myPossibleNeighbors;
     public HashMap<Integer, Color> myColorLookupTable;
     public HashMap<String, Integer> myStateLookupTable;
-    public HashMap<String, Integer> myMoreInfoLookupTable;
+    public HashMap<String, Double> myMoreInfoLookupTable;
 
     /**
      * Returns the next state of cell based on the states of its neighbors.
