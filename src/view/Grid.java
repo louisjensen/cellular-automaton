@@ -107,11 +107,11 @@ public class Grid { // make abstract later
         ArrayList<Cell> neighbors;
         for (int i = 0; i < myGridWidth; i++){
             for (int j = 0; j < myGridHeight; j++){
-                //myCell = new Cell(i, j, myCurrentState[i][j].getState());
-                //neighbors = mySimulation.getNeighbors(myCell, myCurrentState);
-                //myNextState[i][j] = mySimulation.getNextStateOfCell(myCell, neighbors);
+                myCell = new Cell(i, j, myCellSize, myCurrentState[i][j].getState());
+                neighbors = mySimulation.getNeighbors(myCell, myCurrentState);
+                myNextState[i][j] = mySimulation.getNextStateOfCell(myCell, neighbors);
             }
-        }
+        } 
     }
 
     public void initialize(){
