@@ -25,6 +25,7 @@ public class Visualization extends Application {
     private String PauseButtonImage = "PauseButton.png";
     private String InitializeButtonImage = "InitializeButton.png";
     private static final Paint BACKGROUND = Color.AZURE;
+    private static final int GridDisplaySize = 750;
     private static final int ScreenWIDTH = 1100;
     private static final int ScreenHEIGHT = 1100;
     private static final int FRAMES_PER_SECOND = 60;
@@ -101,18 +102,15 @@ public class Visualization extends Application {
         BorderPane.setAlignment(ResetButton, Pos.BASELINE_LEFT);
         ResetButton.setOnMouseClicked((event)->{
             animation.stop();
+            root.getChildren().remove(myGrid);
+           setupGrid(filepath, GridDisplaySize, root);
+
         });
 
         Button InitializeButton = makeButton("Initialize", InitializeButtonImage, 100, 100, 100, 900);
         BorderPane.setAlignment(InitializeButton, Pos.BASELINE_LEFT);
         InitializeButton.setOnMouseClicked((event)->{
-            myGrid = new Grid(filepath, 750);
-            myGrid.getGridPane().setVisible(true);
-            myGrid.getGridPane().setLayoutX(300);
-            myGrid.getGridPane().setLayoutY(100);
-            BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
-            myGrid.getGridPane().setVisible(true);
-            root.getChildren().add(myGrid.getGridPane());
+            setupGrid(filepath, GridDisplaySize, root);
         });
 
         root.getChildren().add(FileUploadButton);
@@ -123,6 +121,16 @@ public class Visualization extends Application {
 
         return myScene;
 
+    }
+
+    private Grid setupGrid(String filepath, int displaysize, BorderPane root){
+        myGrid = new Grid(filepath, displaysize);
+        myGrid.getGridPane().setVisible(true);
+        myGrid.getGridPane().setLayoutX(300);
+        myGrid.getGridPane().setLayoutY(100);
+        BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
+        root.getChildren().add(myGrid.getGridPane());
+        return myGrid;
     }
 
     public static void main (String[] args) {

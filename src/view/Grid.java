@@ -21,7 +21,7 @@ public class Grid{ // make abstract later
     private int myGridHeight;
     private int myCellSize;
     private Random rand = new Random();
- final HashMap<String, Simulation> simulationLookupTable = new HashMap<String, Simulation>(){{
+    final HashMap<String, Simulation> simulationLookupTable = new HashMap<String, Simulation>(){{
    /*     put("gameOfLife", new Simulation;
         put("segregation", new Simulation); */
     }};
