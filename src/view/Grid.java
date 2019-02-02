@@ -23,9 +23,13 @@ public class Grid { // make abstract later
     private Random rand = new Random();
 
     final HashMap<String, Simulation> simulationLookupTable = new HashMap<String, Simulation>(){{
+            //put("gameOfLife", new Simulation;
+            //put("segregation", new Simulation);
+        }};
+    //final HashMap<String, Simulation> simulationLookupTable = new HashMap<String, Simulation>(){{
         //put("gameOfLife", new Simulation;
-        //put("segregation", new Simulation);
-    }};
+       // put("segregation", new Simulation);
+    //}};
 
     public Grid(String filePath, int displaySize){
         myFilePath = filePath;
