@@ -4,11 +4,14 @@
     <horizontalSize>25</horizontalSize>
     <verticalSize>25</verticalSize>
     <specifics>
-        <property>proportionFish 0.3</property>
-        <property>proportionShark 0.3</property>
-        <property>initSharkEnergy 5</property>
-        <property>energyGainedPerFish 3</property>
-        <property>ticksToReproduce 4</property>
+        <property>fish 0.3</property>
+        <property>shark 0.3</property>
+        <property>empty 0.4</property>
     </specifics>
+    <moreInfo>
+        <info>initSharkEnergy 5</info>
+        <info>energyGainedPerFish 3</info>
+        <info>ticksToReproduce 4</info>
+    </moreInfo>
     <author>Louis Jensen</author>
 </simulation>
