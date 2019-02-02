@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
-    <type>percolation</type>
+    <type>Percolation</type>
     <horizontalSize>25</horizontalSize>
     <verticalSize>25</verticalSize>
     <specifics>
-        <property>proportionRock 0.4</property>
+        <property>rock 0.4</property>
+        <property>empty 0.6</property>
+        <property>water 0</property>
     </specifics>
     <author>Louis Jensen</author>
 </simulation>
