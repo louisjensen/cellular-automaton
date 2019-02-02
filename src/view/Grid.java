@@ -3,6 +3,8 @@ package view;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
+
 
 import java.util.ArrayList;
 import java.io.File;
@@ -65,12 +67,16 @@ public class Grid { // make abstract later
     // configure myGridPane based on the cells in myCurrentState
     private void setGridPane(){
         Cell currentCell;
+        Color color;
         initialize(); // for testing
         //myGridPane.setMinSize(myDisplaySize, myDisplaySize);
+        HashMap<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
 
         for (int row = 0; row < myCurrentState.length; row ++){
             for (int col = 0; col < myCurrentState[0].length; col ++){
                 currentCell = myCurrentState[row][col];
+                color = stateToColorMap.get(currentCell.getState());
+                currentCell.setColor(color);
                 myGridPane.add(currentCell.getImage(), row, col);
             }
         }
