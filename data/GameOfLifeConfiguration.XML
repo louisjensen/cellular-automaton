@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
-    <type>gameOfLife</type>
+    <type>GameOfLife</type>
     <horizontalSize>25</horizontalSize>
     <verticalSize>25</verticalSize>
     <specifics>
@@ -8,4 +8,4 @@
         <property>dead 0.75</property>
     </specifics>
     <author>Louis Jensen</author>
-</simulation> 
+</simulation>
