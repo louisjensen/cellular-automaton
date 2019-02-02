@@ -31,23 +31,10 @@ public class GameOfLife extends Simulation{
         add(new Point(-1,-1));
     }};
 
-    @Override
-    public ArrayList<Cell> getNeighbors(Cell cell, Cell[][] grid) {
-        ArrayList<Cell> neighbors = new ArrayList<Cell>();
-        int cellRow = cell.getRow();
-        int cellCol = cell.getCol();
-
-        int cellNeighborRow;
-        int cellNeighborCol;
-
-        for (Point rc: possibleNeighbors){
-            cellNeighborRow = cellRow + (int) rc.getX();
-            cellNeighborCol = cellCol + (int) rc.getY();
-            if (isSafe(cellNeighborRow, cellNeighborCol, grid)){
-                neighbors.add(grid[cellNeighborRow][cellNeighborCol]);
-            }
-        }
-        return neighbors;
+    public GameOfLife(){
+        myPossibleNeighbors = possibleNeighbors;
+        myStateLookupTable = stateLookupTable;
+        myColorLookupTable = colorLookupTable;
     }
 
     public int getState(String stateString){
