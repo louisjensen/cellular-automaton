@@ -1,11 +1,15 @@
 package view;
 
+import javafx.scene.paint.Color;
+
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class Simulation { // since this doesn't have any instance variables, perhaps make this an enum class
-    private ArrayList<Point> possibleNeighbors;
-
+    public ArrayList<Point> myPossibleNeighbors;
+    public HashMap<Integer, Color> myColorLookupTable;
+    public HashMap<String, Integer> myStateLookupTable;
 
     /**
      * Returns the next state of cell based on the states of its neighbors.
@@ -29,7 +33,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
         int cellNeighborRow;
         int cellNeighborCol;
 
-        for (Point rc: possibleNeighbors){
+        for (Point rc: myPossibleNeighbors){
             cellNeighborRow = cellRow + (int) rc.getX();
             cellNeighborCol = cellCol + (int) rc.getY();
             if (isSafe(cellNeighborRow, cellNeighborCol, grid)){
