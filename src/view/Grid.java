@@ -23,6 +23,7 @@ public class Grid { // make abstract later
     private int myGridWidth;
     private int myGridHeight;
     private int myCellSize;
+    private String SimulationName;
     private Random rand = new Random();
     int randInt;
     private XMLParser xml;
@@ -51,6 +52,7 @@ public class Grid { // make abstract later
         myFilePath = filePath;
         xml = new XMLParser(myFilePath);
 
+        SimulationName = xml.getSimulationType();
         //construct grid from XML File
         myDisplaySize = displaySize;
        // mySimulation = simulationLookupTable.get(xml.getSimulationType());
@@ -116,7 +118,9 @@ public class Grid { // make abstract later
     }
 
 
-
+    public String getSimulationName(){
+        return SimulationName;
+    }
 
 
     public void updateGrid(){

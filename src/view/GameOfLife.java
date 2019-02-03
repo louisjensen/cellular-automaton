@@ -47,14 +47,14 @@ public class GameOfLife extends Simulation{
         int numDead = 0;
         int numAlive = 0;
         Cell cellNextState;
-        System.out.println("hi");
+        //System.out.println("hi");
         for (Cell neighbor: neighbors){
             if (neighbor.getState() == 0)
                 numDead ++;
             else if (neighbor.getState() == 1)
                 numAlive ++;
         }
-        System.out.println("bye");
+        //System.out.println("bye");
 
 
         if (numAlive <= 1) //Any live cell with fewer than two live neighbors dies, as if by underpopulation.
