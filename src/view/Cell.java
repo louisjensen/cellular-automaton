@@ -43,4 +43,8 @@ public class Cell{
     public void setColor(Paint color){
         myImage.setFill(color);
     }
+
+    public void setState(int state){
+        myState = state;
+    }
 }
