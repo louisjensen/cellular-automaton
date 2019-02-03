@@ -16,7 +16,7 @@ public class XMLParser {
     private int xSize;
     private int ySize;
   //  private HashMap<String, Double> startingProportions = new HashMap<String, Double>();
-  //  private HashMap<String, Double> randomInfo = new HashMap<String, Double>();
+    private HashMap<String, Double> randomInfo = new HashMap<String, Double>();
     private ArrayList<String> states = new ArrayList<>();
     private ArrayList<Double> stateProportions = new ArrayList<>();
     private ArrayList<String> otherInfo = new ArrayList<>();
@@ -48,9 +48,9 @@ public class XMLParser {
             for(int i = 0; i < list2.getLength(); i++){
                 String s2 = list2.item(i).getTextContent();
                 String[] split2 = s2.split(" ");
-               // randomInfo.put(split2[0], Double.parseDouble(split2[1]));
-                otherInfo.add(split2[0]);
-                otherInfoStats.add(Double.parseDouble(split2[1]));
+                randomInfo.put(split2[0], Double.parseDouble(split2[1]));
+               // otherInfo.add(split2[0]);
+               // otherInfoStats.add(Double.parseDouble(split2[1]));
                 System.out.println(split2[0] + " space " + split2[1]);
             }
         }
@@ -73,11 +73,11 @@ public class XMLParser {
 
  /*   public HashMap<String, Double> getMap(){
         return startingProportions;
-    }
+    } */
 
     public HashMap<String, Double> getRandomInfo(){
         return randomInfo;
-    } */
+    }
 
     public ArrayList<String> getStates(){
         return states;

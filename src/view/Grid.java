@@ -27,12 +27,25 @@ public class Grid { // make abstract later
     int randInt;
     private XMLParser xml;
 
-    final HashMap<String, Simulation> simulationLookupTable = new HashMap<String, Simulation>(){{
+  /*  final HashMap<String, Simulation> simulationLookupTable = new HashMap<String, Simulation>(){{
             put("GameOfLife", new GameOfLife());
             //put("segregation", new Simulation);
-            put("SpreadingOfFire", new SpreadingOfFire());
+         //   put("SpreadingOfFire", new SpreadingOfFire(xml.getRandomInfo()));
             put("Percolation", new Percolation());
-        }};
+        }}; */
+
+    private Simulation getSimulation(String sim, HashMap<String, Double> map){
+        if (sim.equals("GameOfLife")){
+            return new GameOfLife();
+        }
+        if (sim.equals("Percolation")){
+            return new Percolation();
+        }
+        if (sim.equals("SpreadingOfFire")){
+            return new SpreadingOfFire(map);
+        }
+        return null;
+    }
 
     public Grid(String filePath, int displaySize){
         myFilePath = filePath;
@@ -40,7 +53,8 @@ public class Grid { // make abstract later
 
         //construct grid from XML File
         myDisplaySize = displaySize;
-        mySimulation = simulationLookupTable.get(xml.getSimulationType());
+       // mySimulation = simulationLookupTable.get(xml.getSimulationType());
+        mySimulation = getSimulation(xml.getSimulationType(), xml.getRandomInfo());
         myGridWidth = xml.getGridX();
         //myGridWidth = 20;// for testing
         myGridHeight = xml.getGridY();
