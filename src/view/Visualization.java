@@ -28,6 +28,7 @@ public class Visualization extends Application {
     private String PauseButtonImage = "PauseButton.png";
     private String InitializeButtonImage = "InitializeButton.png";
     private String FastForwardButtonImage = "FastForwardButton.png";
+    private String StepButtonImage = "step.png";
     private static final Paint BACKGROUND = Color.AZURE;
     private static final int fontsize2 = 50;
     private static final int fontsize1 = 25;
@@ -106,9 +107,17 @@ public class Visualization extends Application {
             }
         });
 
+        Button StepButton = makeButton("Debug", StepButtonImage, 100, 100, 50, 950);
+        StepButton.setOnMouseClicked((event)->{
+                    root.getChildren().remove(myGrid.getGridPane());
+                    myGrid.updateGrid();
+                    count ++;
+                    myGrid.setGridPane();
+                    root.getChildren().add(myGrid.getGridPane());
+        });
+
 
         Button PlayButton = makeButton("Play", PlayButtonImage, 100,100, 50, 300);
-        BorderPane.setAlignment(PlayButton, Pos.BOTTOM_LEFT);
         PlayButton.setOnMouseClicked((event)->{
             if(filepath == ""){
                 makeAlert();
@@ -177,6 +186,7 @@ public class Visualization extends Application {
 
         showCount = MakeText(showCount, "Rounds: " + count, 850,975, fontsize1);
 
+        root.getChildren().add(StepButton);
         root.getChildren().add(FileUploadButton);
         root.getChildren().add(ResetButton);
         root.getChildren().add(PlayButton);
