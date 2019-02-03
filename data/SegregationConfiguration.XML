@@ -4,9 +4,9 @@
     <horizontalSize>25</horizontalSize>
     <verticalSize>25</verticalSize>
     <specifics>
-        <property>red 0.45</property>
-        <property>blue 0.45</property>
         <property>empty 0.1</property>
+        <property>blue 0.45</property>
+        <property>red 0.45</property>
     </specifics>
     <moreInfo>
         <info>tolerance 0.5</info>
