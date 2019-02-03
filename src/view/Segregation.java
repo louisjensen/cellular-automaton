@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Segregation extends Simulation {
+    public void update(){
+
+    }
 
     final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("empty",  0);

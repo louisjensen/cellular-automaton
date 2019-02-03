@@ -37,13 +37,13 @@ public class Grid { // make abstract later
 
     private Simulation getSimulation(String sim, HashMap<String, Double> map){
         if (sim.equals("GameOfLife")){
-            return new GameOfLife();
+            return new GameOfLife(myCurrentState, myNextState);
         }
         if (sim.equals("Percolation")){
-            return new Percolation();
+            return new Percolation(myCurrentState, myNextState);
         }
         if (sim.equals("SpreadingOfFire")){
-            return new SpreadingOfFire(map);
+            return new SpreadingOfFire(map, myCurrentState, myNextState);
         }
         if(sim.equals("Segregation")){
             return new Segregation(map);
@@ -62,13 +62,14 @@ public class Grid { // make abstract later
         //construct grid from XML File
         myDisplaySize = displaySize;
        // mySimulation = simulationLookupTable.get(xml.getSimulationType());
-        mySimulation = getSimulation(xml.getSimulationType(), xml.getRandomInfo());
+      //  mySimulation = getSimulation(xml.getSimulationType(), xml.getRandomInfo());
         myGridWidth = xml.getGridX();
         //myGridWidth = 20;// for testing
         myGridHeight = xml.getGridY();
      //   myGridHeight = 20;// for testing
         myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
         myNextState = new Cell[myGridWidth][myGridHeight];
+        mySimulation = getSimulation(xml.getSimulationType(), xml.getRandomInfo());
         /*mySimulation.setCurrentGrid(myCurrentState);
         mySimulation.setCurrentGrid(myNextState);*/
         calculateCellSize();
@@ -151,8 +152,8 @@ public class Grid { // make abstract later
 
 
     public void updateGrid(){
-        //mySimulation.update();
-        Cell myCell;
+        mySimulation.update();
+     /*   Cell myCell;
         ArrayList<Cell> neighbors;
         for (int row = 0; row < myGridWidth; row++){
             for (int col = 0; col < myGridHeight; col++){
@@ -161,7 +162,7 @@ public class Grid { // make abstract later
                 neighbors = mySimulation.getNeighbors(myCell, myCurrentState);
                 myNextState[row][col] = mySimulation.getNextStateOfCell(myCell, neighbors);
             }
-        }
+        } */
     }
 
     public void initialize(){
