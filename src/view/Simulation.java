@@ -35,12 +35,20 @@ public abstract class Simulation { // since this doesn't have any instance varia
         int cellNeighborCol;
 
         for (Point rc: myPossibleNeighbors){
-            cellNeighborRow = cellRow + (int) rc.getX();
-            cellNeighborCol = cellCol + (int) rc.getY();
-            if (isSafe(cellNeighborRow, cellNeighborCol, grid)){
-                neighbors.add(grid[cellNeighborRow][cellNeighborCol]);
-            }
+                cellNeighborRow = cellRow + (int) rc.getX();
+                cellNeighborCol = cellCol + (int) rc.getY();
+                if (isSafe(cellNeighborRow, cellNeighborCol, grid)) {
+                    neighbors.add(grid[cellNeighborRow][cellNeighborCol]);
+                }
         }
+        System.out.println(neighbors.get(0).getRow() + ", " + neighbors.get(0).getCol());
+
+        System.out.println(neighbors.get(1).getRow() + ", " + neighbors.get(1).getCol());
+        System.out.println(neighbors.get(2).getRow() + ", " + neighbors.get(2).getCol());
+        System.out.println(neighbors.get(0).getRow() + ", " + neighbors.get(0).getState());
+
+
+        //System.out.println(neighbors.size());
         return neighbors;
     }
 
@@ -60,10 +68,15 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * @return true if the row and col are "safe"
      */
     public boolean isSafe(int row, int col, Cell[][] grid){
-        int cellState = grid[row][col].getState();
         int gridRowMax = grid.length;
         int gridColMax = grid[0].length;
-        return (cellState != -1 && (row >= 0 && row < gridRowMax) && (col >= 0 && col < gridColMax));
+        if (!((row >= 0 && row < gridRowMax) && (col >= 0 && col < gridColMax))){
+            return false;
+        }
+
+        int cellState = grid[row][col].getState();
+
+        return (cellState != -1);
     }
 
     public HashMap<Integer, Color> getMyColorLookupTable(){

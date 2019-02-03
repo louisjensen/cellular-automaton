@@ -89,7 +89,11 @@ public class Visualization extends Application {
         Button PlayButton = makeButton("Play", PlayButtonImage, 100,100, 100, 300);
         BorderPane.setAlignment(PlayButton, Pos.BOTTOM_LEFT);
         PlayButton.setOnMouseClicked((event)->{
-            animation.play();
+            root.getChildren().remove(myGrid.getGridPane());
+            myGrid.updateGrid();
+            myGrid.setGridPane();
+            root.getChildren().add(myGrid.getGridPane());
+
         });
 
         Button PauseButton = makeButton("Pause", PauseButtonImage, 100, 100, 100, 500);
@@ -103,7 +107,7 @@ public class Visualization extends Application {
         ResetButton.setOnMouseClicked((event)->{
             animation.stop();
             root.getChildren().remove(myGrid);
-           setupGrid(filepath, GridDisplaySize, root);
+            setupGrid(filepath, GridDisplaySize, root);
 
         });
 
