@@ -3,13 +3,13 @@ package view;
 import javafx.scene.paint.Color;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Segregation extends Simulation {
-    public void update(){
 
-    }
 
     final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("empty",  0);
@@ -35,6 +35,8 @@ public class Segregation extends Simulation {
     }};
 
     private double myTolerance;
+    private Random random = new Random();
+    int randomInt;
 
     public Segregation(HashMap<String, Double> moreInfoLookupTable){
         myPossibleNeighbors = possibleNeighbors;
@@ -49,8 +51,7 @@ public class Segregation extends Simulation {
     }
 
 
-    @Override
-    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
+    public boolean AreYouSatisfied(Cell cell,  ArrayList<Cell> neighbors){
         int nextState = 0;
         int myState = cell.getState(); // get red or blue
         int numMyState = 0; // if red, count how many red neighbors.
@@ -61,25 +62,95 @@ public class Segregation extends Simulation {
 
         //if cell is an empty space
         if(myState == 0){
-            nextState = 0;
+            return true;
         }
 
         //if cell is not an empty space
-        else {
+        //else {
             for (Cell neighbor : neighbors) {
                 if (neighbor.getState() == 0) {
                     emptySpace += 1;
                 }
-                if (neighbor.getState() != 0 && neighbor.getState() == myState) {
+                else if (neighbor.getState() == myState) {
                     numMyState += 1;
                 }
-                if (neighbor.getState() != 0 && neighbor.getState() != myState) {
+                else if (neighbor.getState() != myState) {
                     numOtherState += 1;
+                }
+            }
+        //}
+        if(neighbors.size()== emptySpace){
+            return true;
+        }
+        percentage = (float) numMyState / (numMyState + numOtherState);
+
+       return (percentage > myTolerance);
+    }
+
+    @Override
+    public void update(){
+        ArrayList<Cell> DissatisfiedCells = new ArrayList<Cell>();
+        ArrayList<Cell> EmptyCells = new ArrayList<Cell>();
+        ArrayList<Cell> neighbors;
+        for(int i=0 ; i<myCurrentGrid.length ; i ++){
+            for(int j=0; j<myCurrentGrid.length; j++){
+                neighbors = getNeighbors(myCurrentGrid[i][j], myCurrentGrid);
+                if (!AreYouSatisfied(myCurrentGrid[i][j], neighbors)){
+                    DissatisfiedCells.add(myCurrentGrid[i][j]);
+                }
+                if(myCurrentGrid[i][j].getState() == 0){
+                    EmptyCells.add(myCurrentGrid[i][j]);
+                }
+
+            }
+        }
+        System.out.println(DissatisfiedCells.size());
+        System.out.println(EmptyCells.size());
+        Cell cellEmpty;
+        Cell nextStateMove;
+        Cell nextStateEmpty;
+
+
+        if(!DissatisfiedCells.isEmpty()){
+            for(Cell MovingCell: DissatisfiedCells){
+                if(!EmptyCells.isEmpty()){
+                    int emptynumber = EmptyCells.size();
+                    randomInt = random.nextInt(emptynumber);
+                    cellEmpty = EmptyCells.get(randomInt);
+                    nextStateMove = myNextGrid[cellEmpty.getRow()][cellEmpty.getCol()];
+                    nextStateEmpty = myNextGrid[MovingCell.getRow()][MovingCell.getCol()];
+
+                    nextStateMove.setState(MovingCell.getState());
+                    nextStateEmpty.setState(0);
+                    EmptyCells.remove(cellEmpty);
                 }
             }
         }
 
-        percentage = myState / (neighbors.size() - emptySpace);
+        /*if (!EmptyCells.isEmpty()){
+            for (Cell emptyCell: EmptyCells){
+                if(!DissatisfiedCells.isEmpty()){
+                    int unsatisfiedNum = DissatisfiedCells.size();
+                    randomInt = random.nextInt(unsatisfiedNum);
+                    cellToMove = DissatisfiedCells.get(randomInt);
+                    nextStateMove = myNextGrid[emptyCell.getRow()][emptyCell.getCol()];
+                    nextStateEmpty = myNextGrid[cellToMove.getRow()][cellToMove.getCol()];
+
+                    nextStateMove.setState(cellToMove.getState());
+                    nextStateEmpty.setState(0);
+                    DissatisfiedCells.remove(cellToMove);
+
+                }
+
+
+            }
+        }*/
+    }
+
+
+    @Override
+    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
+        /*
         //satisfied cells
         if (percentage >= myTolerance) {
             //return new Cell(cell.getRow(), cell.getCol(), cell.getSize(), cell.getState());
@@ -89,7 +160,10 @@ public class Segregation extends Simulation {
         }
         return nextState;
         //return new Cell(1,1,1,1);
-}
+
+         */
+        return 1;
+    }
 
 
 }

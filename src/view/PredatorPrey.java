@@ -1,3 +1,4 @@
+/*
 package view;
 
 import javafx.scene.paint.Color;
@@ -84,3 +85,4 @@ public class PredatorPrey extends Simulation {
 
 
 }
+*/
