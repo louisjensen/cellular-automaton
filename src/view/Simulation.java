@@ -77,16 +77,34 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * Updates myNextGrid based on myCurrentGrid
      */
     public void update(){
+        Cell cellToUpdate;
         Cell currentCell;
         ArrayList<Cell> neighbors;
+
+        //System.out.println(myNextGrid);
+        //System.out.println(myCurrentGrid);
+
         for (int row = 0; row < myCurrentGrid.length; row++){
             for (int col = 0; col < myCurrentGrid[0].length; col++){
+
+                cellToUpdate = myNextGrid[row][col];
                 currentCell = myCurrentGrid[row][col];
-                neighbors = getNeighbors(currentCell, myNextGrid);
-                currentCell.setState(getNextStateOfCell(currentCell, neighbors));
-                currentCell.setColor(myColorLookupTable.get(currentCell.getState()));
+                //System.out.println(cellToUpdate);
+                //System.out.println(currentCell);
+
+                neighbors = getNeighbors(currentCell, myCurrentGrid);
+                //for (Cell cell: neighbors){
+                //    System.out.println(cell.getRow() + ", " + cell.getCol());
+                //}
+
+                cellToUpdate.setState(getNextStateOfCell(currentCell, neighbors));
+                cellToUpdate.setColor(myColorLookupTable.get(currentCell.getState()));
+                //break;
             }
+            //break;
         }
+
+
     }
 
     /**

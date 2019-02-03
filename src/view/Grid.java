@@ -70,11 +70,11 @@ public class Grid { // make abstract later
         myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
         myNextState = new Cell[myGridWidth][myGridHeight];
         mySimulation = getSimulation(xml.getSimulationType(), xml.getRandomInfo());
-        /*mySimulation.setCurrentGrid(myCurrentState);
-        mySimulation.setCurrentGrid(myNextState);*/
         calculateCellSize();
         myGridPane = new GridPane();
         initialize();
+        mySimulation.setCurrentGrid(myCurrentState);
+        mySimulation.setNextGrid(myNextState);
     }
 
     /**
@@ -108,7 +108,7 @@ public class Grid { // make abstract later
     private void moveNexttoCurrent() {
         for (int row = 0; row < myCurrentState.length; row++) {
             for (int col = 0; col < myCurrentState[0].length; col++) {
-                myCurrentState[row][col] = myNextState[row][col];
+                myCurrentState[row][col].setState(myNextState[row][col].getState());
 
             }
         }
