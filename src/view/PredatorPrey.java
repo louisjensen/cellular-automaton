@@ -42,7 +42,7 @@ public class PredatorPrey extends Simulation {
 
 
     @Override
-    public Cell getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
+    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         int myState = cell.getState(); // get red or blue
         int numMyState = 0; // if red, count how many red neighbors.
         int numOtherState = 0;
@@ -52,7 +52,7 @@ public class PredatorPrey extends Simulation {
 
         //if cell is an empty space
         if(myState == 0){
-            return cellNextState;
+            //return cellNextState;
         }
 
         //if cell is not an empty space
@@ -71,15 +71,15 @@ public class PredatorPrey extends Simulation {
         percentage = myState / (neighbors.size() - emptySpace);
         //satisfied cells
         if (percentage >= myTolerance) {
-            return new Cell(cell.getRow(), cell.getCol(), cell.getSize(), cell.getState());
+            //return new Cell(cell.getRow(), cell.getCol(), cell.getSize(), cell.getState());
         }
         //unsatisfied cells
         else{
 
 
         }
-
-        return new Cell(1,1,1,1);
+        return 1;
+        //return new Cell(1,1,1,1);
     }
 
 
