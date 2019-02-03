@@ -11,14 +11,14 @@ public class SpreadingOfFire extends Simulation {
 
 
     final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
-        put("dead",  0);
-        put("alive", 1);
+        put("dead",  1);
+        put("alive", 0);
         put("burning", 2);
     }};
 
     final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
-        put(0, Color.YELLOW);
-        put(1, Color.GREEN);
+        put(0, Color.GREEN);
+        put(1, Color.YELLOW);
         put(2, Color.RED);
     }};
 
@@ -45,14 +45,17 @@ public class SpreadingOfFire extends Simulation {
                 numFire +=1;
         }
 
-        if(cell.getState() == 0) {
+        if(cell.getState() == 0 && numFire == 0) {
             cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 0);
         }
-        if(cell.getState() == 2) {
-            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 0);
-        }
-        if(cell.getState() ==1 && numFire > 0){
+        if(cell.getState() ==0 && numFire>0)
             cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 2);
+
+        if(cell.getState() == 2) {
+            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 1);
+        }
+        if(cell.getState() ==1){
+            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 1);
         }
 
         return cellNextState;

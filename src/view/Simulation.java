@@ -41,14 +41,6 @@ public abstract class Simulation { // since this doesn't have any instance varia
                     neighbors.add(grid[cellNeighborRow][cellNeighborCol]);
                 }
         }
-        System.out.println(neighbors.get(0).getRow() + ", " + neighbors.get(0).getCol());
-
-        System.out.println(neighbors.get(1).getRow() + ", " + neighbors.get(1).getCol());
-        System.out.println(neighbors.get(2).getRow() + ", " + neighbors.get(2).getCol());
-        System.out.println(neighbors.get(0).getRow() + ", " + neighbors.get(0).getState());
-
-
-        //System.out.println(neighbors.size());
         return neighbors;
     }
 
