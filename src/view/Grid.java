@@ -39,23 +39,16 @@ public class Grid { // make abstract later
 
         //construct grid from XML File
         myDisplaySize = displaySize;
-        mySimulation = simulationLookupTable.get( xml.getSimulationType());
+        mySimulation = simulationLookupTable.get(xml.getSimulationType());
         myGridWidth = xml.getGridX();
         //myGridWidth = 20;// for testing
         myGridHeight = xml.getGridY();
      //   myGridHeight = 20;// for testing
         myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
+        myNextState = new Cell[myGridWidth][myGridHeight];
         calculateCellSize();
         myGridPane = new GridPane();
-    }
-    public Grid(int displaySize){ // FOR TESTING PURPOSES ONLY. DOES NOT TAKE IN A FILE PARAMETER BC XMLParser IS WIP
-        //construct grid from XML File
-        myDisplaySize = displaySize;
-        myGridWidth = 50; // for testing
-        myGridHeight = 50; // for testing
-        myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
-        calculateCellSize();
-        myGridPane = new GridPane();
+        initialize();
     }
 
     /**
@@ -68,23 +61,34 @@ public class Grid { // make abstract later
     }
 
     // configure myGridPane based on the cells in myCurrentState
-    private void setGridPane(){
+    public void setGridPane(){
         Cell currentCell;
         Color color;
-        initialize(); // for testing
         //myGridPane.setMinSize(myDisplaySize, myDisplaySize);
         HashMap<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
 
-        for (int row = 0; row < myCurrentState.length; row ++){
-            for (int col = 0; col < myCurrentState[0].length; col ++){
+        for (int row = 0; row < myCurrentState.length; row ++) {
+            for (int col = 0; col < myCurrentState[0].length; col++) {
                 currentCell = myCurrentState[row][col];
+                int i = currentCell.getState();
                 color = stateToColorMap.get(currentCell.getState());
                 currentCell.setColor(color);
-                myGridPane.add(currentCell.getImage(), row, col);
+                if (!myGridPane.getChildren().contains(currentCell.getImage())) {
+                    myGridPane.add(currentCell.getImage(), row, col);
+                }
+            }
+        }
+        moveNexttoCurrent();
+    }
+
+    private void moveNexttoCurrent() {
+        for (int row = 0; row < myCurrentState.length; row++) {
+            for (int col = 0; col < myCurrentState[0].length; col++) {
+                myCurrentState[row][col] = myNextState[row][col];
+
             }
         }
     }
-
     private void initializeGrid(){ // FOR TESTING PURPOSES ONLY
         for (int row = 0; row < myCurrentState.length; row ++){
             for (int col = 0; col < myCurrentState[0].length; col ++){
@@ -105,11 +109,13 @@ public class Grid { // make abstract later
     public void updateGrid(){
         Cell myCell;
         ArrayList<Cell> neighbors;
-        for (int i = 0; i < myGridWidth; i++){
-            for (int j = 0; j < myGridHeight; j++){
-                myCell = new Cell(i, j, myCellSize, myCurrentState[i][j].getState());
+        for (int row = 0; row < myGridWidth; row++){
+            for (int col = 0; col < myGridHeight; col++){
+                //myCell = new Cell(i, j, myCellSize, myCurrentState[i][j].getState());
+                myCell = myCurrentState[row][col];
+                System.out.println(myCell.getCol());
                 neighbors = mySimulation.getNeighbors(myCell, myCurrentState);
-                myNextState[i][j] = mySimulation.getNextStateOfCell(myCell, neighbors);
+                myNextState[row][col] = mySimulation.getNextStateOfCell(myCell, neighbors);
             }
         } 
     }
@@ -136,6 +142,7 @@ public class Grid { // make abstract later
                 for (int k = 0; k < percentageStates.size(); k++){
                     if(randInt <= percentageStates.get(k)) {
                         myCurrentState[i][j] = new Cell(i, j, myCellSize, k);
+                        myNextState[i][j] = new Cell(i, j, myCellSize, k);
                         break;
                     }
                 }
