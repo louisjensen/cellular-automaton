@@ -16,7 +16,9 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import java.io.File;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import javafx.animation.Animation;
 
 public class Visualization extends Application {
@@ -29,16 +31,22 @@ public class Visualization extends Application {
     private String FastForwardButtonImage = "FastForwardButton.png";
     private static final Paint BACKGROUND = Color.AZURE;
     private static final int fontsize2 = 50;
+    private static final int fontsize1 = 25;
     private static final int GridDisplaySize = 750;
     private static final int ScreenWIDTH = 1000;
     private static final int ScreenHEIGHT = 1000;
-    private static final int FRAMES_PER_SECOND = 60;
+    private int FRAMES_PER_SECOND = 1;
+    private final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+    private final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private Text SimulationTitle;
+    private Text showCount;
     private Scene myScene;
     private Grid myGrid;
     private Text SimulationName;
-    //private Animation animation;
     public String filepath = "";
+    private BorderPane root;
+    private Timeline animation;
+    private int count;
 
     public void start (Stage stage) {
         myScene = setupVisualization(stage, BACKGROUND);
@@ -46,20 +54,37 @@ public class Visualization extends Application {
         stage.setTitle(Title);
         stage.setResizable(false);
         stage.show();
-        //setAnimation(stage);
+        setAnimation(stage);
     }
 
-/*    private void setAnimation(Stage stage){
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+    private void setAnimation(Stage stage){
+        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
     }
 
-    private void step(double elapsedtime) {}*/
+    private void step(double elapsedtime) {
+        System.out.println("Debugging");
+        if(root != null) {
+            root.getChildren().remove(myGrid.getGridPane());
+            myGrid.updateGrid();
+            count ++;
+            myGrid.setGridPane();
+            root.getChildren().add(myGrid.getGridPane());
+        }
+        else {
+            myGrid.updateGrid();
+            count ++;
+            myGrid.setGridPane();
+            root.getChildren().add(myGrid.getGridPane());
+        }
+
+        showCount.setText("Rounds: " + count);
+    }
 
     private Scene setupVisualization(Stage stage, Paint backgorund) {
-        BorderPane root = new BorderPane();
+        root = new BorderPane();
         Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT);
         FileChooser fileChooser = new FileChooser();
         root.setPadding(new Insets(15, 20, 10, 10));
@@ -79,14 +104,13 @@ public class Visualization extends Application {
         BorderPane.setAlignment(PlayButton, Pos.BOTTOM_LEFT);
         PlayButton.setOnMouseClicked((event)->{
             if(filepath == ""){
-                makeAlertButton();
+                makeAlert();
+            }
+            if(myGrid == null){
+                makeInitialize();
             }
             else {
-                //animation.play();
-                root.getChildren().remove(myGrid.getGridPane());
-                myGrid.updateGrid();
-                myGrid.setGridPane();
-                root.getChildren().add(myGrid.getGridPane());
+                animation.play();
             }
 
         });
@@ -94,15 +118,13 @@ public class Visualization extends Application {
         Button FastForwardButton = makeButton("FastForward", FastForwardButtonImage, 100, 100, 50, 450);
         FastForwardButton.setOnMouseClicked((event)->{
             if(filepath == ""){
-                makeAlertButton();
+                makeAlert();
+            }
+            if(myGrid == null){
+                makeInitialize();
             }
             else {
-                root.getChildren().remove(myGrid.getGridPane());
-                for(int i=0; i<25; i++) {
-                    myGrid.updateGrid();
-                    myGrid.setGridPane();
-                }
-                root.getChildren().add(myGrid.getGridPane());
+                FRAMES_PER_SECOND *= 50;
             }
 
         });
@@ -111,10 +133,13 @@ public class Visualization extends Application {
         BorderPane.setAlignment(PauseButton, Pos.CENTER);
         PauseButton.setOnMouseClicked((event)->{
             if(filepath == ""){
-                makeAlertButton();
+                makeAlert();
+            }
+            if(myGrid == null){
+                makeInitialize();
             }
             else {
-                //animation.pause();
+                animation.pause();
             }
         });
 
@@ -122,11 +147,10 @@ public class Visualization extends Application {
         BorderPane.setAlignment(ResetButton, Pos.BASELINE_LEFT);
         ResetButton.setOnMouseClicked((event)->{
             if(filepath == ""){
-                makeAlertButton();
+                makeAlert();
             }
             else {
-                root.getChildren().remove(myGrid);
-                setupGrid(filepath, GridDisplaySize, root);
+                FRAMES_PER_SECOND = 1;
             }
 
         });
@@ -135,10 +159,12 @@ public class Visualization extends Application {
         BorderPane.setAlignment(InitializeButton, Pos.BASELINE_LEFT);
         InitializeButton.setOnMouseClicked((event)->{
             if(filepath == ""){
-                makeAlertButton();
+                makeAlert();
             }
             else{setupGrid(filepath, GridDisplaySize, root);}
         });
+
+        showCount = MakeText(showCount, "Rounds: " + count, 850,975, fontsize1);
 
         root.getChildren().add(FileUploadButton);
         root.getChildren().add(ResetButton);
@@ -146,6 +172,7 @@ public class Visualization extends Application {
         root.getChildren().add(FastForwardButton);
         root.getChildren().add(PauseButton);
         root.getChildren().add(InitializeButton);
+        root.getChildren().add(showCount);
 
         return myScene;
 
@@ -163,11 +190,19 @@ public class Visualization extends Application {
         return button;
     }
 
-    private void makeAlertButton(){
+    private void makeAlert(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Input Error");
         alert.setHeaderText("No Input File");
         alert.setContentText("Please Select Input XML file");
+        alert.show();
+    }
+
+    private void makeInitialize(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Initialization Error");
+        alert.setHeaderText("No Grid on Screen");
+        alert.setContentText("Please Initialize the Grid first");
         alert.show();
     }
 
@@ -192,6 +227,7 @@ public class Visualization extends Application {
         text.setFill(Color.BLACK);
         return text;
     }
+
 
     public static void main (String[] args) {
         launch(args);
