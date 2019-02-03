@@ -68,7 +68,11 @@ public class Visualization extends Application {
         if(root != null) {
             root.getChildren().remove(myGrid.getGridPane());
             myGrid.updateGrid();
+            if(myGrid.getMyCurrentState() != myGrid.getMyNextState()){
+                System.out.println("ddddddddddddddddddddddddd");
+            }
             if(myGrid.checkGameEnding()){
+                System.out.println("Game has ended");
                 animation.stop();
                 makeGameEnding();
             }
@@ -165,6 +169,7 @@ public class Visualization extends Application {
                 makeAlert();
             }
             else{
+                count =0;
                 root.getChildren().remove(myGrid);
                 root.getChildren().remove(SimulationName);
                 setupGrid(filepath, GridDisplaySize, root);}
@@ -216,9 +221,8 @@ public class Visualization extends Application {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Simulation Over");
         alert.setHeaderText("Final State");
-        alert.setContentText("This is the final state");
+        alert.setContentText("This is the final state. Press Reset Button");
         alert.show();
-
     }
     private Grid setupGrid(String filepath, int displaysize, BorderPane root){
         myGrid = new Grid(filepath, displaysize);
