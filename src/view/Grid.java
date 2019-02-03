@@ -117,6 +117,7 @@ public class Grid { // make abstract later
             }
         }
     }
+
     //because we make new cells each time this doesn't work -- need to find a way
     public boolean checkGameEnding(){
         if(myCurrentState == myNextState){
