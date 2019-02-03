@@ -48,6 +48,9 @@ public class Grid { // make abstract later
         if(sim.equals("Segregation")){
             return new Segregation(map);
         }
+       /* if(sim.equals("PredatorPrey")){
+            return new PredatorPrey(map);
+        }*/
         return null;
     }
 
@@ -113,6 +116,13 @@ public class Grid { // make abstract later
                 myCurrentState[row][col] = new Cell(row, col, myCellSize, 1);
             }
         }
+    }
+    //because we make new cells each time this doesn't work -- need to find a way
+    public boolean checkGameEnding(){
+        if(myCurrentState == myNextState){
+            return true;
+        }
+        return false;
     }
 
     // calculates the size of a cell based on how big the display is and the number of cells to fit

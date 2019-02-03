@@ -19,7 +19,6 @@ import javafx.scene.control.Alert;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import javafx.animation.Animation;
 
 public class Visualization extends Application {
     private String Title = "Cell Automaton";
@@ -69,6 +68,10 @@ public class Visualization extends Application {
         if(root != null) {
             root.getChildren().remove(myGrid.getGridPane());
             myGrid.updateGrid();
+            if(myGrid.checkGameEnding()){
+                animation.stop();
+                makeGameEnding();
+            }
             count ++;
             myGrid.setGridPane();
             root.getChildren().add(myGrid.getGridPane());
@@ -161,7 +164,10 @@ public class Visualization extends Application {
             if(filepath == ""){
                 makeAlert();
             }
-            else{setupGrid(filepath, GridDisplaySize, root);}
+            else{
+                root.getChildren().remove(myGrid);
+                root.getChildren().remove(SimulationName);
+                setupGrid(filepath, GridDisplaySize, root);}
         });
 
         showCount = MakeText(showCount, "Rounds: " + count, 850,975, fontsize1);
@@ -206,6 +212,14 @@ public class Visualization extends Application {
         alert.show();
     }
 
+    private void makeGameEnding(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Simulation Over");
+        alert.setHeaderText("Final State");
+        alert.setContentText("This is the final state");
+        alert.show();
+
+    }
     private Grid setupGrid(String filepath, int displaysize, BorderPane root){
         myGrid = new Grid(filepath, displaysize);
         SimulationName = MakeText(SimulationTitle, myGrid.getSimulationName(),  400, 100, fontsize2);
