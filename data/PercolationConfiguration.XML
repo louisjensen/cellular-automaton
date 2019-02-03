@@ -4,9 +4,9 @@
     <horizontalSize>25</horizontalSize>
     <verticalSize>25</verticalSize>
     <specifics>
-        <property>rock 0.4</property>
-        <property>empty 0.6</property>
-        <property>water 0</property>
+        <property>opened 0.37</property>
+        <property>closed 0.4</property>
+        <property>filled 0.03</property>
     </specifics>
     <author>Louis Jensen</author>
 </simulation>
