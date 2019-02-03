@@ -73,7 +73,18 @@ public abstract class Simulation { // since this doesn't have any instance varia
     /**
      * Updates myNextGrid based on myCurrentGrid
      */
-    public abstract void update();
+    public void update(){
+        Cell myCell;
+        ArrayList<Cell> neighbors;
+        for (int row = 0; row < myCurrentGrid.length; row++){
+            for (int col = 0; col < myCurrentGrid[0].length; col++){
+                //myCell = new Cell(i, j, myCellSize, myCurrentState[i][j].getState());
+                myCell = myCurrentGrid[row][col];
+                neighbors = getNeighbors(myCell, myNextGrid);
+                myNextGrid[row][col] = getNextStateOfCell(myCell, neighbors);
+            }
+        }
+    }
 
     /**
      * Checks if the row and col are "safe" in grid. Must be in bounds and the state of the Cell must not be -1

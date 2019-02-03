@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class SpreadingOfFire extends Simulation {
 
+
     private double probCatch;
     private Random random = new Random();
     int randomInt;
@@ -38,11 +39,13 @@ public class SpreadingOfFire extends Simulation {
         myColorLookupTable = colorLookupTable;
     }*/
 
-    public SpreadingOfFire(HashMap<String, Double> map){
+    public SpreadingOfFire(HashMap<String, Double> map, Cell[][] current, Cell[][] next){
         myPossibleNeighbors = possibleNeighbors;
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
         probCatch = map.get("probCatch");
+        myCurrentGrid = current;
+        myNextGrid = next;
     }
 
     public Cell getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {

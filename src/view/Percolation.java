@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Percolation extends Simulation {
+
     final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("closed", 0);
         put("opened", 1);
@@ -30,10 +31,12 @@ public class Percolation extends Simulation {
         add(new Point(-1,-1));
     }};
 
-    public Percolation(){
+    public Percolation(Cell[][] current, Cell[][] next){
         myPossibleNeighbors = possibleNeighbors;
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
+        myCurrentGrid = current;
+        myNextGrid = next;
     }
 
     public int getState(String stateString){

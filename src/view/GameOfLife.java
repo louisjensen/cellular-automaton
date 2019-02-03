@@ -31,10 +31,12 @@ public class GameOfLife extends Simulation{
         add(new Point(-1,-1));
     }};
 
-    public GameOfLife(){
+    public GameOfLife(Cell[][] current, Cell[][] next){
         myPossibleNeighbors = possibleNeighbors;
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
+        myCurrentGrid = current;
+        myNextGrid = next;
     }
 
     public int getState(String stateString){
@@ -69,5 +71,19 @@ public class GameOfLife extends Simulation{
 
         return cellNextState;
     }
+
+  /*  public void update(){
+        Cell myCell;
+        ArrayList<Cell> neighbors;
+        for (int row = 0; row < myCurrentGrid.length; row++){
+            for (int col = 0; col < myCurrentGrid[0].length; col++){
+                //myCell = new Cell(i, j, myCellSize, myCurrentState[i][j].getState());
+                myCell = myCurrentGrid[row][col];
+                neighbors = getNeighbors(myCell, myNextGrid);
+                myNextGrid[row][col] = getNextStateOfCell(myCell, neighbors);
+            }
+        }
+    } */
+
 }
 
