@@ -45,6 +45,9 @@ public class Grid { // make abstract later
         if (sim.equals("SpreadingOfFire")){
             return new SpreadingOfFire(map);
         }
+        if(sim.equals("Segregation")){
+            return new Segregation(map);
+        }
         return null;
     }
 

@@ -32,11 +32,11 @@ public class SpreadingOfFire extends Simulation {
         add(new Point(-1, 0));
     }};
 
-    public SpreadingOfFire(){
+    /*public SpreadingOfFire(){
         myPossibleNeighbors = possibleNeighbors;
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
-    }
+    }*/
 
     public SpreadingOfFire(HashMap<String, Double> map){
         myPossibleNeighbors = possibleNeighbors;
