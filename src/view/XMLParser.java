@@ -42,7 +42,7 @@ public class XMLParser {
             //    startingProportions.put(split[0], Double.parseDouble(split[1]));
                 states.add(split[0]);
                 stateProportions.add(Double.parseDouble(split[1]));
-                System.out.println(split[0] + " space " + split[1]);
+                //System.out.println(split[0] + " space " + split[1]);
             }
             NodeList list2 = doc.getElementsByTagName("info");
             for(int i = 0; i < list2.getLength(); i++){
@@ -51,7 +51,7 @@ public class XMLParser {
                 randomInfo.put(split2[0], Double.parseDouble(split2[1]));
                // otherInfo.add(split2[0]);
                // otherInfoStats.add(Double.parseDouble(split2[1]));
-                System.out.println(split2[0] + " space " + split2[1]);
+                //System.out.println(split2[0] + " space " + split2[1]);
             }
         }
         catch (Exception e) {

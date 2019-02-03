@@ -79,13 +79,11 @@ public class Grid { // make abstract later
     public void setGridPane(){
         Cell currentCell;
         Color color;
-        //myGridPane.setMinSize(myDisplaySize, myDisplaySize);
         HashMap<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
 
         for (int row = 0; row < myCurrentState.length; row ++) {
             for (int col = 0; col < myCurrentState[0].length; col++) {
                 currentCell = myCurrentState[row][col];
-                int i = currentCell.getState();
                 color = stateToColorMap.get(currentCell.getState());
                 currentCell.setColor(color);
                 if (!myGridPane.getChildren().contains(currentCell.getImage())) {
@@ -128,7 +126,6 @@ public class Grid { // make abstract later
             for (int col = 0; col < myGridHeight; col++){
                 //myCell = new Cell(i, j, myCellSize, myCurrentState[i][j].getState());
                 myCell = myCurrentState[row][col];
-                System.out.println(myCell.getCol());
                 neighbors = mySimulation.getNeighbors(myCell, myCurrentState);
                 myNextState[row][col] = mySimulation.getNextStateOfCell(myCell, neighbors);
             }
