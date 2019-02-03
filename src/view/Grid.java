@@ -122,15 +122,13 @@ public class Grid { // make abstract later
 
     public void initialize(){
         //reread file and create a new grid
-        HashMap<String, Double> map = xml.getMap();
-        HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
-        List<Double> proportionStates = new ArrayList<>();
+      //  HashMap<String, Double> map = xml.getMap();
+      //  HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
+        List<String> states = xml.getStates();
+        List<Double> proportionStates = xml.getStateProportions();
         List<Integer> percentageStates = new ArrayList<>();
         int currentTotal = 0;
         int percentage;
-        for (String key : map.keySet()){
-            proportionStates.add(map.get(key));
-        }
         for (int i = 0; i < proportionStates.size(); i++){
             percentage = (currentTotal + (int) (proportionStates.get(i) * 100));
             percentageStates.add(percentage);
