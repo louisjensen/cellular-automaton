@@ -64,7 +64,7 @@ public class Segregation extends Simulation {
             }
         }
 
-
+        return new Cell(1,1,1,1);
 }
 
 
