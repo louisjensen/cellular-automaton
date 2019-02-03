@@ -11,6 +11,8 @@ public abstract class Simulation { // since this doesn't have any instance varia
     public HashMap<Integer, Color> myColorLookupTable;
     public HashMap<String, Integer> myStateLookupTable;
     public HashMap<String, Double> myMoreInfoLookupTable;
+    public Cell[][] myCurrentGrid;
+    public Cell[][] myNextGrid;
 
     /**
      * Returns the next state of cell based on the states of its neighbors.
@@ -20,6 +22,22 @@ public abstract class Simulation { // since this doesn't have any instance varia
      */
     public abstract Cell getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors);
 
+
+    /**
+     * sets myCurrentGrid to myCurrentState from the Grid class
+     * @param grid
+     */
+    public void setCurrentGrid(Cell[][] grid){
+        myCurrentGrid = grid;
+    }
+
+    /**
+     * sets myNextGrid to myNextState from the Grid class
+     * @param grid
+     */
+    public void setNextGrid(Cell[][] grid){
+        myNextGrid = grid;
+    }
     /**
      * Returns a list of the neighboring cells of cell. Based on
      * @param cell cell to get neighbors of
@@ -51,6 +69,11 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * @return int (state)
      */
     public abstract int getState(String stateString);
+
+    /**
+     * Updates myNextGrid based on myCurrentGrid
+     */
+    public abstract void update();
 
     /**
      * Checks if the row and col are "safe" in grid. Must be in bounds and the state of the Cell must not be -1
