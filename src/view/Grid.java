@@ -69,6 +69,8 @@ public class Grid { // make abstract later
      //   myGridHeight = 20;// for testing
         myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
         myNextState = new Cell[myGridWidth][myGridHeight];
+        /*mySimulation.setCurrentGrid(myCurrentState);
+        mySimulation.setCurrentGrid(myNextState);*/
         calculateCellSize();
         myGridPane = new GridPane();
         initialize();
@@ -120,10 +122,14 @@ public class Grid { // make abstract later
 
     //because we make new cells each time this doesn't work -- need to find a way
     public boolean checkGameEnding(){
-        if(myCurrentState == myNextState){
-            return true;
+        for(int i=0; i<myGridWidth; i++){
+            for(int j=0; j<myGridHeight; j++){
+                if(myCurrentState[i][j].getState() != myNextState[i][j].getState()){
+                    return false;
+                }
+            }
         }
-        return false;
+        return true;
     }
 
     // calculates the size of a cell based on how big the display is and the number of cells to fit
@@ -131,6 +137,13 @@ public class Grid { // make abstract later
         myCellSize = myDisplaySize/myGridWidth;
     }
 
+    public Cell[][] getMyCurrentState(){
+        return myCurrentState;
+    }
+
+    public Cell[][] getMyNextState() {
+        return myNextState;
+    }
 
     public String getSimulationName(){
         return SimulationName;
@@ -138,6 +151,7 @@ public class Grid { // make abstract later
 
 
     public void updateGrid(){
+        //mySimulation.update();
         Cell myCell;
         ArrayList<Cell> neighbors;
         for (int row = 0; row < myGridWidth; row++){
@@ -147,7 +161,7 @@ public class Grid { // make abstract later
                 neighbors = mySimulation.getNeighbors(myCell, myCurrentState);
                 myNextState[row][col] = mySimulation.getNextStateOfCell(myCell, neighbors);
             }
-        } 
+        }
     }
 
     public void initialize(){

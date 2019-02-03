@@ -72,6 +72,7 @@ public class Segregation extends Simulation {
                 numOtherState +=1;
             }
         }
+
         percentage = myState / (neighbors.size() - emptySpace);
         //satisfied cells
         if (percentage >= myTolerance) {
