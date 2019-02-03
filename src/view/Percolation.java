@@ -44,15 +44,15 @@ public class Percolation extends Simulation {
     }
 
     @Override
-    public Cell getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
-
-        Cell cellNextState;
+    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
+        int nextState;
+        //Cell cellNextState;
 
         if (cell.getState() == 0) // if closed, then always closed
-            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 0); //cell is born
+            nextState = 0; //cell is born
 
         else if (cell.getState() == 2) // if filled, then always filled
-            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 2); //cell is born
+            nextState = 2; //cell is born
 
         else { // if open, check if any neighbors are filled, if (cell.getState() == 1)
             int state = 1;
@@ -63,11 +63,11 @@ public class Percolation extends Simulation {
                 }
 
             }
-            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), state); // if no neighbors are filled, then just stay open
+            nextState = state; // if no neighbors are filled, then just stay open
 
         }
 
-        return cellNextState;
+        return nextState;
 
     }
 }

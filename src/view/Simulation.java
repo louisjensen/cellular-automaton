@@ -20,7 +20,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * @param neighbors what are the "neighbors" of cell. Determined by the Simulation type.
      * @return next state of cell
      */
-    public abstract Cell getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors);
+    public abstract int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors);
 
 
     /**
@@ -38,6 +38,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
     public void setNextGrid(Cell[][] grid){
         myNextGrid = grid;
     }
+
     /**
      * Returns a list of the neighboring cells of cell. Based on
      * @param cell cell to get neighbors of
@@ -45,6 +46,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * @return list of the neighbors of cell in grid.
      */
     public ArrayList<Cell> getNeighbors(Cell cell, Cell[][] grid) {
+
         ArrayList<Cell> neighbors = new ArrayList<Cell>();
         int cellRow = cell.getRow();
         int cellCol = cell.getCol();
@@ -55,11 +57,12 @@ public abstract class Simulation { // since this doesn't have any instance varia
         for (Point rc: myPossibleNeighbors){
                 cellNeighborRow = cellRow + (int) rc.getX();
                 cellNeighborCol = cellCol + (int) rc.getY();
-                if (isSafe(cellNeighborRow, cellNeighborCol, grid)) {
+                if (isSafe(cellNeighborRow, cellNeighborCol)) {
                     neighbors.add(grid[cellNeighborRow][cellNeighborCol]);
                 }
         }
         return neighbors;
+
     }
 
 
@@ -74,14 +77,14 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * Updates myNextGrid based on myCurrentGrid
      */
     public void update(){
-        Cell myCell;
+        Cell currentCell;
         ArrayList<Cell> neighbors;
         for (int row = 0; row < myCurrentGrid.length; row++){
             for (int col = 0; col < myCurrentGrid[0].length; col++){
-                //myCell = new Cell(i, j, myCellSize, myCurrentState[i][j].getState());
-                myCell = myCurrentGrid[row][col];
-                neighbors = getNeighbors(myCell, myNextGrid);
-                myNextGrid[row][col] = getNextStateOfCell(myCell, neighbors);
+                currentCell = myCurrentGrid[row][col];
+                neighbors = getNeighbors(currentCell, myNextGrid);
+                currentCell.setState(getNextStateOfCell(currentCell, neighbors));
+                currentCell.setColor(myColorLookupTable.get(currentCell.getState()));
             }
         }
     }
@@ -90,17 +93,16 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * Checks if the row and col are "safe" in grid. Must be in bounds and the state of the Cell must not be -1
      * @param row
      * @param col
-     * @param grid
      * @return true if the row and col are "safe"
      */
-    public boolean isSafe(int row, int col, Cell[][] grid){
-        int gridRowMax = grid.length;
-        int gridColMax = grid[0].length;
+    public boolean isSafe(int row, int col){
+        int gridRowMax = myCurrentGrid.length;
+        int gridColMax = myCurrentGrid[0].length;
         if (!((row >= 0 && row < gridRowMax) && (col >= 0 && col < gridColMax))){
             return false;
         }
 
-        int cellState = grid[row][col].getState();
+        int cellState = myCurrentGrid[row][col].getState();
 
         return (cellState != -1);
     }

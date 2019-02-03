@@ -48,10 +48,11 @@ public class SpreadingOfFire extends Simulation {
         myNextGrid = next;
     }
 
-    public Cell getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
+    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         int numFire = 0;
         int numEmpty = 0;
-        Cell cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 0);
+        int nextState = 0;
+        //Cell cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 0);
 
         for (Cell neighbor : neighbors) {
             if (neighbor.getState() == 2)
@@ -59,24 +60,25 @@ public class SpreadingOfFire extends Simulation {
         }
 
         if (cell.getState() == 0 && numFire == 0) {
-            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 0);
+            nextState = 0;
         }
-        if (cell.getState() == 0 && numFire > 0) {
+        else if (cell.getState() == 0 && numFire > 0) {
             randomInt = random.nextInt(100) + 1;
             if (randomInt <= (int)(probCatch * 100)) {
-                cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 2);
+                nextState = 2;
             } else {
-                cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 0);
+                nextState = 0;
             }
         }
-        if(cell.getState() == 2) {
-            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 1);
+        else if(cell.getState() == 2) {
+            nextState = 1;
         }
-        if(cell.getState() ==1){
-            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 1);
+        //else if (cell.getState() ==1){
+        else{
+            nextState = 1;
         }
 
-        return cellNextState;
+        return nextState;
     }
     /**
      * Returns an int that is mapped to a certain state
