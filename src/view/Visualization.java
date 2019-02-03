@@ -16,6 +16,7 @@ import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 import java.io.File;
+import javafx.scene.control.Alert;
 
 public class Visualization extends Application {
     private String Title = "Cell Automaton";
@@ -34,7 +35,7 @@ public class Visualization extends Application {
     private Scene myScene;
     private Grid myGrid;
     private Timeline animation;
-    public String filepath = " ";
+    public String filepath = "";
 
     //make button and set text and position
     private Button makeButton(String text, String file, int height, int width, int x, int y) {
@@ -114,6 +115,14 @@ public class Visualization extends Application {
         Button InitializeButton = makeButton("Initialize", InitializeButtonImage, 100, 100, 100, 900);
         BorderPane.setAlignment(InitializeButton, Pos.BASELINE_LEFT);
         InitializeButton.setOnMouseClicked((event)->{
+            if(filepath == ""){
+                System.out.println("aaaaaaaaaaaaaaaaaa");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Input Error");
+                alert.setHeaderText("No Input File");
+                alert.setContentText("Please Select Input XML file");
+                alert.show();
+            }
             setupGrid(filepath, GridDisplaySize, root);
         });
 
