@@ -52,14 +52,18 @@ public class Percolation extends Simulation {
             cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 2); //cell is born
 
         else { // if open, check if any neighbors are filled, if (cell.getState() == 1)
-            for(Cell neighbor: neighbors){
+            int state = 1;
+            for(Cell neighbor: neighbors) {
                 if (neighbor.getState() == 2) { // if neighbor is full, next cell is filled
-                    cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 2);
+                    state = 2;
                     break;
                 }
+
             }
-            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 1); // if no neighbors are filled, then just stay open
+            cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), state); // if no neighbors are filled, then just stay open
+
         }
+
         return cellNextState;
 
     }

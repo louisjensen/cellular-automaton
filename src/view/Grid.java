@@ -31,6 +31,7 @@ public class Grid { // make abstract later
             put("GameOfLife", new GameOfLife());
             //put("segregation", new Simulation);
             put("SpreadingOfFire", new SpreadingOfFire());
+            put("Percolation", new Percolation());
         }};
 
     public Grid(String filePath, int displaySize){
