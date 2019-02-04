@@ -10,9 +10,10 @@ import java.util.Random;
 
 public class PredatorPrey extends Simulation {
 
-    public HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
+    private HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("water",  0);
         put("fish",   1);
+        put("shark", 10);
     }};
 
     final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
@@ -40,7 +41,8 @@ public class PredatorPrey extends Simulation {
         myColorLookupTable = colorLookupTable;
         myMoreInfoLookupTable = moreInfoLookupTable;
         mySharkMaxLives = 5;
-        stateLookupTable.put("sharks", 2 * mySharkMaxLives);
+        myEnergyRequirement = 5;
+        //tateLookupTable.put("sharks", 2 * mySharkMaxLives);
 
 
     }
