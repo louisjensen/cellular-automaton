@@ -38,6 +38,8 @@ public class Visualization extends Application {
     private int FRAMES_PER_SECOND = 1;
     private final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+    private int BUTTON_SIZE = 100;
+    private int BUTTON_POS_X = 50;
     private Text SimulationTitle;
     private Text showCount;
     private Scene myScene;
@@ -65,15 +67,13 @@ public class Visualization extends Application {
     }
 
     private void step(double elapsedtime) {
-        System.out.println("Debugging");
         if(root != null) {
             root.getChildren().remove(myGrid.getGridPane());
             myGrid.updateGrid();
             if(myGrid.getMyCurrentState() != myGrid.getMyNextState()){
-                System.out.println("ddddddddddddddddddddddddd");
             }
             if(myGrid.checkGameEnding()){
-                System.out.println("Game has ended");
+                //System.out.println("Game has ended");
                 animation.stop();
                 makeGameEnding();
             }
@@ -97,7 +97,7 @@ public class Visualization extends Application {
         FileChooser fileChooser = new FileChooser();
         root.setPadding(new Insets(15, 20, 10, 10));
 
-        Button FileUploadButton = makeButton("UploadFile", FileUploadButtonImage, 100, 100, 50, 150);
+        Button FileUploadButton = makeButton("UploadFile", FileUploadButtonImage, 150);
         BorderPane.setAlignment(FileUploadButton, Pos.TOP_LEFT);
         FileUploadButton.setOnMouseClicked(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
@@ -107,7 +107,7 @@ public class Visualization extends Application {
             }
         });
 
-        Button StepButton = makeButton("Debug", StepButtonImage, 100, 100, 50, 950);
+        Button StepButton = makeButton("Debug", StepButtonImage, 950);
         StepButton.setOnMouseClicked((event)->{
                     root.getChildren().remove(myGrid.getGridPane());
                     myGrid.updateGrid();
@@ -117,9 +117,9 @@ public class Visualization extends Application {
         });
 
 
-        Button PlayButton = makeButton("Play", PlayButtonImage, 100,100, 50, 300);
+        Button PlayButton = makeButton("Play", PlayButtonImage,  300);
         PlayButton.setOnMouseClicked((event)->{
-            if(filepath == ""){
+            if(filepath.equals("")){
                 makeAlert();
             }
             if(myGrid == null){
@@ -131,9 +131,9 @@ public class Visualization extends Application {
 
         });
 
-        Button FastForwardButton = makeButton("FastForward", FastForwardButtonImage, 100, 100, 50, 450);
+        Button FastForwardButton = makeButton("FastForward", FastForwardButtonImage,  450);
         FastForwardButton.setOnMouseClicked((event)->{
-            if(filepath == ""){
+            if(filepath.equals("")){
                 makeAlert();
             }
             if(myGrid == null){
@@ -145,10 +145,10 @@ public class Visualization extends Application {
 
         });
 
-        Button PauseButton = makeButton("Pause", PauseButtonImage, 100, 100, 50, 600);
+        Button PauseButton = makeButton("Pause", PauseButtonImage,  600);
         BorderPane.setAlignment(PauseButton, Pos.CENTER);
         PauseButton.setOnMouseClicked((event)->{
-            if(filepath == ""){
+            if(filepath.equals("")){
                 makeAlert();
             }
             if(myGrid == null){
@@ -159,10 +159,10 @@ public class Visualization extends Application {
             }
         });
 
-        Button ResetButton = makeButton("Reset", ResetButtonImage, 100,100, 50, 750);
+        Button ResetButton = makeButton("Reset", ResetButtonImage,  750);
         BorderPane.setAlignment(ResetButton, Pos.BASELINE_LEFT);
         ResetButton.setOnMouseClicked((event)->{
-            if(filepath == ""){
+            if(filepath.equals("")){
                 makeAlert();
             }
             else {
@@ -171,10 +171,10 @@ public class Visualization extends Application {
 
         });
 
-        Button InitializeButton = makeButton("Initialize", InitializeButtonImage, 100, 100, 50, 900);
+        Button InitializeButton = makeButton("Initialize", InitializeButtonImage, 900);
         BorderPane.setAlignment(InitializeButton, Pos.BASELINE_LEFT);
         InitializeButton.setOnMouseClicked((event)->{
-            if(filepath == ""){
+            if(filepath.equals("")){
                 makeAlert();
             }
             else{
@@ -184,7 +184,7 @@ public class Visualization extends Application {
                 setupGrid(filepath, GridDisplaySize, root);}
         });
 
-        showCount = MakeText(showCount, "Rounds: " + count, 850,975, fontsize1);
+        showCount = MakeText("Rounds: " + count, 850,975, fontsize1);
 
         root.getChildren().add(StepButton);
         root.getChildren().add(FileUploadButton);
@@ -200,13 +200,13 @@ public class Visualization extends Application {
     }
 
     //make button and set text and position
-    private Button makeButton(String text, String file, int height, int width, int x, int y) {
+    private Button makeButton(String text, String file, int y) {
         Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
         ImageView imageview = new ImageView(image);
-        imageview.setFitWidth(width);
-        imageview.setFitHeight(height);
+        imageview.setFitWidth(BUTTON_SIZE);
+        imageview.setFitHeight(BUTTON_SIZE);
         Button button = new Button(text,imageview);
-        button.setLayoutX(x);
+        button.setLayoutX(BUTTON_POS_X);
         button.setLayoutY(y);
         return button;
     }
@@ -236,7 +236,7 @@ public class Visualization extends Application {
     }
     private Grid setupGrid(String filepath, int displaysize, BorderPane root){
         myGrid = new Grid(filepath, displaysize);
-        SimulationName = MakeText(SimulationTitle, myGrid.getSimulationName(),  400, 100, fontsize2);
+        SimulationName = MakeText(myGrid.getSimulationName(),  400, 100, fontsize2);
         myGrid.getGridPane().setVisible(true);
         myGrid.getGridPane().setLayoutX(200);
         myGrid.getGridPane().setLayoutY(150);
@@ -246,8 +246,8 @@ public class Visualization extends Application {
         return myGrid;
     }
 
-    private Text MakeText(Text text, String message, int x, int y, int FontSize) {
-        text = new Text();
+    private Text MakeText(String message, int x, int y, int FontSize) {
+        Text text = new Text();
         text.setX(x);
         text.setY(y);
         text.setFont(Font.font("Times New Roman", FontSize));
