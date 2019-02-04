@@ -46,20 +46,13 @@ public class GameOfLife extends Simulation{
 
     @Override
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
-        int numDead = 0;
         int numAlive = 0;
         int nextState;
-        //System.out.println("hi");
 
         for (Cell neighbor: neighbors){
-            if (neighbor.getState() == 0)
-                numDead ++;
-            else if (neighbor.getState() == 1)
+            if (neighbor.getState() == 1)
                 numAlive ++;
         }
-        //System.out.println("bye");
-
-
         if (numAlive <= 1) //Any live cell with fewer than two live neighbors dies, as if by underpopulation.
             nextState = 0; //cell dies
         else if (numAlive == 2 || numAlive == 3) //Any live cell with two or three live neighbors lives on to the next generation.
@@ -71,19 +64,6 @@ public class GameOfLife extends Simulation{
 
         return nextState;
     }
-
-  /*  public void update(){
-        Cell myCell;
-        ArrayList<Cell> neighbors;
-        for (int row = 0; row < myCurrentGrid.length; row++){
-            for (int col = 0; col < myCurrentGrid[0].length; col++){
-                //myCell = new Cell(i, j, myCellSize, myCurrentState[i][j].getState());
-                myCell = myCurrentGrid[row][col];
-                neighbors = getNeighbors(myCell, myNextGrid);
-                myNextGrid[row][col] = getNextStateOfCell(myCell, neighbors);
-            }
-        }
-    } */
 
 }
 
