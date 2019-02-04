@@ -37,6 +37,10 @@ public class Visualization extends Application {
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private final static int BUTTON_SIZE = 100;
     private final static int BUTTON_POS_X = 50;
+    private final static int SimulationTitle_POS_X = 400;
+    private final static int SimulationTitle_POS_Y = 100;
+    private final static int GRID_POS_X = 200;
+    private final static int GRID_POS_Y = 150;
     private double AnimationSpeed;
     private Text showCount;
     private Scene myScene;
@@ -68,7 +72,6 @@ public class Visualization extends Application {
             root.getChildren().remove(myGrid.getGridPane());
             myGrid.updateGrid();
             if(myGrid.checkGameEnding()){
-                //System.out.println("Game has ended");
                 animation.stop();
                 makeGameEnding();
             }
@@ -97,8 +100,7 @@ public class Visualization extends Application {
         FileUploadButton.setOnMouseClicked(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
-                String filepath1 = selectedFile.toString();
-                filepath = filepath1;
+                filepath = selectedFile.toString();
             }
         });
 
@@ -235,10 +237,10 @@ public class Visualization extends Application {
     }
     private void setupGrid(String filepath,  BorderPane root){
         myGrid = new Grid(filepath, GridDisplaySize);
-        SimulationName = MakeText(myGrid.getSimulationName(),  400, 100, fontsize2);
+        SimulationName = MakeText(myGrid.getSimulationName(),  SimulationTitle_POS_X, SimulationTitle_POS_Y, fontsize2);
         myGrid.getGridPane().setVisible(true);
-        myGrid.getGridPane().setLayoutX(200);
-        myGrid.getGridPane().setLayoutY(150);
+        myGrid.getGridPane().setLayoutX(GRID_POS_X);
+        myGrid.getGridPane().setLayoutY(GRID_POS_Y);
         BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
         root.getChildren().add(SimulationName);
         root.getChildren().add(myGrid.getGridPane());
