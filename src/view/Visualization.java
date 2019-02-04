@@ -52,7 +52,7 @@ public class Visualization extends Application {
     private BorderPane root;
     private Timeline animation;
     private int count;
-    private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
+    private ResourceBundle myResources = ResourceBundle.getBundle("view.textForGui");
 
 
 
