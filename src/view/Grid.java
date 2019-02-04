@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.List;
 
-public class Grid { // make abstract later
+public class Grid {
 
     private Cell[][] myCurrentState;
     private Cell[][] myNextState;
@@ -27,13 +27,6 @@ public class Grid { // make abstract later
     private Random rand = new Random();
     int randInt;
     private XMLParser xml;
-
-  /*  final HashMap<String, Simulation> simulationLookupTable = new HashMap<String, Simulation>(){{
-            put("GameOfLife", new GameOfLife());
-            //put("segregation", new Simulation);
-         //   put("SpreadingOfFire", new SpreadingOfFire(xml.getRandomInfo()));
-            put("Percolation", new Percolation());
-        }}; */
 
     private Simulation getSimulation(String sim, HashMap<String, Double> map){
         if (sim.equals("GameOfLife")){
@@ -61,12 +54,8 @@ public class Grid { // make abstract later
         SimulationName = xml.getSimulationType();
         //construct grid from XML File
         myDisplaySize = displaySize;
-       // mySimulation = simulationLookupTable.get(xml.getSimulationType());
-      //  mySimulation = getSimulation(xml.getSimulationType(), xml.getRandomInfo());
         myGridWidth = xml.getGridX();
-        //myGridWidth = 20;// for testing
         myGridHeight = xml.getGridY();
-     //   myGridHeight = 20;// for testing
         myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
         myNextState = new Cell[myGridWidth][myGridHeight];
         mySimulation = getSimulation(xml.getSimulationType(), xml.getRandomInfo());
@@ -81,7 +70,7 @@ public class Grid { // make abstract later
      * returns myGridPane
      * @return GridPane that contains all of the cells
      */
-    public GridPane getGridPane() { // will depend on what type of grid it is
+    public GridPane getGridPane() {
         setGridPane();
         return myGridPane;
     }
@@ -113,15 +102,7 @@ public class Grid { // make abstract later
             }
         }
     }
-    private void initializeGrid(){ // FOR TESTING PURPOSES ONLY
-        for (int row = 0; row < myCurrentState.length; row ++){
-            for (int col = 0; col < myCurrentState[0].length; col ++){
-                myCurrentState[row][col] = new Cell(row, col, myCellSize, 1);
-            }
-        }
-    }
 
-    //because we make new cells each time this doesn't work -- need to find a way
     public boolean checkGameEnding(){
         for(int i=0; i<myGridWidth; i++){
             for(int j=0; j<myGridHeight; j++){
@@ -153,22 +134,9 @@ public class Grid { // make abstract later
 
     public void updateGrid(){
         mySimulation.update();
-     /*   Cell myCell;
-        ArrayList<Cell> neighbors;
-        for (int row = 0; row < myGridWidth; row++){
-            for (int col = 0; col < myGridHeight; col++){
-                //myCell = new Cell(i, j, myCellSize, myCurrentState[i][j].getState());
-                myCell = myCurrentState[row][col];
-                neighbors = mySimulation.getNeighbors(myCell, myCurrentState);
-                myNextState[row][col] = mySimulation.getNextStateOfCell(myCell, neighbors);
-            }
-        } */
     }
 
     public void initialize(){
-        //reread file and create a new grid
-      //  HashMap<String, Double> map = xml.getMap();
-      //  HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
         List<String> states = xml.getStates();
         List<Double> proportionStates = xml.getStateProportions();
         List<Integer> percentageStates = new ArrayList<>();
@@ -192,27 +160,6 @@ public class Grid { // make abstract later
             }
         }
 
-        /*
-        double propState1 = 0.1;
-        double propState2 = 0.1;
-        double propState3 = 0.8;
-        int numState1 = (int) (propState1 * 100);
-        int numState2 = (int) (propState2 * 100) + numState1;
-        int numState3 = (int) (propState3 * 100) + numState2;
-        for (int row = 0; row < myCurrentState.length; row ++){
-            for (int col = 0; col < myCurrentState[0].length; col ++){
-                    randInt = rand.nextInt(100) + 1;
-                    System.out.println(randInt);
-                    if(randInt < numState1) {
-                        myCurrentState[row][col] = new Cell(row, col, myCellSize, 1);
-                    } else if(randInt < numState2) {
-                        myCurrentState[row][col] = new Cell(row, col, myCellSize, 2);
-                    } else {
-                        myCurrentState[row][col] = new Cell(row, col, myCellSize, 3);
-                    }
-            }
-        }
-        */
     }
 
 }

@@ -46,7 +46,6 @@ public class Percolation extends Simulation {
     @Override
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         int nextState;
-        //Cell cellNextState;
 
         if (cell.getState() == 0) // if closed, then always closed
             nextState = 0; //cell is born
@@ -61,13 +60,9 @@ public class Percolation extends Simulation {
                     state = 2;
                     break;
                 }
-
             }
             nextState = state; // if no neighbors are filled, then just stay open
-
         }
-
         return nextState;
-
     }
 }
