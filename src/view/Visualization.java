@@ -171,7 +171,7 @@ public class Visualization extends Application {
             }
         });
 
-        Button ResetButton = makeButton(RESET_TEXT, ResetButtonImage,  750);
+        Button ResetButton = makeButton(RESET_TEXT, ResetButtonImage,  900);
         BorderPane.setAlignment(ResetButton, Pos.BASELINE_LEFT);
         ResetButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
@@ -184,7 +184,7 @@ public class Visualization extends Application {
 
         });
 
-        Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, 900);
+        Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, 750);
         BorderPane.setAlignment(InitializeButton, Pos.BASELINE_LEFT);
         InitializeButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
