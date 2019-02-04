@@ -42,6 +42,7 @@ public class Visualization extends Application {
     private final static int SimulationTitle_POS_Y = 100;
     private final static int GRID_POS_X = 200;
     private final static int GRID_POS_Y = 150;
+    private final String DEFAULT_FONT = "Times New Roman";
     private double AnimationSpeed;
     private Text showCount;
     private Scene myScene;
@@ -254,7 +255,7 @@ public class Visualization extends Application {
         Text text = new Text();
         text.setX(x);
         text.setY(y);
-        text.setFont(Font.font(myResources.getString("DEFAULT_FONT"), FontSize));
+        text.setFont(Font.font(DEFAULT_FONT, FontSize));
         text.setText(message);
         text.setFill(Color.BLACK);
         return text;
