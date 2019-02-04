@@ -93,7 +93,7 @@ public class Segregation extends Simulation {
         ArrayList<Cell> neighbors;
         for(int i=0 ; i<myCurrentGrid.length ; i ++){
             for(int j=0; j<myCurrentGrid[0].length; j++){
-                neighbors = getNeighbors(myCurrentGrid[i][j], myCurrentGrid);
+                neighbors = getNeighbors(myCurrentGrid[i][j]);
                 if (!AreYouSatisfied(myCurrentGrid[i][j], neighbors)){
                     DissatisfiedCells.add(myCurrentGrid[i][j]);
                 }

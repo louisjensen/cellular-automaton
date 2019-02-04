@@ -9,7 +9,7 @@
         <property>red 0.45</property>
     </specifics>
     <moreInfo>
-        <info>tolerance 0.64</info>
+        <info>tolerance 0.8</info>
     </moreInfo>
     <author>Louis Jensen</author>
 </simulation>

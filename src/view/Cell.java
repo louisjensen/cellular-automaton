@@ -11,7 +11,7 @@ public class Cell{
     private int myState;
     private int mySize; // length/width (it is a square)
     private Rectangle myImage;
-    private Paint color;
+    private int myEnergy;
 
     public Cell(int row, int col, int size, int state){
         myRow = row;
@@ -20,6 +20,16 @@ public class Cell{
         myState = state;
         myImage = new Rectangle(mySize, mySize, Color.WHITE);
         myImage.setStroke(Color.BLACK);
+    }
+
+    public Cell(int row, int col, int size, int state, int energy){
+        myRow = row;
+        myCol = col;
+        mySize = size;
+        myState = state;
+        myImage = new Rectangle(mySize, mySize, Color.WHITE);
+        myImage.setStroke(Color.BLACK);
+        myEnergy = energy;
     }
 
     public int getRow(){
@@ -46,5 +56,13 @@ public class Cell{
 
     public void setState(int state){
         myState = state;
+    }
+
+    public void decreaseEnergy(){
+        myEnergy -= 2;
+    }
+
+    public void setEnergy(int energy){
+        myEnergy = energy;
     }
 }

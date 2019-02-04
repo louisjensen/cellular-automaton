@@ -42,10 +42,9 @@ public abstract class Simulation { // since this doesn't have any instance varia
     /**
      * Returns a list of the neighboring cells of cell. Based on
      * @param cell cell to get neighbors of
-     * @param grid entire grid of cells
      * @return list of the neighbors of cell in grid.
      */
-    public ArrayList<Cell> getNeighbors(Cell cell, Cell[][] grid) {
+    public ArrayList<Cell> getNeighbors(Cell cell) {
 
         ArrayList<Cell> neighbors = new ArrayList<Cell>();
         int cellRow = cell.getRow();
@@ -58,7 +57,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
                 cellNeighborRow = cellRow + (int) rc.getX();
                 cellNeighborCol = cellCol + (int) rc.getY();
                 if (isSafe(cellNeighborRow, cellNeighborCol)) {
-                    neighbors.add(grid[cellNeighborRow][cellNeighborCol]);
+                    neighbors.add(myCurrentGrid[cellNeighborRow][cellNeighborCol]);
                 }
         }
         return neighbors;
@@ -92,7 +91,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
                 //System.out.println(cellToUpdate);
                 //System.out.println(currentCell);
 
-                neighbors = getNeighbors(currentCell, myCurrentGrid);
+                neighbors = getNeighbors(currentCell);
                 //for (Cell cell: neighbors){
                 //    System.out.println(cell.getRow() + ", " + cell.getCol());
                 //}
