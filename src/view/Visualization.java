@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import java.io.File;
 import javafx.scene.control.Alert;
@@ -29,49 +28,45 @@ public class Visualization extends Application {
     private String InitializeButtonImage = "InitializeButton.png";
     private String FastForwardButtonImage = "FastForwardButton.png";
     private String StepButtonImage = "step.png";
-    private static final Paint BACKGROUND = Color.AZURE;
     private static final int fontsize2 = 50;
     private static final int fontsize1 = 25;
     private static final int GridDisplaySize = 750;
     private static final int ScreenWIDTH = 1000;
     private static final int ScreenHEIGHT = 1000;
-    private int FRAMES_PER_SECOND = 1;
-    private final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    private final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-    private int BUTTON_SIZE = 100;
-    private int BUTTON_POS_X = 50;
-    private Text SimulationTitle;
+    private static final int FRAMES_PER_SECOND = 1;
+    private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+    private final static int BUTTON_SIZE = 100;
+    private final static int BUTTON_POS_X = 50;
+    private double AnimationSpeed;
     private Text showCount;
     private Scene myScene;
     private Grid myGrid;
     private Text SimulationName;
-    public String filepath = "";
+    private String filepath = "";
     private BorderPane root;
     private Timeline animation;
     private int count;
 
     public void start (Stage stage) {
-        myScene = setupVisualization(stage, BACKGROUND);
+        myScene = setupVisualization(stage);
         stage.setScene(myScene);
         stage.setTitle(Title);
         stage.setResizable(false);
         stage.show();
-        setAnimation(stage);
+        setAnimation();
     }
 
-    private void setAnimation(Stage stage){
-        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+    private void setAnimation(){
+        KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
     }
 
-    private void step(double elapsedtime) {
+    private void step() {
         if(root != null) {
             root.getChildren().remove(myGrid.getGridPane());
             myGrid.updateGrid();
-            if(myGrid.getMyCurrentState() != myGrid.getMyNextState()){
-            }
             if(myGrid.checkGameEnding()){
                 //System.out.println("Game has ended");
                 animation.stop();
@@ -91,7 +86,7 @@ public class Visualization extends Application {
         showCount.setText("Rounds: " + count);
     }
 
-    private Scene setupVisualization(Stage stage, Paint backgorund) {
+    private Scene setupVisualization(Stage stage) {
         root = new BorderPane();
         Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT);
         FileChooser fileChooser = new FileChooser();
@@ -140,7 +135,8 @@ public class Visualization extends Application {
                 makeInitialize();
             }
             else {
-                FRAMES_PER_SECOND *= 50;
+                AnimationSpeed += 1;
+                animation.setRate(AnimationSpeed);
             }
 
         });
@@ -166,7 +162,8 @@ public class Visualization extends Application {
                 makeAlert();
             }
             else {
-                FRAMES_PER_SECOND = 1;
+                AnimationSpeed =1;
+                animation.setRate(AnimationSpeed);
             }
 
         });
@@ -178,10 +175,12 @@ public class Visualization extends Application {
                 makeAlert();
             }
             else{
+                AnimationSpeed =1;
+                animation.setRate(AnimationSpeed);
                 count =0;
                 root.getChildren().remove(myGrid);
                 root.getChildren().remove(SimulationName);
-                setupGrid(filepath, GridDisplaySize, root);}
+                setupGrid(filepath, root);}
         });
 
         showCount = MakeText("Rounds: " + count, 850,975, fontsize1);
@@ -234,8 +233,8 @@ public class Visualization extends Application {
         alert.setContentText("This is the final state. Press Reset Button");
         alert.show();
     }
-    private Grid setupGrid(String filepath, int displaysize, BorderPane root){
-        myGrid = new Grid(filepath, displaysize);
+    private void setupGrid(String filepath,  BorderPane root){
+        myGrid = new Grid(filepath, GridDisplaySize);
         SimulationName = MakeText(myGrid.getSimulationName(),  400, 100, fontsize2);
         myGrid.getGridPane().setVisible(true);
         myGrid.getGridPane().setLayoutX(200);
@@ -243,7 +242,6 @@ public class Visualization extends Application {
         BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
         root.getChildren().add(SimulationName);
         root.getChildren().add(myGrid.getGridPane());
-        return myGrid;
     }
 
     private Text MakeText(String message, int x, int y, int FontSize) {
