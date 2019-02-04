@@ -87,7 +87,7 @@ public class PredatorPrey extends Simulation {
         return (n % 2 == 0);
     }
 
-    private void removeNonFish(ArrayList<Cell> neighbors){
+    private void removeNonFishAndOccupiedCells(ArrayList<Cell> neighbors){
         for (Cell cell: neighbors){
             if (isFish(cell) && )
         }
