@@ -36,7 +36,6 @@ public class Segregation extends Simulation {
 
     private double myTolerance;
     private Random random = new Random();
-    int randomInt;
 
     public Segregation(HashMap<String, Double> moreInfoLookupTable){
         myPossibleNeighbors = possibleNeighbors;
@@ -93,7 +92,7 @@ public class Segregation extends Simulation {
         ArrayList<Cell> EmptyCells = new ArrayList<Cell>();
         ArrayList<Cell> neighbors;
         for(int i=0 ; i<myCurrentGrid.length ; i ++){
-            for(int j=0; j<myCurrentGrid.length; j++){
+            for(int j=0; j<myCurrentGrid[0].length; j++){
                 neighbors = getNeighbors(myCurrentGrid[i][j], myCurrentGrid);
                 if (!AreYouSatisfied(myCurrentGrid[i][j], neighbors)){
                     DissatisfiedCells.add(myCurrentGrid[i][j]);
@@ -107,23 +106,33 @@ public class Segregation extends Simulation {
         System.out.println(DissatisfiedCells.size());
         System.out.println(EmptyCells.size());
         Cell cellEmpty;
+        Cell cellMoving;
         Cell nextStateMove;
         Cell nextStateEmpty;
+        int randomIntEmpty;
+        int randomIntMoving;
+        int emptyCellsSize;
+        int dissatisfiedCellsSize;
 
 
         if(!DissatisfiedCells.isEmpty()){
-            for(Cell MovingCell: DissatisfiedCells){
+            //for(Cell MovingCell: DissatisfiedCells){
+            for (int i = 0; i < DissatisfiedCells.size(); i++){
+                dissatisfiedCellsSize = DissatisfiedCells.size();
+                randomIntMoving = random.nextInt(dissatisfiedCellsSize);
+                cellMoving = DissatisfiedCells.get(randomIntMoving);
                 if(!EmptyCells.isEmpty()){
-                    int emptynumber = EmptyCells.size();
-                    randomInt = random.nextInt(emptynumber);
-                    cellEmpty = EmptyCells.get(randomInt);
+                    emptyCellsSize = EmptyCells.size();
+                    randomIntEmpty = random.nextInt(emptyCellsSize);
+                    cellEmpty = EmptyCells.get(randomIntEmpty);
                     nextStateMove = myNextGrid[cellEmpty.getRow()][cellEmpty.getCol()];
-                    nextStateEmpty = myNextGrid[MovingCell.getRow()][MovingCell.getCol()];
+                    nextStateEmpty = myNextGrid[cellMoving.getRow()][cellMoving.getCol()];
 
-                    nextStateMove.setState(MovingCell.getState());
+                    nextStateMove.setState(cellMoving.getState());
                     nextStateEmpty.setState(0);
                     EmptyCells.remove(cellEmpty);
                 }
+                DissatisfiedCells.remove(cellMoving);
             }
         }
 
