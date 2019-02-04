@@ -52,9 +52,18 @@ public class Visualization extends Application {
     private BorderPane root;
     private Timeline animation;
     private int count;
-    private ResourceBundle myResources = ResourceBundle.getBundle("view.textForGui");
+    //private ResourceBundle myResources = ResourceBundle.getBundle("view.textForGui");
 
 
+   // private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
+   private final String COUNT_TEXT = "Rounds: ";
+    private final String UPLOAD_TEXT = "UploadFile";
+    private final String STEP_TEXT = "Debug";
+    private final String PLAY_TEXT = "Play";
+    private final String FAST_FORWARD_TEXT = "FastForward";
+    private final String PAUSE_TEXT = "Pause";
+    private final String RESET_TEXT = "Reset";
+    private final String INITIALIZE_TEXT = "Initialize";
 
     public void start (Stage stage) {
         myScene = setupVisualization(stage);
@@ -91,7 +100,7 @@ public class Visualization extends Application {
             root.getChildren().add(myGrid.getGridPane());
         }
 
-        showCount.setText(myResources.getString("COUNT_TEXT") + count);
+        showCount.setText(COUNT_TEXT + count);
     }
 
     private Scene setupVisualization(Stage stage) {
@@ -100,7 +109,7 @@ public class Visualization extends Application {
         FileChooser fileChooser = new FileChooser();
         root.setPadding(new Insets(15, 20, 10, 10));
 
-        Button FileUploadButton = makeButton(myResources.getString("UPLOAD_TEXT"), FileUploadButtonImage, 150);
+        Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, 150);
         BorderPane.setAlignment(FileUploadButton, Pos.TOP_LEFT);
         FileUploadButton.setOnMouseClicked(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
@@ -109,17 +118,17 @@ public class Visualization extends Application {
             }
         });
 
-        Button StepButton = makeButton(myResources.getString("STEP_TEXT"), StepButtonImage, 950);
+        Button StepButton = makeButton(STEP_TEXT, StepButtonImage, 950);
         StepButton.setOnMouseClicked((event)->{
-                    root.getChildren().remove(myGrid.getGridPane());
-                    myGrid.updateGrid();
-                    count ++;
-                    myGrid.setGridPane();
-                    root.getChildren().add(myGrid.getGridPane());
+            root.getChildren().remove(myGrid.getGridPane());
+            myGrid.updateGrid();
+            count ++;
+            myGrid.setGridPane();
+            root.getChildren().add(myGrid.getGridPane());
         });
 
 
-        Button PlayButton = makeButton(myResources.getString("PLAY_TEXT"), PlayButtonImage,  300);
+        Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  300);
         PlayButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -133,7 +142,7 @@ public class Visualization extends Application {
 
         });
 
-        Button FastForwardButton = makeButton(myResources.getString("FAST_FORWARD_TEXT"), FastForwardButtonImage,  450);
+        Button FastForwardButton = makeButton(FAST_FORWARD_TEXT, FastForwardButtonImage,  450);
         FastForwardButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -148,7 +157,7 @@ public class Visualization extends Application {
 
         });
 
-        Button PauseButton = makeButton(myResources.getString("PAUSE_TEXT"), PauseButtonImage,  600);
+        Button PauseButton = makeButton(PAUSE_TEXT, PauseButtonImage,  600);
         BorderPane.setAlignment(PauseButton, Pos.CENTER);
         PauseButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
@@ -162,7 +171,7 @@ public class Visualization extends Application {
             }
         });
 
-        Button ResetButton = makeButton(myResources.getString("RESET_TEXT"), ResetButtonImage,  750);
+        Button ResetButton = makeButton(RESET_TEXT, ResetButtonImage,  750);
         BorderPane.setAlignment(ResetButton, Pos.BASELINE_LEFT);
         ResetButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
@@ -175,7 +184,7 @@ public class Visualization extends Application {
 
         });
 
-        Button InitializeButton = makeButton(myResources.getString("INITIALIZE_TEXT"), InitializeButtonImage, 900);
+        Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, 900);
         BorderPane.setAlignment(InitializeButton, Pos.BASELINE_LEFT);
         InitializeButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
@@ -190,7 +199,7 @@ public class Visualization extends Application {
                 setupGrid(filepath, root);}
         });
 
-        showCount = MakeText(myResources.getString("COUNT_TEXT") + count, 850,975, fontsize1);
+        showCount = MakeText(COUNT_TEXT + count, 850,975, fontsize1);
 
         root.getChildren().add(StepButton);
         root.getChildren().add(FileUploadButton);
@@ -219,25 +228,25 @@ public class Visualization extends Application {
 
     private void makeAlert(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(myResources.getString("InputError"));
-        alert.setHeaderText(myResources.getString("NoInputFile"));
-        alert.setContentText(myResources.getString("SelectFile"));
+        alert.setTitle("Input Error");
+        alert.setHeaderText("No Input File");
+        alert.setContentText("Please Select Input XML file");
         alert.show();
     }
 
     private void makeInitialize(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(myResources.getString("InitError"));
-        alert.setHeaderText(myResources.getString("NoGrid"));
-        alert.setContentText(myResources.getString("PleaseInit"));
+        alert.setTitle("Initialization Error");
+        alert.setHeaderText("No Grid on Screen");
+        alert.setContentText("Please Initialize the Grid first");
         alert.show();
     }
 
     private void makeGameEnding(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(myResources.getString("SimOver"));
-        alert.setHeaderText(myResources.getString("FinState"));
-        alert.setContentText(myResources.getString("ItsOver"));
+        alert.setTitle("Simulation Over");
+        alert.setHeaderText("Final State");
+        alert.setContentText("This is the final state. Press Reset Button");
         alert.show();
     }
     private void setupGrid(String filepath,  BorderPane root){
