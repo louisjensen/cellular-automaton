@@ -121,7 +121,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
 
         int cellState = myCurrentGrid[row][col].getState();
 
-        return (cellState != -1);
+        return (cellState != -2);
     }
 
     public HashMap<Integer, Color> getMyColorLookupTable(){

@@ -9,8 +9,8 @@ import java.util.HashMap;
 public class Percolation extends Simulation {
 
     final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
-        put("closed", 0);
-        put("opened", 1);
+        put("opened", 0);
+        put("closed", 1);
         put("filled", 2);
     }};
 

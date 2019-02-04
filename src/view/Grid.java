@@ -140,6 +140,7 @@ public class Grid {
         List<String> states = xml.getStates();
         List<Double> proportionStates = xml.getStateProportions();
         List<Integer> percentageStates = new ArrayList<>();
+        HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
         int currentTotal = 0;
         int percentage;
         for (int i = 0; i < proportionStates.size(); i++){
@@ -152,8 +153,8 @@ public class Grid {
                 randInt = rand.nextInt(100) + 1;
                 for (int k = 0; k < percentageStates.size(); k++){
                     if(randInt <= percentageStates.get(k)) {
-                        myCurrentState[i][j] = new Cell(i, j, myCellSize, k);
-                        myNextState[i][j] = new Cell(i, j, myCellSize, k);
+                        myCurrentState[i][j] = new Cell(i, j, myCellSize, stateLookupTable.get(states.get(k)));
+                        myNextState[i][j] = new Cell(i, j, myCellSize, stateLookupTable.get(states.get(k)));
                         break;
                     }
                 }
