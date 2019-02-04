@@ -52,6 +52,9 @@ public class Visualization extends Application {
     private BorderPane root;
     private Timeline animation;
     private int count;
+    //private ResourceBundle myResources = ResourceBundle.getBundle("view.textForGui");
+
+
    // private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
    private final String COUNT_TEXT = "Rounds: ";
     private final String UPLOAD_TEXT = "UploadFile";

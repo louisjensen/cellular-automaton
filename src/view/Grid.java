@@ -41,9 +41,9 @@ public class Grid {
         if(sim.equals("Segregation")){
             return new Segregation(map);
         }
-       /* if(sim.equals("PredatorPrey")){
+       if(sim.equals("PredatorPrey")){
             return new PredatorPrey(map);
-        }*/
+        }
         return null;
     }
 
@@ -91,14 +91,14 @@ public class Grid {
                 }
             }
         }
-        moveNexttoCurrent();
+        //moveNexttoCurrent();
     }
 
     private void moveNexttoCurrent() {
         for (int row = 0; row < myCurrentState.length; row++) {
             for (int col = 0; col < myCurrentState[0].length; col++) {
                 myCurrentState[row][col].setState(myNextState[row][col].getState());
-                //myNextState[row][col].setState(-1);
+                myNextState[row][col].setState(-1);
             }
         }
     }
@@ -134,12 +134,14 @@ public class Grid {
 
     public void updateGrid(){
         mySimulation.update();
+        moveNexttoCurrent();
     }
 
     public void initialize(){
         List<String> states = xml.getStates();
         List<Double> proportionStates = xml.getStateProportions();
         List<Integer> percentageStates = new ArrayList<>();
+        HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
         int currentTotal = 0;
         int percentage;
         for (int i = 0; i < proportionStates.size(); i++){
@@ -152,8 +154,8 @@ public class Grid {
                 randInt = rand.nextInt(100) + 1;
                 for (int k = 0; k < percentageStates.size(); k++){
                     if(randInt <= percentageStates.get(k)) {
-                        myCurrentState[i][j] = new Cell(i, j, myCellSize, k);
-                        myNextState[i][j] = new Cell(i, j, myCellSize, k);
+                        myCurrentState[i][j] = new Cell(i, j, myCellSize, stateLookupTable.get(states.get(k)));
+                        myNextState[i][j] = new Cell(i, j, myCellSize, -1);
                         break;
                     }
                 }

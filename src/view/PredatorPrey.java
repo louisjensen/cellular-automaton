@@ -1,4 +1,4 @@
-/*
+
 package view;
 
 import javafx.scene.paint.Color;
@@ -6,13 +6,14 @@ import javafx.scene.paint.Color;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class PredatorPrey extends Simulation {
 
-    final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
+    private HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("water",  0);
         put("fish",   1);
-        put("sharks", 2);
+        put("shark", 10);
     }};
 
     final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
@@ -28,8 +29,10 @@ public class PredatorPrey extends Simulation {
         add(new Point(-1, 0));
     }};
 
-    private int energyRequirement;
+    private int myEnergyRequirement; //number of rounds needed to pass before reproduction;
+    private int mySharkMaxLives; // shark will die if its lives reaches zero.
     // special state: unoccupied = -2. Where a shark died and no one can move into that space until the next turn. Turns into water after all fish and shark are done updating
+    private int myRoundsPassed;
 
 
     public PredatorPrey(HashMap<String, Double> moreInfoLookupTable){
@@ -37,6 +40,11 @@ public class PredatorPrey extends Simulation {
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
         myMoreInfoLookupTable = moreInfoLookupTable;
+        mySharkMaxLives = 5;
+        myEnergyRequirement = 5;
+        //tateLookupTable.put("sharks", 2 * mySharkMaxLives);
+
+
     }
 
     public int getState(String stateString){
@@ -53,18 +61,39 @@ public class PredatorPrey extends Simulation {
     @Override
     public void update(){
         Cell current;
+        Cell next;
+        Cell randomCell;
         ArrayList<Cell> neighbors;
+        Random random = new Random();
+        int randomIntMoving;
+
+        // FOR SHARKS
         for (int row = 0; row < myCurrentGrid.length; row ++){
             for (int col = 0; col < myCurrentGrid[0].length; col ++){
                 current = myCurrentGrid[row][col];
                 if (isShark(current)){
-                    if (calculateEnergy(current) == 0){ // shark has no energy, dies
-                        myNextGrid[row][col].setState(-2);
+                    if (calculateSharkLives(current) == 0){ // shark has no energy, dies
+                        myNextGrid[row][col].setState(0);
                     }
                     else {
                         neighbors = getNeighbors(current); // possible spaces to move to
+                        removeOccupiedCells(neighbors);
                         if (doesContainFish(neighbors)){
                             removeNonFish(neighbors); // if there's a fish in neighbors, remove any non fish. Also if another shark is in that space in next state (aka the other shark ate the fish, then also remove that cell
+                        }
+                        if (!neighbors.isEmpty()) { // if movement occurs
+                            randomIntMoving = random.nextInt(neighbors.size()); // now pick a random available neighbor to move to
+                            randomCell = neighbors.get(randomIntMoving);
+                            next = myNextGrid[randomCell.getRow()][randomCell.getCol()];
+                            if (isFish(randomCell)) { // shark consumes fish
+                                next.setState(livesToSharkState(mySharkMaxLives)); // shark energy resets
+                                randomCell.setState(0); // make a fish a water
+                            } else { // make shark lose one life for not consuming a fish
+                                next.setState(current.getState() - 2); // lose one life (
+                            }
+                            if (isItTime()){ // reproduce
+                                myNextGrid[current.getRow()][current.getCol()].setState(livesToSharkState(mySharkMaxLives)); // make this a shark with max lives
+                            }
                         }
                     }
 
@@ -72,34 +101,95 @@ public class PredatorPrey extends Simulation {
 
             }
         }
+
+        //FISH
+        for (int row = 0; row < myCurrentGrid.length; row ++) {
+            for (int col = 0; col < myCurrentGrid[0].length; col++) {
+                current = myCurrentGrid[row][col];
+                if (isFish(current)){
+                    neighbors = getNeighbors(current); // possible spaces to move to
+                    removeOccupiedCells(neighbors);
+                    removeNonWater(neighbors);
+
+                    if (!neighbors.isEmpty()) { // if movement occurs
+                        randomIntMoving = random.nextInt(neighbors.size()); // now pick a random available neighbor to move to
+                        randomCell = neighbors.get(randomIntMoving);
+                        next = myNextGrid[randomCell.getRow()][randomCell.getCol()];
+                        next.setState(1);
+                        if (isItTime()){
+                            myNextGrid[current.getRow()][current.getCol()].setState(1); // leave a fish behind
+                        }
+                    }
+                }
+            }
+        }
+
+        myRoundsPassed ++;
+
+
+
     }
+
+
 
     private boolean isShark(Cell cell){
         int state = cell.getState();
-        return (!isEven(state) && state != 0); // odd is shark
+        return (isEven(state) && state != 0); // even is shark
     }
     private boolean isFish(Cell cell){
         int state = cell.getState();
-        return (isEven(state) && state != 0); // even is fish
+        return (state == 1); // 1 is fish
     }
 
     private boolean isEven(int n){
         return (n % 2 == 0);
     }
 
-    private void removeNonFish(ArrayList<Cell> neighbors){
+    private void removeOccupiedCells(ArrayList<Cell> neighbors){
+        ArrayList<Cell> toRemove = new ArrayList<Cell>();
         for (Cell cell: neighbors){
-            if (isFish(cell) && )
+            if (ifOccupiedInNextState(cell)){ // if the
+                toRemove.add(cell);
+            }
+        }
+        for (Cell cell: toRemove){
+            neighbors.remove(cell);
         }
     }
 
-    private boolean checkIfOccupiedInNextState(Cell cell){
+    private void removeNonFish(ArrayList<Cell> neighbors){
+        ArrayList<Cell> toRemove = new ArrayList<Cell>();
+
+        for (Cell cell: neighbors){
+            if (!isFish(cell)){
+                toRemove.add(cell);
+            }
+        }
+        for (Cell cell: toRemove){
+            neighbors.remove(cell);
+        }
+    }
+
+    private void removeNonWater(ArrayList<Cell> neighbors){
+        ArrayList<Cell> toRemove = new ArrayList<Cell>();
+
+        for (Cell cell: neighbors){
+            if (cell.getState() != 0){ // if not water
+                toRemove.add(cell);
+            }
+        }
+        for (Cell cell: toRemove){
+            neighbors.remove(cell);
+        }
+    }
+
+    private boolean ifOccupiedInNextState(Cell cell){
         int row = cell.getRow();
         int col = cell.getCol();
         Cell nextStateCell = myNextGrid[row][col];
-        if (isShark(nextStateCell) ){ // if nextStateCell is a shark, then this shark is too late
-            if ()
-        }
+        return (isShark(nextStateCell) || isFish(nextStateCell)); // if nextStateCell is a shark or a fish, then this shark is too late (another creature already is planning on taking that space)
+
+
     }
 
     private boolean doesContainFish(ArrayList<Cell> neighbors){
@@ -111,23 +201,20 @@ public class PredatorPrey extends Simulation {
         return false;
     }
 
-    private int calculateEnergy(Cell cell){
+    private int calculateSharkLives(Cell cell){
         int state = cell.getState();
-        int energy;
-        if (isShark(cell)){
-            energy = state/2 + 1;
-        }
-        else if (isFish(cell)){
-            energy = state/2;
-        }
-        else { //water
-            energy = 0;
-        }
+        return state/2;
 
-        return energy;
+    }
+
+    private int livesToSharkState(int lives){
+        return lives * 2;
+    }
+
+    private boolean isItTime(){
+        return (myRoundsPassed % myEnergyRequirement == 0);
     }
 
 
 }
 
-*/
