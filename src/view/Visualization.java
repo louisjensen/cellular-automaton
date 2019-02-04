@@ -50,6 +50,17 @@ public class Visualization extends Application {
     private BorderPane root;
     private Timeline animation;
     private int count;
+    private final String COUNT_TEXT = "Rounds: ";
+    private final String UPLOAD_TEXT = "UploadFile";
+    private final String STEP_TEXT = "Debug";
+    private final String PLAY_TEXT = "Play";
+    private final String FAST_FORWARD_TEXT = "FastForward";
+    private final String PAUSE_TEXT = "Pause";
+    private final String RESET_TEXT = "Reset";
+    private final String INITIALIZE_TEXT = "Initialize";
+    private final String DEFAULT_FONT = "Times New Roman";
+
+
 
     public void start (Stage stage) {
         myScene = setupVisualization(stage);
@@ -86,7 +97,7 @@ public class Visualization extends Application {
             root.getChildren().add(myGrid.getGridPane());
         }
 
-        showCount.setText("Rounds: " + count);
+        showCount.setText(COUNT_TEXT + count);
     }
 
     private Scene setupVisualization(Stage stage) {
@@ -95,7 +106,7 @@ public class Visualization extends Application {
         FileChooser fileChooser = new FileChooser();
         root.setPadding(new Insets(15, 20, 10, 10));
 
-        Button FileUploadButton = makeButton("UploadFile", FileUploadButtonImage, 150);
+        Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, 150);
         BorderPane.setAlignment(FileUploadButton, Pos.TOP_LEFT);
         FileUploadButton.setOnMouseClicked(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
@@ -104,7 +115,7 @@ public class Visualization extends Application {
             }
         });
 
-        Button StepButton = makeButton("Debug", StepButtonImage, 950);
+        Button StepButton = makeButton(STEP_TEXT, StepButtonImage, 950);
         StepButton.setOnMouseClicked((event)->{
                     root.getChildren().remove(myGrid.getGridPane());
                     myGrid.updateGrid();
@@ -114,7 +125,7 @@ public class Visualization extends Application {
         });
 
 
-        Button PlayButton = makeButton("Play", PlayButtonImage,  300);
+        Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  300);
         PlayButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -128,7 +139,7 @@ public class Visualization extends Application {
 
         });
 
-        Button FastForwardButton = makeButton("FastForward", FastForwardButtonImage,  450);
+        Button FastForwardButton = makeButton(FAST_FORWARD_TEXT, FastForwardButtonImage,  450);
         FastForwardButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -143,7 +154,7 @@ public class Visualization extends Application {
 
         });
 
-        Button PauseButton = makeButton("Pause", PauseButtonImage,  600);
+        Button PauseButton = makeButton(PAUSE_TEXT, PauseButtonImage,  600);
         BorderPane.setAlignment(PauseButton, Pos.CENTER);
         PauseButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
@@ -157,7 +168,7 @@ public class Visualization extends Application {
             }
         });
 
-        Button ResetButton = makeButton("Reset", ResetButtonImage,  750);
+        Button ResetButton = makeButton(RESET_TEXT, ResetButtonImage,  750);
         BorderPane.setAlignment(ResetButton, Pos.BASELINE_LEFT);
         ResetButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
@@ -170,7 +181,7 @@ public class Visualization extends Application {
 
         });
 
-        Button InitializeButton = makeButton("Initialize", InitializeButtonImage, 900);
+        Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, 900);
         BorderPane.setAlignment(InitializeButton, Pos.BASELINE_LEFT);
         InitializeButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
@@ -185,7 +196,7 @@ public class Visualization extends Application {
                 setupGrid(filepath, root);}
         });
 
-        showCount = MakeText("Rounds: " + count, 850,975, fontsize1);
+        showCount = MakeText(COUNT_TEXT + count, 850,975, fontsize1);
 
         root.getChildren().add(StepButton);
         root.getChildren().add(FileUploadButton);
@@ -250,7 +261,7 @@ public class Visualization extends Application {
         Text text = new Text();
         text.setX(x);
         text.setY(y);
-        text.setFont(Font.font("Times New Roman", FontSize));
+        text.setFont(Font.font(DEFAULT_FONT, FontSize));
         text.setText(message);
         text.setFill(Color.BLACK);
         return text;
