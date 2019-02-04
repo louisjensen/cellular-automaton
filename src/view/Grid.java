@@ -98,7 +98,7 @@ public class Grid {
         for (int row = 0; row < myCurrentState.length; row++) {
             for (int col = 0; col < myCurrentState[0].length; col++) {
                 myCurrentState[row][col].setState(myNextState[row][col].getState());
-
+                myNextState[row][col].setState(-1);
             }
         }
     }
@@ -153,7 +153,7 @@ public class Grid {
                 for (int k = 0; k < percentageStates.size(); k++){
                     if(randInt <= percentageStates.get(k)) {
                         myCurrentState[i][j] = new Cell(i, j, myCellSize, k);
-                        myNextState[i][j] = new Cell(i, j, myCellSize, k);
+                        myNextState[i][j] = new Cell(i, j, myCellSize, -1);
                         break;
                     }
                 }

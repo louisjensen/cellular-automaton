@@ -53,6 +53,7 @@ public class PredatorPrey extends Simulation {
     @Override
     public void update(){
         Cell current;
+        ArrayList<Cell> neighbors;
         for (int row = 0; row < myCurrentGrid.length; row ++){
             for (int col = 0; col < myCurrentGrid[0].length; col ++){
                 current = myCurrentGrid[row][col];
@@ -61,7 +62,10 @@ public class PredatorPrey extends Simulation {
                         myNextGrid[row][col].setState(-2);
                     }
                     else {
-
+                        neighbors = getNeighbors(current); // possible spaces to move to
+                        if (doesContainFish(neighbors)){
+                            removeNonFish(neighbors); // if there's a fish in neighbors, remove any non fish. Also if another shark is in that space in next state (aka the other shark ate the fish, then also remove that cell
+                        }
                     }
 
                 }
@@ -81,6 +85,30 @@ public class PredatorPrey extends Simulation {
 
     private boolean isEven(int n){
         return (n % 2 == 0);
+    }
+
+    private void removeNonFish(ArrayList<Cell> neighbors){
+        for (Cell cell: neighbors){
+            if (isFish(cell) && )
+        }
+    }
+
+    private boolean checkIfOccupiedInNextState(Cell cell){
+        int row = cell.getRow();
+        int col = cell.getCol();
+        Cell nextStateCell = myNextGrid[row][col];
+        if (isShark(nextStateCell) ){ // if nextStateCell is a shark, then this shark is too late
+            if ()
+        }
+    }
+
+    private boolean doesContainFish(ArrayList<Cell> neighbors){
+        for (Cell cell: neighbors){
+            if (isFish(cell)){
+                return true;
+            }
+        }
+        return false;
     }
 
     private int calculateEnergy(Cell cell){
