@@ -35,12 +35,17 @@ for SpreadingFire, GameofLife, Percolation, PredatorPrey and Segregation.
 
 Assumptions or Simplifications: 
 
+For the PredatorPrey, tickstoreproduce should always be bigger than the reproduction time
+because otherwise sharks will live too long.
+
 Known Bugs: We did implement Resource bundle, but for some unknown reason, 
 resourcebundle creates error in Mac and Linux. On windows, it works fine. 
 
-Extra credit: We simplified the cell class as much as we can. We minimized 
+Extra credit: 
+1. We simplified the cell class as much as we can. We minimized 
 the number of variables within the cell class. 
 
+2. We implemented alert buttons in GUI. 
 
 ### Notes
 
