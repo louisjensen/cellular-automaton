@@ -32,7 +32,7 @@ public class Visualization extends Application {
     private static final int fontsize2 = 50;
     private static final int fontsize1 = 25;
     private static final int GridDisplaySize = 700;
-    private static final int ScreenWIDTH = 1000;
+    private static final int ScreenWIDTH = 1100;
     private static final int ScreenHEIGHT = 1000;
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;

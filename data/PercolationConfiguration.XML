@@ -2,7 +2,7 @@
 <simulation>
     <type>Percolation</type>
     <horizontalSize>25</horizontalSize>
-    <verticalSize>25</verticalSize>
+    <verticalSize>40</verticalSize>
     <specifics>
         <property>opened 0.69</property>
         <property>closed 0.3</property>
