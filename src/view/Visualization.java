@@ -18,7 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import java.util.ResourceBundle;
+//import java.util.ResourceBundle;
 
 public class Visualization extends Application {
     private String Title = "Cell Automaton";
@@ -56,7 +56,7 @@ public class Visualization extends Application {
 
 
    // private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
-   private final String COUNT_TEXT = "Rounds: ";
+    private final String COUNT_TEXT = "Rounds: ";
     private final String UPLOAD_TEXT = "UploadFile";
     private final String STEP_TEXT = "Debug";
     private final String PLAY_TEXT = "Play";
