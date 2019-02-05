@@ -9,8 +9,8 @@
         <property>shark 0.1</property>
     </specifics>
     <moreInfo>
-        <info>initSharkEnergy 5</info>
-        <info>energyGainedPerFish 3</info>
+        <info>initSharkEnergy 3</info>
+        <info>energyGainedPerFish 2</info>
         <info>ticksToReproduce 4</info>
     </moreInfo>
     <author>Louis Jensen</author>
