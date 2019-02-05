@@ -19,12 +19,9 @@ public class PredatorPrey extends Simulation {
     final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
         put(0, Color.BLUE);
         put(1, Color.YELLOW);
-        put(2, Color.GREEN);
-        put(4, Color.GREEN);
-        put(6, Color.GREEN);
-        put(8, Color.GREEN);
-        put(10, Color.GREEN);
-        put(12, Color.GREEN);
+        for (int i=2; i<100; i+=2){
+            put(i, Color.GREEN);
+        }
 
     }};
 
@@ -39,6 +36,7 @@ public class PredatorPrey extends Simulation {
     private int mySharkMaxLives; // shark will die if its lives reaches zero.
     // special state: unoccupied = -2. Where a shark died and no one can move into that space until the next turn. Turns into water after all fish and shark are done updating
     private int myRoundsPassed;
+    private int energyPerFish;
 
 
     public PredatorPrey(HashMap<String, Double> moreInfoLookupTable){
@@ -46,10 +44,10 @@ public class PredatorPrey extends Simulation {
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
         myMoreInfoLookupTable = moreInfoLookupTable;
-        mySharkMaxLives = 5;
-        myEnergyRequirement = 6;
+        mySharkMaxLives = 2 * (int) Math.round(moreInfoLookupTable.get("initSharkEnergy"));
+        myEnergyRequirement = 2 * (int) Math.round(moreInfoLookupTable.get("ticksToReproduce"));
         //tateLookupTable.put("sharks", 2 * mySharkMaxLives);
-
+        energyPerFish = 2 * (int) Math.round(moreInfoLookupTable.get("energyGainedPerFish"));
 
     }
 
@@ -94,6 +92,7 @@ public class PredatorPrey extends Simulation {
                             next = myNextGrid[randomCell.getRow()][randomCell.getCol()];
                             if (isFish(randomCell)) { // shark consumes fish
                                 next.setState(livesToSharkState(mySharkMaxLives)); // shark energy resets
+                               // next.setState(current.getState()+energyPerFish);
                                 randomCell.setState(0); // make a fish a water
                             } else { // make shark lose one life for not consuming a fish
                                 next.setState(current.getState() - 2); // lose one life (
