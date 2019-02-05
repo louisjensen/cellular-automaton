@@ -20,6 +20,12 @@ public class PredatorPrey extends Simulation {
         put(0, Color.BLUE);
         put(1, Color.YELLOW);
         put(2, Color.GREEN);
+        put(4, Color.GREEN);
+        put(6, Color.GREEN);
+        put(8, Color.GREEN);
+        put(10, Color.GREEN);
+        put(12, Color.GREEN);
+
     }};
 
     final ArrayList<Point> possibleNeighbors = new ArrayList<Point>(){{
@@ -41,7 +47,7 @@ public class PredatorPrey extends Simulation {
         myColorLookupTable = colorLookupTable;
         myMoreInfoLookupTable = moreInfoLookupTable;
         mySharkMaxLives = 5;
-        myEnergyRequirement = 5;
+        myEnergyRequirement = 6;
         //tateLookupTable.put("sharks", 2 * mySharkMaxLives);
 
 
@@ -81,6 +87,7 @@ public class PredatorPrey extends Simulation {
                         if (doesContainFish(neighbors)){
                             removeNonFish(neighbors); // if there's a fish in neighbors, remove any non fish. Also if another shark is in that space in next state (aka the other shark ate the fish, then also remove that cell
                         }
+
                         if (!neighbors.isEmpty()) { // if movement occurs
                             randomIntMoving = random.nextInt(neighbors.size()); // now pick a random available neighbor to move to
                             randomCell = neighbors.get(randomIntMoving);
@@ -94,6 +101,9 @@ public class PredatorPrey extends Simulation {
                             if (isItTime()){ // reproduce
                                 myNextGrid[current.getRow()][current.getCol()].setState(livesToSharkState(mySharkMaxLives)); // make this a shark with max lives
                             }
+                        }
+                        else {
+                            myNextGrid[current.getRow()][current.getCol()].setState(current.getState() - 2);
                         }
                     }
 
@@ -120,6 +130,18 @@ public class PredatorPrey extends Simulation {
                             myNextGrid[current.getRow()][current.getCol()].setState(1); // leave a fish behind
                         }
                     }
+                    else {
+                        myNextGrid[current.getRow()][current.getCol()].setState(1);
+                    }
+                }
+            }
+        }
+
+        for (int row = 0; row < myCurrentGrid.length; row ++) {
+            for (int col = 0; col < myCurrentGrid[0].length; col++) {
+                next = myNextGrid[row][col];
+                if (next.getState() == -1){
+                    next.setState(0);
                 }
             }
         }
@@ -186,8 +208,8 @@ public class PredatorPrey extends Simulation {
     private boolean ifOccupiedInNextState(Cell cell){
         int row = cell.getRow();
         int col = cell.getCol();
-        Cell nextStateCell = myNextGrid[row][col];
-        return (isShark(nextStateCell) || isFish(nextStateCell)); // if nextStateCell is a shark or a fish, then this shark is too late (another creature already is planning on taking that space)
+        int nextStateCell = myNextGrid[row][col].getState();
+        return (nextStateCell != -1); // if nextStateCell is a shark or a fish, then this shark is too late (another creature already is planning on taking that space)
 
 
     }
@@ -203,16 +225,16 @@ public class PredatorPrey extends Simulation {
 
     private int calculateSharkLives(Cell cell){
         int state = cell.getState();
-        return state/2;
+        return state/2 - 1;
 
     }
 
     private int livesToSharkState(int lives){
-        return lives * 2;
+        return lives * 2 + 2;
     }
 
     private boolean isItTime(){
-        return (myRoundsPassed % myEnergyRequirement == 0);
+        return (myRoundsPassed % myEnergyRequirement == 0 && myRoundsPassed != 0);
     }
 
 

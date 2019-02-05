@@ -5,8 +5,8 @@
     <verticalSize>25</verticalSize>
     <specifics>
         <property>water 0.4</property>
-        <property>fish 0.3</property>
-        <property>shark 0.3</property>
+        <property>fish 0.5</property>
+        <property>shark 0.1</property>
     </specifics>
     <moreInfo>
         <info>initSharkEnergy 5</info>

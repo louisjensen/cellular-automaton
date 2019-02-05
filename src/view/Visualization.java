@@ -199,7 +199,7 @@ public class Visualization extends Application {
                 setupGrid(filepath, root);}
         });
 
-        showCount = MakeText(COUNT_TEXT + count, 850,975, fontsize1);
+        showCount = MakeText(COUNT_TEXT + count, 850,945, fontsize1);
 
         root.getChildren().add(StepButton);
         root.getChildren().add(FileUploadButton);
