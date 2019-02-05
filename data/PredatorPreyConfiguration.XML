@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>PredatorPrey</type>
-    <horizontalSize>25</horizontalSize>
-    <verticalSize>25</verticalSize>
+    <horizontalSize>100</horizontalSize>
+    <verticalSize>100</verticalSize>
     <specifics>
         <property>water 0.4</property>
         <property>fish 0.5</property>

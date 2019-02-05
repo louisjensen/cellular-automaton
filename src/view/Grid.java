@@ -116,7 +116,8 @@ public class Grid {
 
     // calculates the size of a cell based on how big the display is and the number of cells to fit
     private void calculateCellSize(){
-        myCellSize = myDisplaySize/myGridWidth;
+        float temp = (float) myDisplaySize/myGridWidth;
+        myCellSize = (int) temp;
     }
 
     public Cell[][] getMyCurrentState(){

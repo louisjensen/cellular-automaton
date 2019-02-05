@@ -9,28 +9,22 @@ public class Cell{
     private int myRow;
     private int myCol;
     private int myState;
-    private int mySize; // length/width (it is a square)
+    private int mySizeX; // length/width (it is a square)
+    private int mySizeY;
     private Rectangle myImage;
     private int myEnergy;
 
-    public Cell(int row, int col, int size, int state){
+    public Cell(int row, int col, int sizeX, int sizeY, int state){
         myRow = row;
         myCol = col;
-        mySize = size;
+        mySizeX = sizeX;
+        mySizeY = sizeY;
         myState = state;
-        myImage = new Rectangle(mySize, mySize, Color.WHITE);
+        myImage = new Rectangle(mySizeX, mySizeY, Color.WHITE);
         myImage.setStroke(Color.BLACK);
     }
 
-    public Cell(int row, int col, int size, int state, int energy){
-        myRow = row;
-        myCol = col;
-        mySize = size;
-        myState = state;
-        myImage = new Rectangle(mySize, mySize, Color.WHITE);
-        myImage.setStroke(Color.BLACK);
-        myEnergy = energy;
-    }
+
 
     public int getRow(){
         return myRow;
@@ -46,9 +40,14 @@ public class Cell{
         return myImage;
     }
 
-    public int getSize(){
-        return mySize;
+    public int getSizeX(){
+        return mySizeX;
     }
+    public int getSizeY(){
+        return mySizeY;
+    }
+
+
 
     public void setColor(Paint color){
         myImage.setFill(color);
