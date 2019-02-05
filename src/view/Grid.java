@@ -22,7 +22,8 @@ public class Grid {
     private int myDisplaySize;
     private int myGridWidth;
     private int myGridHeight;
-    private int myCellSize;
+    private int myCellSizeX;
+    private int myCellSizeY;
     private String SimulationName;
     private Random rand = new Random();
     int randInt;
@@ -59,7 +60,8 @@ public class Grid {
         myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
         myNextState = new Cell[myGridWidth][myGridHeight];
         mySimulation = getSimulation(xml.getSimulationType(), xml.getRandomInfo());
-        calculateCellSize();
+        calculateCellSizeX();
+        calculateCellSizeY();
         myGridPane = new GridPane();
         initialize();
         mySimulation.setCurrentGrid(myCurrentState);
@@ -91,7 +93,6 @@ public class Grid {
                 }
             }
         }
-        //moveNexttoCurrent();
     }
 
     private void moveNexttoCurrent() {
@@ -115,10 +116,16 @@ public class Grid {
     }
 
     // calculates the size of a cell based on how big the display is and the number of cells to fit
-    private void calculateCellSize(){
+    private void calculateCellSizeX(){
         float temp = (float) myDisplaySize/myGridWidth;
-        myCellSize = (int) temp;
+        myCellSizeX = (int) temp;
     }
+
+    private void calculateCellSizeY(){
+        float temp = (float) myDisplaySize/myGridHeight;
+        myCellSizeY = (int) temp;
+    }
+
 
     public Cell[][] getMyCurrentState(){
         return myCurrentState;
@@ -155,8 +162,8 @@ public class Grid {
                 randInt = rand.nextInt(100) + 1;
                 for (int k = 0; k < percentageStates.size(); k++){
                     if(randInt <= percentageStates.get(k)) {
-                        myCurrentState[i][j] = new Cell(i, j, myCellSize, stateLookupTable.get(states.get(k)));
-                        myNextState[i][j] = new Cell(i, j, myCellSize, -1);
+                        myCurrentState[i][j] = new Cell(i, j, myCellSizeX, myCellSizeY, stateLookupTable.get(states.get(k)));
+                        myNextState[i][j] = new Cell(i, j, myCellSizeX, myCellSizeY,-1);
                         break;
                     }
                 }

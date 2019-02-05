@@ -31,7 +31,7 @@ public class Visualization extends Application {
     private String StepButtonImage = "step.png";
     private static final int fontsize2 = 50;
     private static final int fontsize1 = 25;
-    private static final int GridDisplaySize = 750;
+    private static final int GridDisplaySize = 700;
     private static final int ScreenWIDTH = 1000;
     private static final int ScreenHEIGHT = 1000;
     private static final int FRAMES_PER_SECOND = 1;
