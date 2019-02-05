@@ -109,7 +109,7 @@ public class Visualization extends Application {
         FileChooser fileChooser = new FileChooser();
         root.setPadding(new Insets(15, 20, 10, 10));
 
-        Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, 150);
+        Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, 50);
         BorderPane.setAlignment(FileUploadButton, Pos.TOP_LEFT);
         FileUploadButton.setOnMouseClicked(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
@@ -118,8 +118,14 @@ public class Visualization extends Application {
             }
         });
 
-        Button StepButton = makeButton(STEP_TEXT, StepButtonImage, 950);
+        Button StepButton = makeButton(STEP_TEXT, StepButtonImage, 200);
         StepButton.setOnMouseClicked((event)->{
+            if(filepath.equals("")){
+                makeAlert();
+            }
+            if(myGrid == null){
+                makeInitialize();
+            }
             root.getChildren().remove(myGrid.getGridPane());
             myGrid.updateGrid();
             count ++;
@@ -127,8 +133,7 @@ public class Visualization extends Application {
             root.getChildren().add(myGrid.getGridPane());
         });
 
-
-        Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  300);
+        Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  350);
         PlayButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -142,7 +147,7 @@ public class Visualization extends Application {
 
         });
 
-        Button FastForwardButton = makeButton(FAST_FORWARD_TEXT, FastForwardButtonImage,  450);
+        Button FastForwardButton = makeButton(FAST_FORWARD_TEXT, FastForwardButtonImage,  500);
         FastForwardButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -154,10 +159,9 @@ public class Visualization extends Application {
                 AnimationSpeed += 1;
                 animation.setRate(AnimationSpeed);
             }
-
         });
 
-        Button PauseButton = makeButton(PAUSE_TEXT, PauseButtonImage,  600);
+        Button PauseButton = makeButton(PAUSE_TEXT, PauseButtonImage,  650);
         BorderPane.setAlignment(PauseButton, Pos.CENTER);
         PauseButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
@@ -171,7 +175,7 @@ public class Visualization extends Application {
             }
         });
 
-        Button ResetButton = makeButton(RESET_TEXT, ResetButtonImage,  900);
+        Button ResetButton = makeButton(RESET_TEXT, ResetButtonImage,  800);
         BorderPane.setAlignment(ResetButton, Pos.BASELINE_LEFT);
         ResetButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
@@ -184,7 +188,7 @@ public class Visualization extends Application {
 
         });
 
-        Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, 750);
+        Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, 950);
         BorderPane.setAlignment(InitializeButton, Pos.BASELINE_LEFT);
         InitializeButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
