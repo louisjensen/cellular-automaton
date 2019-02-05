@@ -72,20 +72,17 @@ public class Segregation extends Simulation {
             return true;
         }
 
-        //if cell is not an empty space
-        //else {
-            for (Cell neighbor : neighbors) {
-                if (neighbor.getState() == 0) {
-                    emptySpace += 1;
-                }
-                else if (neighbor.getState() == myState) {
-                    numMyState += 1;
-                }
-                else if (neighbor.getState() != myState) {
-                    numOtherState += 1;
-                }
+        for (Cell neighbor : neighbors) {
+            if (neighbor.getState() == 0) {
+                emptySpace += 1;
             }
-        //}
+            else if (neighbor.getState() == myState) {
+                numMyState += 1;
+            }
+            else if (neighbor.getState() != myState) {
+                numOtherState += 1;
+            }
+        }
         if(neighbors.size()== emptySpace){
             return true;
         }
@@ -96,21 +93,25 @@ public class Segregation extends Simulation {
 
     @Override
     public void update(){
+        copy();
         ArrayList<Cell> DissatisfiedCells = new ArrayList<Cell>();
         ArrayList<Cell> EmptyCells = new ArrayList<Cell>();
         ArrayList<Cell> neighbors;
+        Cell current;
+        Cell next;
         for(int i=0 ; i<myCurrentGrid.length ; i ++){
             for(int j=0; j<myCurrentGrid[0].length; j++){
-                neighbors = getNeighbors(myCurrentGrid[i][j]);
-                if (!AreYouSatisfied(myCurrentGrid[i][j], neighbors)){
-                    DissatisfiedCells.add(myCurrentGrid[i][j]);
+                current = myCurrentGrid[i][j];
+                neighbors = getNeighbors(current);
+                if (!AreYouSatisfied(current, neighbors)){
+                    DissatisfiedCells.add(current);
                 }
-                if(myCurrentGrid[i][j].getState() == 0){
+                else if (myCurrentGrid[i][j].getState() == 0){
                     EmptyCells.add(myCurrentGrid[i][j]);
                 }
-
             }
         }
+
 
         if(!DissatisfiedCells.isEmpty()){
             //for(Cell MovingCell: DissatisfiedCells){
@@ -135,6 +136,17 @@ public class Segregation extends Simulation {
     }
 
 
+    private void copy(){
+        Cell current;
+        Cell next;
+        for (int i=0 ; i<myCurrentGrid.length ; i ++) {
+            for (int j = 0; j < myCurrentGrid[0].length; j++) {
+                current = myCurrentGrid[i][j];
+                next = myNextGrid[i][j];
+                next.setState(current.getState());
+            }
+        }
+    }
     @Override
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         return 1;

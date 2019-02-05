@@ -89,6 +89,8 @@ public class Visualization extends Application {
                 animation.stop();
                 makeGameEnding();
             }
+            myGrid.moveNexttoCurrent();
+
             count ++;
             myGrid.setGridPane();
             root.getChildren().add(myGrid.getGridPane());

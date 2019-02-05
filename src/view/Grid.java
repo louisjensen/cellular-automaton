@@ -95,7 +95,7 @@ public class Grid {
         }
     }
 
-    private void moveNexttoCurrent() {
+    public void moveNexttoCurrent() {
         for (int row = 0; row < myCurrentState.length; row++) {
             for (int col = 0; col < myCurrentState[0].length; col++) {
                 myCurrentState[row][col].setState(myNextState[row][col].getState());
@@ -142,7 +142,6 @@ public class Grid {
 
     public void updateGrid(){
         mySimulation.update();
-        moveNexttoCurrent();
     }
 
     public void initialize(){
