@@ -38,8 +38,13 @@ Assumptions or Simplifications:
 For the PredatorPrey, tickstoreproduce should always be bigger than the reproduction time
 because otherwise sharks will live too long.
 
-Known Bugs: We did implement Resource bundle, but for some unknown reason, 
+Known Bugs: 
+
+1. We did implement Resource bundle, but for some unknown reason, 
 resourcebundle creates error in Mac and Linux. On windows, it works fine. 
+
+2. If the gridsize is too big, then due the integer division error,
+grid might not be perfect. 
 
 Extra credit: 
 1. We simplified the cell class as much as we can. We minimized 

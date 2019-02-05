@@ -10,6 +10,14 @@ import java.util.Random;
 
 public class Segregation extends Simulation {
 
+    Cell cellEmpty;
+    Cell cellMoving;
+    Cell nextStateMove;
+    Cell nextStateEmpty;
+    int randomIntEmpty;
+    int randomIntMoving;
+    int emptyCellsSize;
+    int dissatisfiedCellsSize;
 
     final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("empty",  0);
@@ -103,17 +111,6 @@ public class Segregation extends Simulation {
 
             }
         }
-        System.out.println(DissatisfiedCells.size());
-        System.out.println(EmptyCells.size());
-        Cell cellEmpty;
-        Cell cellMoving;
-        Cell nextStateMove;
-        Cell nextStateEmpty;
-        int randomIntEmpty;
-        int randomIntMoving;
-        int emptyCellsSize;
-        int dissatisfiedCellsSize;
-
 
         if(!DissatisfiedCells.isEmpty()){
             //for(Cell MovingCell: DissatisfiedCells){
@@ -135,42 +132,11 @@ public class Segregation extends Simulation {
                 DissatisfiedCells.remove(cellMoving);
             }
         }
-
-        /*if (!EmptyCells.isEmpty()){
-            for (Cell emptyCell: EmptyCells){
-                if(!DissatisfiedCells.isEmpty()){
-                    int unsatisfiedNum = DissatisfiedCells.size();
-                    randomInt = random.nextInt(unsatisfiedNum);
-                    cellToMove = DissatisfiedCells.get(randomInt);
-                    nextStateMove = myNextGrid[emptyCell.getRow()][emptyCell.getCol()];
-                    nextStateEmpty = myNextGrid[cellToMove.getRow()][cellToMove.getCol()];
-
-                    nextStateMove.setState(cellToMove.getState());
-                    nextStateEmpty.setState(0);
-                    DissatisfiedCells.remove(cellToMove);
-
-                }
-
-
-            }
-        }*/
     }
 
 
     @Override
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
-        /*
-        //satisfied cells
-        if (percentage >= myTolerance) {
-            //return new Cell(cell.getRow(), cell.getCol(), cell.getSize(), cell.getState());
-        }
-        //unsatisfied cells
-        else{
-        }
-        return nextState;
-        //return new Cell(1,1,1,1);
-
-         */
         return 1;
     }
 
