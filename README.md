@@ -53,7 +53,9 @@ the number of variables within the cell class.
 2. We implemented alert buttons in GUI. 
 
 ### Notes
-
+We are excited for sprint #2 !!!
 
 ### Impressions
+
+This was a good project. We split up the work very evenly and distributed the amount of work over many days to reduce cramming.
 
