@@ -1,5 +1,7 @@
 package view;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -24,8 +26,7 @@ public class Cell{
         myImage.setStroke(Color.BLACK);
     }
 
-
-
+    
     public int getRow(){
         return myRow;
     }
@@ -48,6 +49,10 @@ public class Cell{
     }
 
 
+    //add this line to the cell class
+    public void ChangeState(){
+
+    }
 
     public void setColor(Paint color){
         myImage.setFill(color);

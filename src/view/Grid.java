@@ -4,8 +4,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
-
-
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.io.File;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ public class Grid {
     private Cell[][] myCurrentState;
     private Cell[][] myNextState;
     private Simulation mySimulation;
+    private Cell currentCell;
     private GridPane myGridPane;
     private String myFilePath;
     private int myDisplaySize;
@@ -88,11 +90,20 @@ public class Grid {
                 currentCell = myCurrentState[row][col];
                 color = stateToColorMap.get(currentCell.getState());
                 currentCell.setColor(color);
+                currentCell.getImage().setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent me) {
+                        System.out.println("Mouse pressed");
+                        //error
+                        //currentCell
+                    }
+                });
                 if (!myGridPane.getChildren().contains(currentCell.getImage())) {
                     myGridPane.add(currentCell.getImage(), row, col);
+
                 }
             }
         }
+        //myGridPane.setOnMouseClicked();
     }
 
     public void moveNexttoCurrent() {

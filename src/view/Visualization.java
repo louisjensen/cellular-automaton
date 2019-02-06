@@ -1,9 +1,12 @@
 package view;
 
+import javafx.animation.Animation;
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
+import javafx.scene.Group;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -55,12 +58,15 @@ public class Visualization extends Application {
     private double AnimationSpeed;
     private Text showCount;
     private Scene myScene;
+
+    //we need to make a class or a variable that can hold all grids.
     private Grid myGrid;
     private Text SimulationName;
     private String filepath = "";
-    private BorderPane root;
+    private Group root;
     private Timeline animation;
     private int count;
+    private int simulationSize;
     //private ResourceBundle myResources = ResourceBundle.getBundle("view.textForGui");
 
 
@@ -115,10 +121,32 @@ public class Visualization extends Application {
     }
 
     private Scene setupVisualization(Stage stage) {
-        root = new BorderPane();
+        root = new Group();
         Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT);
         FileChooser fileChooser = new FileChooser();
         //root.setPadding(new Insets(15, 20, 10, 10));
+
+        Label numberOfSimulations = new Label("Number of simulations:");
+        numberOfSimulations.setLayoutX(50);
+        numberOfSimulations.setLayoutY(1150);
+
+        TextField value = new TextField();
+        value.setLayoutX(50);
+        value.setLayoutY(1200);
+
+        Button numberOfSimulationsButton = makeButton("Set", "submit.png", 1000);
+        numberOfSimulationsButton.setMaxSize(50, 50);
+        numberOfSimulationsButton.setLayoutX(200);
+        numberOfSimulationsButton.setLayoutY(1150);
+        numberOfSimulationsButton.setOnMouseClicked(e -> {
+            if(value.getText().equals("")){
+                makeAlert();
+            }
+            simulationSize = Integer.valueOf(value.getText());
+            System.out.println(simulationSize);
+        });
+
+
 
         Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, 50);
         BorderPane.setAlignment(FileUploadButton, Pos.TOP_LEFT);
@@ -203,6 +231,7 @@ public class Visualization extends Application {
                 makeAlert();
             }
             else {
+                // we will have to add for loop here to create multiple grids
                 if(myGrid != null){
                     root.getChildren().remove(myGrid.getGridPane());
                 }
@@ -216,9 +245,16 @@ public class Visualization extends Application {
             }
         });
 
-        //slider color should be changed in the ccs
         Slider ChangeSpeedOfGame = makeSlider();
-        //ChangeSpeedOfGame.valueProperty().addListener
+        ChangeSpeedOfGame.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                AnimationSpeed = new_val.doubleValue();
+                System.out.println(new_val.doubleValue());
+                animation.setRate(AnimationSpeed);
+            }
+        });
+
 
         showCount = MakeText(COUNT_TEXT + count, 850,975, fontsize1);
 
@@ -231,6 +267,9 @@ public class Visualization extends Application {
         root.getChildren().add(PauseButton);
         root.getChildren().add(InitializeButton);
         root.getChildren().add(showCount);
+        root.getChildren().add((numberOfSimulations));
+        root.getChildren().add(value);
+        root.getChildren().add(numberOfSimulationsButton);
 
         return myScene;
 
@@ -250,20 +289,18 @@ public class Visualization extends Application {
         chart.setPrefSize(200,200);
         chart.setMinSize(100,100);
         chart.setTitle("Imported Fruits");
-        root.setBottom(chart);
+        root.getChildren().add(chart);
         return chart;
     }
 
 
     private Slider makeSlider(){
-        Slider mySlider = new Slider(0,300,150);
+        Slider mySlider = new Slider(0,20,1);
         mySlider.setShowTickLabels(true);
         mySlider.setShowTickMarks(true);
-        mySlider.setMajorTickUnit(50);
-        mySlider.setMinorTickCount(5);
-        mySlider.setBlockIncrement(10);
+        mySlider.setMajorTickUnit(5);
+        mySlider.setMinorTickCount(1);
         mySlider.prefWidth(300);
-        //mySlider.setPrefSize(300, 300);
         mySlider.setLayoutX(50);
         mySlider.setLayoutY(1100);
         return mySlider;
@@ -304,7 +341,7 @@ public class Visualization extends Application {
         alert.setContentText("This is the final state. Press Reset Button");
         alert.show();
     }
-    private void setupGrid(String filepath,  BorderPane root){
+    private void setupGrid(String filepath,  Group root){
         myGrid = new Grid(filepath, GridDisplaySize);
         SimulationName = MakeText(myGrid.getSimulationName(),  SimulationTitle_POS_X, SimulationTitle_POS_Y, fontsize2);
         myGrid.getGridPane().setVisible(true);
@@ -324,6 +361,7 @@ public class Visualization extends Application {
         text.setFill(Color.BLACK);
         return text;
     }
+
 
 
     public static void main (String[] args) {
