@@ -2,6 +2,9 @@ package view;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.control.Slider;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -18,6 +21,12 @@ import javafx.scene.control.Alert;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import javafx.scene.chart.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Side;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 //import java.util.ResourceBundle;
 
 public class Visualization extends Application {
@@ -31,9 +40,9 @@ public class Visualization extends Application {
     private String StepButtonImage = "step.png";
     private static final int fontsize2 = 50;
     private static final int fontsize1 = 25;
-    private static final int GridDisplaySize = 700;
-    private static final int ScreenWIDTH = 1100;
-    private static final int ScreenHEIGHT = 1000;
+    private static final int GridDisplaySize = 900;
+    private static final int ScreenWIDTH = 1300;
+    private static final int ScreenHEIGHT = 1300;
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private final static int BUTTON_SIZE = 100;
@@ -109,7 +118,7 @@ public class Visualization extends Application {
         root = new BorderPane();
         Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT);
         FileChooser fileChooser = new FileChooser();
-        root.setPadding(new Insets(15, 20, 10, 10));
+        //root.setPadding(new Insets(15, 20, 10, 10));
 
         Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, 50);
         BorderPane.setAlignment(FileUploadButton, Pos.TOP_LEFT);
@@ -164,7 +173,6 @@ public class Visualization extends Application {
         });
 
         Button PauseButton = makeButton(PAUSE_TEXT, PauseButtonImage,  650);
-        BorderPane.setAlignment(PauseButton, Pos.CENTER);
         PauseButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -178,7 +186,6 @@ public class Visualization extends Application {
         });
 
         Button ResetButton = makeButton(RESET_TEXT, ResetButtonImage,  950);
-        BorderPane.setAlignment(ResetButton, Pos.BASELINE_LEFT);
         ResetButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -191,7 +198,6 @@ public class Visualization extends Application {
         });
 
         Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, 800);
-        BorderPane.setAlignment(InitializeButton, Pos.BASELINE_LEFT);
         InitializeButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -206,11 +212,17 @@ public class Visualization extends Application {
                 root.getChildren().remove(myGrid);
                 root.getChildren().remove(SimulationName);
                 setupGrid(filepath, root);
+                setupChart(myGrid);
             }
         });
 
+        //slider color should be changed in the ccs
+        Slider ChangeSpeedOfGame = makeSlider();
+        //ChangeSpeedOfGame.valueProperty().addListener
+
         showCount = MakeText(COUNT_TEXT + count, 850,975, fontsize1);
 
+        root.getChildren().add(ChangeSpeedOfGame);
         root.getChildren().add(StepButton);
         root.getChildren().add(FileUploadButton);
         root.getChildren().add(ResetButton);
@@ -222,6 +234,39 @@ public class Visualization extends Application {
 
         return myScene;
 
+    }
+
+    private PieChart setupChart(Grid myGrid) {
+        ObservableList<PieChart.Data>  pieChartData = FXCollections.observableArrayList(
+                //in here loop through myGrid state add do new Piechart.data("name", number)
+                //to do this, we need a map inside the grid class
+                new PieChart.Data("Grapefruit", 13),
+                new PieChart.Data("Oranges", 25),
+                new PieChart.Data("Plums", 10),
+                new PieChart.Data("Pears", 22),
+                new PieChart.Data("Apples", 30));
+        PieChart chart = new PieChart(pieChartData);
+        chart.setVisible(true);
+        chart.setPrefSize(200,200);
+        chart.setMinSize(100,100);
+        chart.setTitle("Imported Fruits");
+        root.setBottom(chart);
+        return chart;
+    }
+
+
+    private Slider makeSlider(){
+        Slider mySlider = new Slider(0,300,150);
+        mySlider.setShowTickLabels(true);
+        mySlider.setShowTickMarks(true);
+        mySlider.setMajorTickUnit(50);
+        mySlider.setMinorTickCount(5);
+        mySlider.setBlockIncrement(10);
+        mySlider.prefWidth(300);
+        //mySlider.setPrefSize(300, 300);
+        mySlider.setLayoutX(50);
+        mySlider.setLayoutY(1100);
+        return mySlider;
     }
 
     //make button and set text and position
