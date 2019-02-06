@@ -84,7 +84,7 @@ public class Visualization extends Application {
         myScene = setupVisualization(stage);
         stage.setScene(myScene);
         stage.setTitle(Title);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
         setAnimation();
     }
