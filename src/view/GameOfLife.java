@@ -45,7 +45,7 @@ public class GameOfLife extends Simulation{
 
 
     @Override
-    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
+    public int getNextStateOfCell(GameOfLifeCell cell, ArrayList<Cell> neighbors) {
         int numAlive = 0;
         int nextState;
 

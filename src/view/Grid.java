@@ -18,6 +18,7 @@ public class Grid {
     private Cell[][] myCurrentState;
     private Cell[][] myNextState;
     private Simulation mySimulation;
+    private Cell myCell;
     private Cell currentCell;
     private GridPane myGridPane;
     private String myFilePath;
@@ -28,8 +29,12 @@ public class Grid {
     private int myCellSizeY;
     private String SimulationName;
     private Random rand = new Random();
+    private int d;
     int randInt;
     private XMLParser xml;
+    List<String> states = xml.getStates();
+    List<Double> proportionStates = xml.getStateProportions();
+    List<Integer> percentageStates = new ArrayList<>();
 
     private Simulation getSimulation(String sim, HashMap<String, Double> map){
         if (sim.equals("GameOfLife")){
@@ -50,7 +55,30 @@ public class Grid {
         return null;
     }
 
-    public Grid(String filePath, int displaySize){
+    private Cell getSpecificCell(String simulationName, HashMap<String, Double> map, String shape){
+        if (simulationName.equals("GameOfLife")) {
+
+            //default constructor;
+            return new GameOfLifeCell(shape);
+        }
+        return new GameOfLifeCell(shape);
+    }
+       /* if (simulationName.equals("Percolation")){
+            return new Percolation(myCurrentState, myNextState);
+        }
+        if (simulationName.equals("SpreadingOfFire")){
+            return new SpreadingOfFire(map, myCurrentState, myNextState);
+        }
+        if(simulationName.equals("Segregation")){
+            return new Segregation(map);
+        }
+        if(simulationName.equals("PredatorPrey")){
+            return new PredatorPrey(map);
+        }*/
+
+    }
+
+    public Grid(String filePath, int displaySize, String myShapeType){
         myFilePath = filePath;
         xml = new XMLParser(myFilePath);
 
@@ -61,13 +89,33 @@ public class Grid {
         myGridHeight = xml.getGridY();
         myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
         myNextState = new Cell[myGridWidth][myGridHeight];
+
         mySimulation = getSimulation(xml.getSimulationType(), xml.getRandomInfo());
+        myCell = getSpecificCell(xml.getSimulationType(), xml.getRandomInfo(), myShapeType);
+
+
+        initialize(myShapeType);
         calculateCellSizeX();
         calculateCellSizeY();
-        myGridPane = new GridPane();
-        initialize();
         mySimulation.setCurrentGrid(myCurrentState);
         mySimulation.setNextGrid(myNextState);
+
+        //how are we gonna choose specific cell type based on the simulation
+
+    }
+
+
+
+    public void initialize(String myShapeType){
+        if(myShapeType.equals("triangle")){
+            initializeTriangleGrid();
+        }
+        if(myShapeType.equals("Rectangle")){
+            initializeRectangleGrid();
+        }
+        if(myShapeType.equals("hexagon")){
+            initializeHexagonGrid();
+        }
     }
 
     /**
@@ -106,6 +154,13 @@ public class Grid {
         //myGridPane.setOnMouseClicked();
     }
 
+    public void setGrid(){
+        Cell currentCell;
+        Color color;
+        HashMap<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
+        for
+    }
+
     public void moveNexttoCurrent() {
         for (int row = 0; row < myCurrentState.length; row++) {
             for (int col = 0; col < myCurrentState[0].length; col++) {
@@ -125,7 +180,6 @@ public class Grid {
         }
         return true;
     }
-
     // calculates the size of a cell based on how big the display is and the number of cells to fit
     private void calculateCellSizeX(){
         float temp = (float) myDisplaySize/myGridWidth;
@@ -155,18 +209,9 @@ public class Grid {
         mySimulation.update();
     }
 
-    public void initialize(){
-        List<String> states = xml.getStates();
-        List<Double> proportionStates = xml.getStateProportions();
-        List<Integer> percentageStates = new ArrayList<>();
+    public void initializeRectangleGrid(){
         HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
-        int currentTotal = 0;
-        int percentage;
-        for (int i = 0; i < proportionStates.size(); i++){
-            percentage = (currentTotal + (int) (proportionStates.get(i) * 100));
-            percentageStates.add(percentage);
-            currentTotal = percentage;
-        }
+        setGridProportion();
         for (int i = 0; i < myGridWidth; i++){
             for (int j = 0; j < myGridHeight; j++){
                 randInt = rand.nextInt(100) + 1;
@@ -182,4 +227,35 @@ public class Grid {
 
     }
 
+    public void initializeTriangleGrid() {
+        HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
+        setGridProportion();
+        int numBottomCells;
+        int numRows = numBottomCells / 2;
+        Cell[numRows][numBottomCells] TrinagleCellGrid;
+        int middleIndex = numRows / 2;
+        for (int row = 0; row < myCell.; row++) {
+            for(int col=0; col<T)
+
+        }
+
+    }
+
+
+    public void initializeHexagonGrid() {
+        HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
+        setGridProportion();
+
+    }
+
+
+    private void setGridProportion(){
+        int currentTotal = 0;
+        int percentage;
+        for (int i = 0; i < proportionStates.size(); i++) {
+            percentage = (currentTotal + (int) (proportionStates.get(i) * 100));
+            percentageStates.add(percentage);
+            currentTotal = percentage;
+        }
+    }
 }

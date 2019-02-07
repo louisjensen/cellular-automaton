@@ -3,9 +3,7 @@ package view;
 import javafx.animation.Animation;
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.Group;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.text.Font;
@@ -14,13 +12,12 @@ import javafx.stage.FileChooser;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.File;
-import javafx.scene.control.Alert;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -67,6 +64,7 @@ public class Visualization extends Application {
     private Timeline animation;
     private int count;
     private int simulationSize;
+    private String shapetype;
     //private ResourceBundle myResources = ResourceBundle.getBundle("view.textForGui");
 
 
@@ -120,11 +118,15 @@ public class Visualization extends Application {
         showCount.setText(COUNT_TEXT + count);
     }
 
+
+
     private Scene setupVisualization(Stage stage) {
+
         root = new Group();
         Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT);
         FileChooser fileChooser = new FileChooser();
         //root.setPadding(new Insets(15, 20, 10, 10));
+
 
         Label numberOfSimulations = new Label("Number of simulations:");
         numberOfSimulations.setLayoutX(50);
@@ -185,7 +187,7 @@ public class Visualization extends Application {
             }
 
         });
-
+/*
         Button FastForwardButton = makeButton(FAST_FORWARD_TEXT, FastForwardButtonImage,  500);
         FastForwardButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
@@ -198,7 +200,7 @@ public class Visualization extends Application {
                 AnimationSpeed += 1;
                 animation.setRate(AnimationSpeed);
             }
-        });
+        });*/
 
         Button PauseButton = makeButton(PAUSE_TEXT, PauseButtonImage,  650);
         PauseButton.setOnMouseClicked((event)->{
@@ -240,7 +242,7 @@ public class Visualization extends Application {
                 count = 0;
                 root.getChildren().remove(myGrid);
                 root.getChildren().remove(SimulationName);
-                setupGrid(filepath, root);
+                setupGrid(filepath, root, shapetype);
                 setupChart(myGrid);
             }
         });
@@ -255,15 +257,18 @@ public class Visualization extends Application {
             }
         });
 
+        MenuButton chooseShape = selectCellShape("shapes.png");
+
 
         showCount = MakeText(COUNT_TEXT + count, 850,975, fontsize1);
 
+        root.getChildren().add(chooseShape);
         root.getChildren().add(ChangeSpeedOfGame);
         root.getChildren().add(StepButton);
         root.getChildren().add(FileUploadButton);
         root.getChildren().add(ResetButton);
         root.getChildren().add(PlayButton);
-        root.getChildren().add(FastForwardButton);
+        //root.getChildren().add(FastForwardButton);
         root.getChildren().add(PauseButton);
         root.getChildren().add(InitializeButton);
         root.getChildren().add(showCount);
@@ -273,6 +278,27 @@ public class Visualization extends Application {
 
         return myScene;
 
+    }
+    private MenuButton selectCellShape(String file){
+        MenuButton menuButton = new MenuButton("Choose Shape");
+        Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
+        menuButton.setGraphic(new ImageView(image));
+        MenuItem triangle = new MenuItem("triangle");
+        triangle.setOnAction(event -> {
+           shapetype = "triangle";
+        });
+        MenuItem rectangle = new MenuItem("rectangle");
+        rectangle.setOnAction(event -> {
+            shapetype = "rectangle";
+        });
+        MenuItem hexagon = new MenuItem("hexagon");
+        hexagon.setOnAction(event -> {
+           shapetype = "hexagon";
+        });
+
+
+        menuButton.getItems().addAll(triangle, rectangle, hexagon);
+        return menuButton;
     }
 
     private PieChart setupChart(Grid myGrid) {
@@ -341,8 +367,8 @@ public class Visualization extends Application {
         alert.setContentText("This is the final state. Press Reset Button");
         alert.show();
     }
-    private void setupGrid(String filepath,  Group root){
-        myGrid = new Grid(filepath, GridDisplaySize);
+    private void setupGrid(String filepath,  Group root, String shapetype){
+        myGrid = new Grid(filepath, GridDisplaySize, shapetype);
         SimulationName = MakeText(myGrid.getSimulationName(),  SimulationTitle_POS_X, SimulationTitle_POS_Y, fontsize2);
         myGrid.getGridPane().setVisible(true);
         myGrid.getGridPane().setLayoutX(GRID_POS_X);

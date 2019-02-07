@@ -6,27 +6,28 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-public class Cell{
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public abstract class Cell{
 
     private int myRow;
     private int myCol;
     private int myState;
-    private int mySizeX; // length/width (it is a square)
-    private int mySizeY;
     private Rectangle myImage;
     private int myEnergy;
+    private String myShape;
 
-    public Cell(int row, int col, int sizeX, int sizeY, int state){
-        myRow = row;
-        myCol = col;
-        mySizeX = sizeX;
-        mySizeY = sizeY;
+   /* public Cell(Point coordinates, int state, String shape, HashMap<String, ArrayList> map){
+        myRow = coordinates.x;
+        myCol = coordinates.y;
         myState = state;
-        myImage = new Rectangle(mySizeX, mySizeY, Color.WHITE);
-        myImage.setStroke(Color.BLACK);
-    }
+        myShape = shape;
+    }*/
 
-    
+
     public int getRow(){
         return myRow;
     }
@@ -37,21 +38,8 @@ public class Cell{
         return myState;
     }
 
-    public Rectangle getImage(){
-        return myImage;
-    }
-
-    public int getSizeX(){
-        return mySizeX;
-    }
-    public int getSizeY(){
-        return mySizeY;
-    }
-
-
-    //add this line to the cell class
-    public void ChangeState(){
-
+    public String getShape(){
+        return myShape;
     }
 
     public void setColor(Paint color){
@@ -60,13 +48,5 @@ public class Cell{
 
     public void setState(int state){
         myState = state;
-    }
-
-    public void decreaseEnergy(){
-        myEnergy -= 2;
-    }
-
-    public void setEnergy(int energy){
-        myEnergy = energy;
     }
 }
