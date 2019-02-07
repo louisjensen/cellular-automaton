@@ -19,11 +19,6 @@ public class ShapeMaker {
     private String TriangleAttributes[] = {"row", "col", "pixel_x", "pixel_y", "sidelength", "isPointed", "state"};
     private String HexagonAttributes[] = {"row", "col", "pixel_x", "pixel_y", "size_x", "size_y", "state"};
 
-    private final HashMap<String, String[]> myAttributes = new HashMap<>(){{
-        put("dead", RectangleAttributes);
-        put("alive", TriangleAttributes);
-        put("burning", HexagonAttributes);
-    }};
 
     public ShapeMaker(int row, int col, int state, int d){
 
