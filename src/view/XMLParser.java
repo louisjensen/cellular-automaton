@@ -15,13 +15,9 @@ public class XMLParser {
     private String simulationType;
     private int xSize;
     private int ySize;
-  //  private HashMap<String, Double> startingProportions = new HashMap<String, Double>();
     private HashMap<String, Double> randomInfo = new HashMap<String, Double>();
     private ArrayList<String> states = new ArrayList<>();
     private ArrayList<Double> stateProportions = new ArrayList<>();
-    private ArrayList<String> otherInfo = new ArrayList<>();
-    private ArrayList<Double> otherInfoStats = new ArrayList<>();
-
 
     public XMLParser(String filepath){
         File file = new File(filepath);
@@ -39,23 +35,18 @@ public class XMLParser {
             for(int i = 0; i < list.getLength(); i++){
                 String s = list.item(i).getTextContent();
                 String[] split = s.split(" ");
-            //    startingProportions.put(split[0], Double.parseDouble(split[1]));
                 states.add(split[0]);
                 stateProportions.add(Double.parseDouble(split[1]));
-                //System.out.println(split[0] + " space " + split[1]);
             }
             NodeList list2 = doc.getElementsByTagName("info");
             for(int i = 0; i < list2.getLength(); i++){
                 String s2 = list2.item(i).getTextContent();
                 String[] split2 = s2.split(" ");
                 randomInfo.put(split2[0], Double.parseDouble(split2[1]));
-               // otherInfo.add(split2[0]);
-               // otherInfoStats.add(Double.parseDouble(split2[1]));
-                //System.out.println(split2[0] + " space " + split2[1]);
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+           //Should Never happen - no response
         }
     }
 
@@ -71,10 +62,6 @@ public class XMLParser {
         return ySize;
     }
 
- /*   public HashMap<String, Double> getMap(){
-        return startingProportions;
-    } */
-
     public HashMap<String, Double> getRandomInfo(){
         return randomInfo;
     }
@@ -85,13 +72,5 @@ public class XMLParser {
 
     public ArrayList<Double> getStateProportions() {
         return stateProportions;
-    }
-
-    public ArrayList<String> getOtherInfo(){
-        return otherInfo;
-    }
-
-    public ArrayList<Double> getOtherInfoStats(){
-        return otherInfoStats;
     }
 }

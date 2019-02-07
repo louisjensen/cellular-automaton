@@ -38,6 +38,15 @@ public class Visualization extends Application {
     private String InitializeButtonImage = "InitializeButton.png";
     private String FastForwardButtonImage = "FastForwardButton.png";
     private String StepButtonImage = "step.png";
+    private final String COUNT_TEXT = "Rounds: ";
+    private final String UPLOAD_TEXT = "UploadFile";
+    private final String STEP_TEXT = "Debug";
+    private final String PLAY_TEXT = "Play";
+    private final String FAST_FORWARD_TEXT = "FastForward";
+    private final String PAUSE_TEXT = "Pause";
+    private final String RESET_TEXT = "Reset";
+    private final String INITIALIZE_TEXT = "Initialize";
+    private final String DEFAULT_FONT = "Times New Roman";
     private static final int fontsize2 = 50;
     private static final int fontsize1 = 25;
     private static final int GridDisplaySize = 900;
@@ -51,12 +60,9 @@ public class Visualization extends Application {
     private final static int SimulationTitle_POS_Y = 100;
     private final static int GRID_POS_X = 200;
     private final static int GRID_POS_Y = 150;
-    private final String DEFAULT_FONT = "Times New Roman";
     private double AnimationSpeed;
     private Text showCount;
     private Scene myScene;
-
-    //we need to make a class or a variable that can hold all grids.
     private Grid myGrid;
     private Text SimulationName;
     private String filepath = "";
@@ -65,18 +71,8 @@ public class Visualization extends Application {
     private int count;
     private int simulationSize;
     private String shapetype;
-    //private ResourceBundle myResources = ResourceBundle.getBundle("view.textForGui");
-
-
-   // private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
-    private final String COUNT_TEXT = "Rounds: ";
-    private final String UPLOAD_TEXT = "UploadFile";
-    private final String STEP_TEXT = "Debug";
-    private final String PLAY_TEXT = "Play";
-    private final String FAST_FORWARD_TEXT = "FastForward";
-    private final String PAUSE_TEXT = "Pause";
-    private final String RESET_TEXT = "Reset";
-    private final String INITIALIZE_TEXT = "Initialize";
+    private XMLParser parser;
+    //private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
 
     public void start (Stage stage) {
         myScene = setupVisualization(stage);
@@ -103,7 +99,6 @@ public class Visualization extends Application {
                 makeGameEnding();
             }
             myGrid.moveNexttoCurrent();
-
             count ++;
             myGrid.setGridPane();
             root.getChildren().add(myGrid.getGridPane());
@@ -118,20 +113,147 @@ public class Visualization extends Application {
         showCount.setText(COUNT_TEXT + count);
     }
 
-
-
     private Scene setupVisualization(Stage stage) {
 
         root = new Group();
         Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT);
+        allButtons(stage);
+        makeTextsLabels();
+
+        return myScene;
+
+    }
+
+    //Below here should all be move in a separate class
+    //----------------------------------------------------------------------------------------------
+
+    private MenuButton selectCellShape(String file){
+        MenuButton menuButton = new MenuButton("Choose Shape");
+        Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
+        menuButton.setGraphic(new ImageView(image));
+        MenuItem triangle = new MenuItem("triangle");
+        triangle.setOnAction(event -> {
+           shapetype = "triangle";
+        });
+        MenuItem rectangle = new MenuItem("rectangle");
+        rectangle.setOnAction(event -> {
+            shapetype = "rectangle";
+        });
+        MenuItem hexagon = new MenuItem("hexagon");
+        hexagon.setOnAction(event -> {
+           shapetype = "hexagon";
+        });
+
+
+        menuButton.getItems().addAll(triangle, rectangle, hexagon);
+        return menuButton;
+    }
+
+    private PieChart setupChart(Grid myGrid) {
+        ObservableList<PieChart.Data>  pieChartData = FXCollections.observableArrayList(
+                //in here loop through myGrid state add do new Piechart.data("name", number)
+                //to do this, we need a map inside the grid class
+                new PieChart.Data("Grapefruit", 13),
+                new PieChart.Data("Oranges", 25),
+                new PieChart.Data("Plums", 10),
+                new PieChart.Data("Pears", 22),
+                new PieChart.Data("Apples", 30));
+        PieChart chart = new PieChart(pieChartData);
+        chart.setVisible(true);
+        chart.setPrefSize(200,200);
+        chart.setMinSize(100,100);
+        chart.setTitle("Imported Fruits");
+        root.getChildren().add(chart);
+        return chart;
+    }
+
+
+    private Slider makeSlider(){
+        Slider mySlider = new Slider(0,20,1);
+        mySlider.setShowTickLabels(true);
+        mySlider.setShowTickMarks(true);
+        mySlider.setMajorTickUnit(5);
+        mySlider.setMinorTickCount(1);
+        mySlider.prefWidth(300);
+        mySlider.setLayoutX(50);
+        mySlider.setLayoutY(1100);
+        return mySlider;
+    }
+
+    //make button and set text and position
+    private Button makeButton(String text, String file, int y) {
+        Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
+        ImageView imageview = new ImageView(image);
+        imageview.setFitWidth(BUTTON_SIZE);
+        imageview.setFitHeight(BUTTON_SIZE);
+        Button button = new Button(text,imageview);
+        button.setLayoutX(BUTTON_POS_X);
+        button.setLayoutY(y);
+        return button;
+    }
+
+    private void makeAlert(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Input Error");
+        alert.setHeaderText("No Input File");
+        alert.setContentText("Please Select Input XML file");
+        alert.show();
+    }
+
+    private void invalidFileError(){
+        Alert fileError = new Alert(Alert.AlertType.CONFIRMATION);
+        fileError.setTitle("Invalid File");
+        fileError.setHeaderText("This is not a valid file");
+        fileError.setContentText("Please upload a valid XML configuration file");
+    }
+
+    private void makeInitialize(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Initialization Error");
+        alert.setHeaderText("No Grid on Screen");
+        alert.setContentText("Please Initialize the Grid first");
+        alert.show();
+    }
+
+    private void makeGameEnding(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Simulation Over");
+        alert.setHeaderText("Final State");
+        alert.setContentText("This is the final state. Press Reset Button");
+        alert.show();
+    }
+    private void setupGrid(String filepath,  Group root, String shapetype){
+        if(shapetype.equals("triangle")){
+            myGrid = new TraingleGrid(filepath, GridDisplaySize, shapetype);
+        }
+        else if(shapetype.equals("Rectangle")){
+            myGrid = new RectangleGrid(filepath, GridDisplaySize, shapetype);
+        }
+        else(shapetype.equals("hexagon")){
+            myGrid = new HexagonGrid(filepath, GridDisplaySize, shapetype);
+        }
+        //myGrid = new Grid(filepath, GridDisplaySize, shapetype);
+        SimulationName = MakeText(myGrid.getSimulationName(),  SimulationTitle_POS_X, SimulationTitle_POS_Y, fontsize2);
+        myGrid.getGridPane().setVisible(true);
+        myGrid.getGridPane().setLayoutX(GRID_POS_X);
+        myGrid.getGridPane().setLayoutY(GRID_POS_Y);
+        BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
+        root.getChildren().add(SimulationName);
+        root.getChildren().add(myGrid.getGridPane());
+    }
+
+    private Text MakeText(String message, int x, int y, int FontSize) {
+        Text text = new Text();
+        text.setX(x);
+        text.setY(y);
+        text.setFont(Font.font(DEFAULT_FONT, FontSize));
+        text.setText(message);
+        text.setFill(Color.BLACK);
+        return text;
+    }
+
+    private void allButtons(Stage stage){
         FileChooser fileChooser = new FileChooser();
-        //root.setPadding(new Insets(15, 20, 10, 10));
-
-
-        Label numberOfSimulations = new Label("Number of simulations:");
-        numberOfSimulations.setLayoutX(50);
-        numberOfSimulations.setLayoutY(1150);
-
         TextField value = new TextField();
         value.setLayoutX(50);
         value.setLayoutY(1200);
@@ -156,6 +278,11 @@ public class Visualization extends Application {
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
                 filepath = selectedFile.toString();
+            }
+            parser = new XMLParser(filepath);
+            if (parser.getSimulationType() == null){
+                invalidFileError();
+                filepath="";
             }
         });
 
@@ -259,136 +386,18 @@ public class Visualization extends Application {
 
         MenuButton chooseShape = selectCellShape("shapes.png");
 
+        root.getChildren().addAll(chooseShape, ChangeSpeedOfGame, StepButton, FileUploadButton, ResetButton, PlayButton, PauseButton, InitializeButton,
+                value, numberOfSimulationsButton);
+    }
 
+    private void makeTextsLabels(){
+        Label numberOfSimulations = new Label("Number of simulations:");
+        numberOfSimulations.setLayoutX(50);
+        numberOfSimulations.setLayoutY(1150);
         showCount = MakeText(COUNT_TEXT + count, 850,975, fontsize1);
-
-        root.getChildren().add(chooseShape);
-        root.getChildren().add(ChangeSpeedOfGame);
-        root.getChildren().add(StepButton);
-        root.getChildren().add(FileUploadButton);
-        root.getChildren().add(ResetButton);
-        root.getChildren().add(PlayButton);
-        //root.getChildren().add(FastForwardButton);
-        root.getChildren().add(PauseButton);
-        root.getChildren().add(InitializeButton);
-        root.getChildren().add(showCount);
-        root.getChildren().add((numberOfSimulations));
-        root.getChildren().add(value);
-        root.getChildren().add(numberOfSimulationsButton);
-
-        return myScene;
+        root.getChildren().addAll(numberOfSimulations, showCount);
 
     }
-    private MenuButton selectCellShape(String file){
-        MenuButton menuButton = new MenuButton("Choose Shape");
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
-        menuButton.setGraphic(new ImageView(image));
-        MenuItem triangle = new MenuItem("triangle");
-        triangle.setOnAction(event -> {
-           shapetype = "triangle";
-        });
-        MenuItem rectangle = new MenuItem("rectangle");
-        rectangle.setOnAction(event -> {
-            shapetype = "rectangle";
-        });
-        MenuItem hexagon = new MenuItem("hexagon");
-        hexagon.setOnAction(event -> {
-           shapetype = "hexagon";
-        });
-
-
-        menuButton.getItems().addAll(triangle, rectangle, hexagon);
-        return menuButton;
-    }
-
-    private PieChart setupChart(Grid myGrid) {
-        ObservableList<PieChart.Data>  pieChartData = FXCollections.observableArrayList(
-                //in here loop through myGrid state add do new Piechart.data("name", number)
-                //to do this, we need a map inside the grid class
-                new PieChart.Data("Grapefruit", 13),
-                new PieChart.Data("Oranges", 25),
-                new PieChart.Data("Plums", 10),
-                new PieChart.Data("Pears", 22),
-                new PieChart.Data("Apples", 30));
-        PieChart chart = new PieChart(pieChartData);
-        chart.setVisible(true);
-        chart.setPrefSize(200,200);
-        chart.setMinSize(100,100);
-        chart.setTitle("Imported Fruits");
-        root.getChildren().add(chart);
-        return chart;
-    }
-
-
-    private Slider makeSlider(){
-        Slider mySlider = new Slider(0,20,1);
-        mySlider.setShowTickLabels(true);
-        mySlider.setShowTickMarks(true);
-        mySlider.setMajorTickUnit(5);
-        mySlider.setMinorTickCount(1);
-        mySlider.prefWidth(300);
-        mySlider.setLayoutX(50);
-        mySlider.setLayoutY(1100);
-        return mySlider;
-    }
-
-    //make button and set text and position
-    private Button makeButton(String text, String file, int y) {
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
-        ImageView imageview = new ImageView(image);
-        imageview.setFitWidth(BUTTON_SIZE);
-        imageview.setFitHeight(BUTTON_SIZE);
-        Button button = new Button(text,imageview);
-        button.setLayoutX(BUTTON_POS_X);
-        button.setLayoutY(y);
-        return button;
-    }
-
-    private void makeAlert(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Input Error");
-        alert.setHeaderText("No Input File");
-        alert.setContentText("Please Select Input XML file");
-        alert.show();
-    }
-
-    private void makeInitialize(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Initialization Error");
-        alert.setHeaderText("No Grid on Screen");
-        alert.setContentText("Please Initialize the Grid first");
-        alert.show();
-    }
-
-    private void makeGameEnding(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Simulation Over");
-        alert.setHeaderText("Final State");
-        alert.setContentText("This is the final state. Press Reset Button");
-        alert.show();
-    }
-    private void setupGrid(String filepath,  Group root, String shapetype){
-        myGrid = new Grid(filepath, GridDisplaySize, shapetype);
-        SimulationName = MakeText(myGrid.getSimulationName(),  SimulationTitle_POS_X, SimulationTitle_POS_Y, fontsize2);
-        myGrid.getGridPane().setVisible(true);
-        myGrid.getGridPane().setLayoutX(GRID_POS_X);
-        myGrid.getGridPane().setLayoutY(GRID_POS_Y);
-        BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
-        root.getChildren().add(SimulationName);
-        root.getChildren().add(myGrid.getGridPane());
-    }
-
-    private Text MakeText(String message, int x, int y, int FontSize) {
-        Text text = new Text();
-        text.setX(x);
-        text.setY(y);
-        text.setFont(Font.font(DEFAULT_FONT, FontSize));
-        text.setText(message);
-        text.setFill(Color.BLACK);
-        return text;
-    }
-
-
 
     public static void main (String[] args) {
         launch(args);
