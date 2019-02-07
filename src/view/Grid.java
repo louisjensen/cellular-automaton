@@ -13,28 +13,62 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.List;
 
-public class Grid {
+public abstract class Grid {
 
-    private Cell[][] myCurrentState;
-    private Cell[][] myNextState;
-    private Simulation mySimulation;
-    private Cell myCell;
-    private Cell currentCell;
-    private GridPane myGridPane;
+    public Cell[][] myCurrentState;
+    public Cell[][] myNextState;
+    public Simulation mySimulation;
+    //private Cell myCell;
+    //private Cell currentCell;
+    //private GridPane myGridPane;
     private String myFilePath;
-    private int myDisplaySize;
-    private int myGridWidth;
-    private int myGridHeight;
-    private int myCellSizeX;
-    private int myCellSizeY;
-    private String SimulationName;
-    private Random rand = new Random();
-    private int d;
-    int randInt;
+    //private int myDisplaySize;
+    //private int myGridWidth;
+    //private int myGridHeight;
+    //private int myCellSizeX;
+    //private int myCellSizeY;
+    //private String SimulationName;
+    //private Random rand = new Random();
+    //private int d;
+    //int randInt;
     private XMLParser xml;
     List<String> states = xml.getStates();
     List<Double> proportionStates = xml.getStateProportions();
     List<Integer> percentageStates = new ArrayList<>();
+
+
+
+
+    public Grid(String filePath){
+        myFilePath = filePath;
+        xml = new XMLParser(myFilePath);
+
+        //construct grid from XML File
+        //myDisplaySize = displaySize;
+        //myGridWidth = xml.getGridX();
+        //myGridHeight = xml.getGridY();
+        //myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
+        //myNextState = new Cell[myGridWidth][myGridHeight];
+        mySimulation = getSimulation(xml.getSimulationType(), xml.getRandomInfo());
+        mySimulation.setCurrentGrid(myCurrentState);
+        mySimulation.setNextGrid(myNextState);
+
+        //myCell = getSpecificCell(xml.getSimulationType(), xml.getRandomInfo();
+
+        //calculateCellSizeX();
+        //calculateCellSizeY();
+
+
+        //how are we gonna choose specific cell type based on the simulation
+
+    }
+
+    public abstract void initialize();
+
+    private Cell getCellBasedOnSimulation(){
+
+    }
+
 
     private Simulation getSimulation(String sim, HashMap<String, Double> map){
         if (sim.equals("GameOfLife")){
@@ -49,7 +83,7 @@ public class Grid {
         if(sim.equals("Segregation")){
             return new Segregation(map);
         }
-       if(sim.equals("PredatorPrey")){
+        if(sim.equals("PredatorPrey")){
             return new PredatorPrey(map);
         }
         return null;
@@ -76,36 +110,8 @@ public class Grid {
             return new PredatorPrey(map);
         }*/
 
-    }
 
-    public Grid(String filePath, int displaySize, String myShapeType){
-        myFilePath = filePath;
-        xml = new XMLParser(myFilePath);
-
-        SimulationName = xml.getSimulationType();
-        //construct grid from XML File
-        myDisplaySize = displaySize;
-        myGridWidth = xml.getGridX();
-        myGridHeight = xml.getGridY();
-        myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
-        myNextState = new Cell[myGridWidth][myGridHeight];
-
-        mySimulation = getSimulation(xml.getSimulationType(), xml.getRandomInfo());
-        myCell = getSpecificCell(xml.getSimulationType(), xml.getRandomInfo(), myShapeType);
-
-
-        initialize(myShapeType);
-        calculateCellSizeX();
-        calculateCellSizeY();
-        mySimulation.setCurrentGrid(myCurrentState);
-        mySimulation.setNextGrid(myNextState);
-
-        //how are we gonna choose specific cell type based on the simulation
-
-    }
-
-
-
+    /*
     public void initialize(String myShapeType){
         if(myShapeType.equals("triangle")){
             initializeTriangleGrid();
@@ -117,6 +123,7 @@ public class Grid {
             initializeHexagonGrid();
         }
     }
+    */
 
     /**
      * returns myGridPane
@@ -226,7 +233,7 @@ public class Grid {
         }
 
     }
-
+/*
     public void initializeTriangleGrid() {
         HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
         setGridProportion();
@@ -258,4 +265,6 @@ public class Grid {
             currentTotal = percentage;
         }
     }
+    */
+
 }
