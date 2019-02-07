@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+    <type>Segregation</type>
+    <horizontalSize>40</horizontalSize>
+    <verticalSize>40</verticalSize>
+    <specifics>
+        <property>empty 0.33</property>
+        <property>blue 0.33</property>
+        <property>red 0.34</property>
+    </specifics>
+    <moreInfo>
+        <info>tolerance 0.6</info>
+    </moreInfo>
+    <author>Louis Jensen</author>
+</simulation>

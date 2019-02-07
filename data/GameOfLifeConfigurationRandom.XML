@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+    <type>GameOfLife</type>
+    <horizontalSize>20</horizontalSize>
+    <verticalSize>20</verticalSize>
+    <specifics>
+        <property>dead 0.5</property>
+        <property>alive 0.5</property>
+    </specifics>
+    <author>Louis Jensen</author>
+</simulation>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+    <type>SpreadingOfFire</type>
+    <horizontalSize>25</horizontalSize>
+    <verticalSize>25</verticalSize>
+    <specifics>
+        <property>alive 0.33</property>
+        <property>dead 0.33</property>
+        <property>burning 0.34</property>
+    </specifics>
+    <moreInfo>
+        <info>probCatch 0.5</info>
+    </moreInfo>
+    <author>Louis Jensen</author>
+</simulation>

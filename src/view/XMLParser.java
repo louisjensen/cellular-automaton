@@ -55,7 +55,7 @@ public class XMLParser {
             }
         }
         catch (Exception e) {
-            e.printStackTrace();
+           //Should Never happen - no response
         }
     }
 
