@@ -19,19 +19,19 @@ public class Segregation extends Simulation {
     int emptyCellsSize;
     int dissatisfiedCellsSize;
 
-    final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
+    private HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("empty",  0);
         put("blue",   1);
         put("red",    2);
     }};
 
-    final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
+    private HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
         put(0, Color.WHITE);
         put(1, Color.BLUE);
         put(2, Color.RED);
     }};
 
-    final ArrayList<Point> possibleNeighbors = new ArrayList<Point>(){{
+    private ArrayList<Point> possibleNeighbors = new ArrayList<Point>(){{
         add(new Point( 0, 1));
         add(new Point( 0,-1));
         add(new Point( 1, 0));
@@ -51,6 +51,8 @@ public class Segregation extends Simulation {
         myColorLookupTable = colorLookupTable;
         myMoreInfoLookupTable = moreInfoLookupTable;
         myTolerance = myMoreInfoLookupTable.get("tolerance");
+        // here, modify possibleNeighbors based on if the simulation is a regular grid, a triangle grid, or a hex grid
+        // also modify possibleNeighbors based on if the grid is a toroid
     }
 
     public int getState(String stateString){

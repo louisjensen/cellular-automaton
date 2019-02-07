@@ -8,19 +8,19 @@ import java.util.HashMap;
 
 public class Percolation extends Simulation {
 
-    final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
+    private HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("opened", 1);
         put("closed", 0);
         put("filled", 2);
     }};
 
-    final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
+    private HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
         put(0, Color.BLACK);
         put(1, Color.WHITE);
         put(2, Color.BLUE);
     }};
 
-    final ArrayList<Point> possibleNeighbors = new ArrayList<Point>(){{
+    private ArrayList<Point> possibleNeighbors = new ArrayList<Point>(){{
         add(new Point( 0, 1));
         add(new Point( 0,-1));
         add(new Point( 1, 0));
@@ -37,6 +37,8 @@ public class Percolation extends Simulation {
         myColorLookupTable = colorLookupTable;
         myCurrentGrid = current;
         myNextGrid = next;
+        // here, modify possibleNeighbors based on if the simulation is a regular grid, a triangle grid, or a hex grid
+        // also modify possibleNeighbors based on if the grid is a toroid
     }
 
     public int getState(String stateString){

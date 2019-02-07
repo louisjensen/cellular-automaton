@@ -40,6 +40,9 @@ public class SpreadingOfFire extends Simulation {
         probCatch = map.get("probCatch");
         myCurrentGrid = current;
         myNextGrid = next;
+
+        // here, modify possibleNeighbors based on if the simulation is a regular grid, a triangle grid, or a hex grid
+        // also modify possibleNeighbors based on if the grid is a toroid
     }
 
     @Override

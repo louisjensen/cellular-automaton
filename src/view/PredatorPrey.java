@@ -16,7 +16,7 @@ public class PredatorPrey extends Simulation {
         put("shark", 10);
     }};
 
-    final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
+    private HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
         put(0, Color.BLUE);
         put(1, Color.YELLOW);
         for (int i=2; i<100; i+=2){
@@ -25,7 +25,7 @@ public class PredatorPrey extends Simulation {
 
     }};
 
-    final ArrayList<Point> possibleNeighbors = new ArrayList<Point>(){{
+    private ArrayList<Point> possibleNeighbors = new ArrayList<Point>(){{
         add(new Point( 0, 1));
         add(new Point( 0,-1));
         add(new Point( 1, 0));
@@ -36,7 +36,7 @@ public class PredatorPrey extends Simulation {
     private int mySharkMaxLives; // shark will die if its lives reaches zero.
     // special state: unoccupied = -2. Where a shark died and no one can move into that space until the next turn. Turns into water after all fish and shark are done updating
     private int myRoundsPassed;
-    private int energyPerFish;
+    //private int energyPerFish;
 
 
     public PredatorPrey(HashMap<String, Double> moreInfoLookupTable){
@@ -47,7 +47,10 @@ public class PredatorPrey extends Simulation {
         mySharkMaxLives = 2 * (int) Math.round(moreInfoLookupTable.get("initSharkEnergy"));
         myEnergyRequirement = 2 * (int) Math.round(moreInfoLookupTable.get("ticksToReproduce"));
         //tateLookupTable.put("sharks", 2 * mySharkMaxLives);
-        energyPerFish = 2 * (int) Math.round(moreInfoLookupTable.get("energyGainedPerFish"));
+        //energyPerFish = 2 * (int) Math.round(moreInfoLookupTable.get("energyGainedPerFish"));
+
+        // here, modify possibleNeighbors based on if the simulation is a regular grid, a triangle grid, or a hex grid
+        // also modify possibleNeighbors based on if the grid is a toroid
 
     }
 
