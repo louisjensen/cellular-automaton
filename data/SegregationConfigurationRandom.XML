@@ -3,6 +3,7 @@
     <type>Segregation</type>
     <horizontalSize>40</horizontalSize>
     <verticalSize>40</verticalSize>
+    <basedOnStates>No</basedOnStates>
     <specifics>
         <property>empty 0.33</property>
         <property>blue 0.33</property>

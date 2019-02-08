@@ -28,6 +28,10 @@ public abstract class Grid {
 
     public Grid(String filePath, int displaySize) {
         myXML = new XMLParser(filePath);
+        if(myXML == null){
+            System.out.print("xml is null");
+        }
+        System.out.println(filePath);
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         myDisplaySize = displaySize;
 

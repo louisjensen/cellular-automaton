@@ -294,7 +294,7 @@ public class Visualization extends Application {
             System.out.println(simulationSize);
         });
 
-        Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, 50);
+        Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, 250);
         BorderPane.setAlignment(FileUploadButton, Pos.TOP_LEFT);
         FileUploadButton.setOnMouseClicked(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
@@ -302,10 +302,10 @@ public class Visualization extends Application {
                 filepath = selectedFile.toString();
             }
             parser = new XMLParser(filepath);
-            if (parser.getSimulationType() == null){
-                invalidFileError();
-                filepath="";
-            }
+          //  if (parser.getSimulationType() == null){
+            //    invalidFileError();
+            //    filepath="";
+          //  }
         });
 
         MenuButton chooseShape = selectCellShape("shapes.png", 50, 200 );
@@ -367,6 +367,7 @@ public class Visualization extends Application {
         InitializeButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
+                System.out.println("this is it");
             }
             else {
                 // we will have to add for loop here to create multiple grids
