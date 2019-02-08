@@ -1,10 +1,11 @@
 package view;
 
 import javax.swing.plaf.basic.BasicTreeUI;
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.shape.Polygon;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import java.util.Map;
 
@@ -66,5 +67,10 @@ public class ShapeMaker {
                     row +d, col,
                     row -d, col});
         return hexagon;
-        }
+    }
+
+    private void initialize(Polygon shape){
+        shape.setFill(Color.WHITE);
+        shape.setStroke(Color.BLACK);
+    }
 }

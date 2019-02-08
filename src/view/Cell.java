@@ -13,9 +13,32 @@ import java.util.Map;
 
 public abstract class Cell{
 
-
     public int myState;
     public Polygon myShape;
+    public int myRow;
+    public int myCol;
+
+    //public Cell (int row, int col){
+     //   myRow = row;
+    //    myCol = col;
+    //}
+    public Cell (Polygon shape){
+        myShape = shape;
+    }
+
+    public int getRow(){
+        return myRow;
+    }
+    public void setRow(int row){
+        myRow = row;
+    }
+
+    public int getCol(){
+        return myState;
+    }
+    public void setCol(int col){
+        myCol = col;
+    }
 
     public int getState(){
         return myState;

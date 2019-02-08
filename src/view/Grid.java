@@ -11,6 +11,8 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.io.File;
 import java.util.HashMap;
+import javafx.scene.Group;
+
 import java.util.Random;
 import java.util.List;
 
@@ -87,7 +89,7 @@ public abstract class Grid {
             return new Segregation(map);
         }
         if(sim.equals("PredatorPrey")){
-            return new PredatorPrey(map);
+            //return new PredatorPrey(map);
         }
         return null;
     }
@@ -203,6 +205,33 @@ public abstract class Grid {
         mySimulation.update();
     }
 
+    public String getSimulationName(){
+        return myXML.getSimulationType();
+    }
+
+    public void display( Group root){
+        Cell current;
+        for (int row = 0; row < myCurrentState.length; row ++){
+            for (int col = 0; col < myCurrentState[0].length; col ++){
+                current = myCurrentState[row][col];
+                if (!root.getChildren().contains(current.getShape())){
+                    root.getChildren().add(current.getShape());
+                }
+            }
+        }
+    }
+
+    public void unDisplay(Group root){
+        Cell current;
+        for (int row = 0; row < myCurrentState.length; row ++){
+            for (int col = 0; col < myCurrentState[0].length; col ++){
+                current = myCurrentState[row][col];
+                if (root.getChildren().contains(current.getShape())){
+                    root.getChildren().remove(current.getShape());
+                }
+            }
+        }
+    }
 
 /*
     public void initializeTriangleGrid() {

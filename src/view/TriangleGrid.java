@@ -1,3 +1,4 @@
+/*
 package view;
 
 import java.util.*;
@@ -12,3 +13,4 @@ public class TriangleGrid extends Grid {
 
     }
 }
+*/

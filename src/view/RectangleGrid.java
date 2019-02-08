@@ -23,6 +23,7 @@ public class RectangleGrid extends Grid {
         calculateMyRectangleWidth();
     }
 
+    @Override
     public void initialize(){
         int pixelX = 0;
         int pixelY = 0;

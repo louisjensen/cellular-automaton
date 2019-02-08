@@ -92,7 +92,8 @@ public class Visualization extends Application {
 
     private void step() {
         if(root != null) {
-            root.getChildren().remove(myGrid.getGridPane());
+            myGrid.unDisplay(root);
+            //root.getChildren().remove(myGrid.getGridPane());
             myGrid.updateGrid();
             if(myGrid.checkGameEnding()){
                 animation.stop();
@@ -100,14 +101,16 @@ public class Visualization extends Application {
             }
             myGrid.moveNexttoCurrent();
             count ++;
-            myGrid.setGridPane();
-            root.getChildren().add(myGrid.getGridPane());
+            //myGrid.setGridPane();
+            myGrid.display(root);
+            //root.getChildren().add(myGrid.getGridPane());
         }
         else {
             myGrid.updateGrid();
             count ++;
-            myGrid.setGridPane();
-            root.getChildren().add(myGrid.getGridPane());
+            //myGrid.setGridPane();
+            myGrid.display(root);
+            //root.getChildren().add(myGrid.getGridPane());
         }
 
         showCount.setText(COUNT_TEXT + count);
@@ -226,20 +229,20 @@ public class Visualization extends Application {
         if(shapetype.equals("triangle")){
             //myGrid = new TriangleGrid(filepath, GridDisplaySize, shapetype);
         }
-        else if(shapetype.equals("Rectangle")){
+        else if(shapetype.equals("rectangle")){
             myGrid = new RectangleGrid(filepath, GridDisplaySize);
         }
-        else(shapetype.equals("hexagon")){
+        else if(shapetype.equals("hexagon")){
             //myGrid = new HexagonGrid(filepath, GridDisplaySize, shapetype);
         }
         //myGrid = new Grid(filepath, GridDisplaySize, shapetype);
-        SimulationName = MakeText(myGrid.getSimulationName(),  SimulationTitle_POS_X, SimulationTitle_POS_Y, fontsize2);
-        myGrid.getGridPane().setVisible(true);
-        myGrid.getGridPane().setLayoutX(GRID_POS_X);
-        myGrid.getGridPane().setLayoutY(GRID_POS_Y);
-        BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
-        root.getChildren().add(SimulationName);
-        root.getChildren().add(myGrid.getGridPane());
+        //SimulationName = MakeText(myGrid.getSimulationName(),  SimulationTitle_POS_X, SimulationTitle_POS_Y, fontsize2);
+        //myGrid.getGridPane().setVisible(true);
+        //myGrid.getGridPane().setLayoutX(GRID_POS_X);
+        //myGrid.getGridPane().setLayoutY(GRID_POS_Y);
+        //BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
+        //root.getChildren().add(SimulationName);
+        //root.getChildren().add(myGrid.getGridPane());
     }
 
     private Text MakeText(String message, int x, int y, int FontSize) {
@@ -294,11 +297,13 @@ public class Visualization extends Application {
             if(myGrid == null){
                 makeInitialize();
             }
-            root.getChildren().remove(myGrid.getGridPane());
+            //root.getChildren().remove(myGrid.getGridPane());
+            myGrid.unDisplay(root);
             myGrid.updateGrid();
             count ++;
-            myGrid.setGridPane();
-            root.getChildren().add(myGrid.getGridPane());
+            //myGrid.setGridPane();
+            //root.getChildren().add(myGrid.getGridPane());
+            myGrid.display(root);
         });
 
         Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  350);
@@ -362,14 +367,16 @@ public class Visualization extends Application {
             else {
                 // we will have to add for loop here to create multiple grids
                 if(myGrid != null){
-                    root.getChildren().remove(myGrid.getGridPane());
+                    myGrid.unDisplay(root);
                 }
                 AnimationSpeed = 1;
                 animation.setRate(AnimationSpeed);
                 count = 0;
-                root.getChildren().remove(myGrid);
+                //root.getChildren().remove(myGrid);
                 root.getChildren().remove(SimulationName);
                 setupGrid(filepath, root, shapetype);
+                myGrid.initialize();
+                myGrid.display(root);
                 setupChart(myGrid);
             }
         });
