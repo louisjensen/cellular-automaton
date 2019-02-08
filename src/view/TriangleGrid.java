@@ -15,16 +15,19 @@ public class TriangleGrid extends Grid {
     public TriangleGrid(String filePath, int displaySize){
         super(filePath, displaySize);
         int numRows = myXML.getGridX();
-        int numCols = calculateNumCols(numRows);
+        int numCols = myXML.getGridY();
 
         myCurrentState = new Cell[numRows][numCols];// for testing
         myNextState = new Cell[numRows][numCols];
+        mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         calculateTriangleLength();
+        System.out.println(numRows);
+        System.out.println(numCols);
 
     }
 
     public void initialize(){
-        int pixelX = 200;
+        int pixelX = 500;
         int pixelY = 150;
 
         Polygon shape;
@@ -34,9 +37,9 @@ public class TriangleGrid extends Grid {
         ShapeMaker sm = new ShapeMaker();
         int middleIndex = (myCurrentState.length-1)/2;
 
-        for (int row = 0; row < myCurrentState.length; row++) {
-            for (int col = 0; col < myCurrentState[0].length; col++) {
-                if (isOdd(row + col)) {
+        for (int i = 0; i < myCurrentState.length; i++) {
+            for (int j = 0; j < myCurrentState[0].length; j++) {
+                if (isOdd(i + j)) {
                     isPointy = true;
                 }
                 else {
@@ -44,28 +47,23 @@ public class TriangleGrid extends Grid {
                 }
                 shape = sm.makeTriangle(new Point(pixelX, pixelY), myTriangleLength, isPointy);
 
-                myCurrentState[row][col] = getSpecificCell(shape);
-                current = myCurrentState[row][col];
-                current.setRow(row);
-                current.setCol(col);
+                myCurrentState[i][j] = getSpecificCell(shape);
+                current = myCurrentState[i][j];
+                current.setRow(i);
+                current.setCol(j);
 
-                myNextState[row][col] = getSpecificCell(shape);
-                next = myNextState[row][col];
-                next.setRow(row);
-                next.setCol(col);
-                if (col >= middleIndex - row && col <= middleIndex + row) { // if in appropriate place
-                    current.setState(-1);
-                    current.setState(-1);
-                }
-                else {
-                    next.setState(-2);
-                    next.setState(-2);
-                    setBlank(shape);
-                }
+                myNextState[i][j] = getSpecificCell(shape);
+                next = myNextState[i][j];
+                next.setRow(i);
+                next.setCol(j);
 
-                pixelX += myTriangleLength * 2;
+                current.setState(-1);
+                current.setState(-1);
+
+
+                pixelX += myTriangleLength;
             }
-            pixelX = 200;
+            pixelX = 500;
             pixelY += myTriangleLength;
         }
     }

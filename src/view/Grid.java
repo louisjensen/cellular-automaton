@@ -47,7 +47,7 @@ public abstract class Grid {
 
     public Grid(String filePath, int displaySize){
         myXML = new XMLParser(filePath);
-        mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
+        //mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         myDisplaySize = displaySize;
 
         //construct grid from XML File
@@ -173,10 +173,10 @@ public abstract class Grid {
 */
 
     public void moveNexttoCurrent() {
-        for (int row = 0; row < myCurrentState.length; row++) {
-            for (int col = 0; col < myCurrentState[0].length; col++) {
-                myCurrentState[row][col].setState(myNextState[row][col].getState());
-                myNextState[row][col].setState(-1);
+        for (int i = 0; i < myCurrentState.length; i++) {
+            for (int j = 0; j < myCurrentState[0].length; j++) {
+                myCurrentState[i][j].setState(myNextState[i][j].getState());
+                myNextState[i][j].setState(-1);
             }
         }
     }
@@ -213,10 +213,10 @@ public abstract class Grid {
 
     public void display( Group root){
         Cell current;
-        for (int row = 0; row < myCurrentState.length; row ++){
-            for (int col = 0; col < myCurrentState[0].length; col ++){
-                current = myCurrentState[row][col];
-                if (!root.getChildren().contains(current.getShape())){
+        for (int i = 0; i < myCurrentState.length; i ++){
+            for (int j = 0; j < myCurrentState[0].length; j ++){
+                current = myCurrentState[i][j];
+                if (!root.getChildren().contains(current.getShape()) && current.getState() != -2){
                     root.getChildren().add(current.getShape());
                 }
             }
@@ -225,9 +225,9 @@ public abstract class Grid {
 
     public void unDisplay(Group root){
         Cell current;
-        for (int row = 0; row < myCurrentState.length; row ++){
-            for (int col = 0; col < myCurrentState[0].length; col ++){
-                current = myCurrentState[row][col];
+        for (int i = 0; i < myCurrentState.length; i ++){
+            for (int j = 0; j < myCurrentState[0].length; j ++){
+                current = myCurrentState[i][j];
                 if (root.getChildren().contains(current.getShape())){
                     root.getChildren().remove(current.getShape());
                 }
@@ -279,14 +279,16 @@ public abstract class Grid {
 
 
         for (int i = 0; i < myCurrentState.length; i++){
-            for (int j = 0; j < myCurrentState[0].length; j++){
-                randInt = rand.nextInt(100) + 1;
-                for (int k = 0; k < percentageStates.size(); k++){
-                    if(randInt <= percentageStates.get(k)) {
-                        current = myCurrentState[i][j];
-                        current.setState(stateLookupTable.get(states.get(k)));
-                        current.setColor(stateToColorMap.get(current.getState()));
-                        break;
+            for (int j = 0; j < myCurrentState[0].length; j++) {
+                if (myCurrentState[i][j].getState() != -2){
+                    randInt = rand.nextInt(100) + 1;
+                    for (int k = 0; k < percentageStates.size(); k++) {
+                        if (randInt <= percentageStates.get(k)) {
+                            current = myCurrentState[i][j];
+                            current.setState(stateLookupTable.get(states.get(k)));
+                            current.setColor(stateToColorMap.get(current.getState()));
+                            break;
+                        }
                     }
                 }
             }

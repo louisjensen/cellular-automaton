@@ -69,7 +69,7 @@ public class GameOfLife extends Simulation{
         Cell cellToUpdate;
         Cell currentCell;
         ArrayList<Cell> neighbors;
-
+        int i = myCurrentGrid.length;
         for (int row = 0; row < myCurrentGrid.length; row++){
             for (int col = 0; col < myCurrentGrid[0].length; col++){
 

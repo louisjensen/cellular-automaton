@@ -15,9 +15,9 @@ public class RectangleGrid extends Grid {
         super(filePath, displaySize);
         int numRows = myXML.getGridX();
         int numCols = myXML.getGridY();
-        myCurrentState = new Cell[numRows][numCols];// for testing
-        myNextState = new Cell[numRows][numCols];
-
+        myCurrentState = new Cell[numCols][numRows];// for testing
+        myNextState = new Cell[numCols][numRows];
+        mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         calculateMyRectangleHeight();
         calculateMyRectangleWidth();
     }
@@ -30,20 +30,20 @@ public class RectangleGrid extends Grid {
         Cell current;
         Cell next;
         ShapeMaker sm = new ShapeMaker();
-        for (int row = 0; row < myCurrentState.length; row++) {
-            for (int col = 0; col < myCurrentState[0].length; col++) {
+        for (int i = 0; i < myCurrentState.length; i++) {
+            for (int j = 0; j < myCurrentState[0].length; j++) {
                 shape = sm.makeRectangle(new Point(pixelX, pixelY), myRectangleWidth, myRectangleHeight) ;
-                myCurrentState[row][col] = getSpecificCell(shape);
-                current = myCurrentState[row][col];
+                myCurrentState[i][j] = getSpecificCell(shape);
+                current = myCurrentState[i][j];
                 current.setState(-1);
-                current.setRow(row);
-                current.setCol(col);
+                current.setRow(j);
+                current.setCol(i);
 
-                myNextState[row][col] = getSpecificCell(shape);
-                next = myNextState[row][col];
+                myNextState[i][j] = getSpecificCell(shape);
+                next = myNextState[i][j];
                 next.setState(-1);
-                next.setRow(row);
-                next.setCol(col);
+                next.setRow(j);
+                next.setCol(i);
 
                 pixelX += myRectangleWidth;
             }
