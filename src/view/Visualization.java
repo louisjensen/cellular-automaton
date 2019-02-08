@@ -70,7 +70,7 @@ public class Visualization extends Application {
     private Timeline animation;
     private int count;
     private int simulationSize;
-    private String shapetype;
+    private String shapetype = "";
     private XMLParser parser;
     private TextField value;
     private PieChart chart;
@@ -365,7 +365,7 @@ public class Visualization extends Application {
 
         Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, 800);
         InitializeButton.setOnMouseClicked((event)->{
-            if(filepath.equals("") || shapetype == null){
+            if(filepath.equals("")){
                 makeAlert();
             }
             else {
