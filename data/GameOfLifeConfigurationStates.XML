@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+    <type>GameOfLife</type>
+    <horizontalSize>6</horizontalSize>
+    <verticalSize>6</verticalSize>
+    <basedOnStates>Yes</basedOnStates>
+    <specifics>
+        <property>1 0</property>
+        <property>2 0</property>
+        <property>3 0</property>
+        <property>4 1</property>
+        <property>5 1</property>
+        <property>6 0</property>
+        <property>7 0</property>
+        <property>8 0</property>
+        <property>9 0</property>
+        <property>10 1</property>
+        <property>11 0</property>
+        <property>12 0</property>
+        <property>13 0</property>
+        <property>14 0</property>
+        <property>15 0</property>
+        <property>16 0</property>
+        <property>17 0</property>
+        <property>18 0</property>
+        <property>19 0</property>
+        <property>20 0</property>
+        <property>21 0</property>
+        <property>22 0</property>
+        <property>23 0</property>
+        <property>24 0</property>
+        <property>25 0</property>
+        <property>26 1</property>
+        <property>27 1</property>
+        <property>28 1</property>
+        <property>29 0</property>
+        <property>30 0</property>
+        <property>31 0</property>
+        <property>32 1</property>
+        <property>33 0</property>
+        <property>34 0</property>
+        <property>35 0</property>
+        <property>36 0</property>
+    </specifics>
+    <author>Louis Jensen</author>
+</simulation>
