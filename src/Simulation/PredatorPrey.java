@@ -1,8 +1,8 @@
-/*
-package view;
+
+package Simulation;
 
 import javafx.scene.paint.Color;
-
+import Cell.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -239,4 +239,3 @@ public class PredatorPrey extends Simulation {
 
 }
 
-*/
