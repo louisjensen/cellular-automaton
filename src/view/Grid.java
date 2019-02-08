@@ -18,6 +18,8 @@ public abstract class Grid {
     public Cell[][] myCurrentState;
     public Cell[][] myNextState;
     public Simulation mySimulation;
+    public int myDisplaySize;
+    public XMLParser myXML;
     //private Cell myCell;
     //private Cell currentCell;
     //private GridPane myGridPane;
@@ -31,17 +33,18 @@ public abstract class Grid {
     //private Random rand = new Random();
     //private int d;
     //int randInt;
-    private XMLParser xml;
-    List<String> states = xml.getStates();
-    List<Double> proportionStates = xml.getStateProportions();
-    List<Integer> percentageStates = new ArrayList<>();
+
+    //List<String> states = xml.getStates();
+    //List<Double> proportionStates = xml.getStateProportions();
+    //List<Integer> percentageStates = new ArrayList<>();
 
 
 
 
     public Grid(String filePath){
         myFilePath = filePath;
-        xml = new XMLParser(myFilePath);
+        myXML = new XMLParser(myFilePath);
+        mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
 
         //construct grid from XML File
         //myDisplaySize = displaySize;
@@ -49,9 +52,9 @@ public abstract class Grid {
         //myGridHeight = xml.getGridY();
         //myCurrentState = new Cell[myGridWidth][myGridHeight];// for testing
         //myNextState = new Cell[myGridWidth][myGridHeight];
-        mySimulation = getSimulation(xml.getSimulationType(), xml.getRandomInfo());
-        mySimulation.setCurrentGrid(myCurrentState);
-        mySimulation.setNextGrid(myNextState);
+
+        //mySimulation.setCurrentGrid(myCurrentState);
+        //mySimulation.setNextGrid(myNextState);
 
         //myCell = getSpecificCell(xml.getSimulationType(), xml.getRandomInfo();
 
@@ -70,7 +73,7 @@ public abstract class Grid {
     }
 
 
-    private Simulation getSimulation(String sim, HashMap<String, Double> map){
+    public Simulation getSimulation(String sim, HashMap<String, Double> map){
         if (sim.equals("GameOfLife")){
             return new GameOfLife(myCurrentState, myNextState);
         }
@@ -216,23 +219,7 @@ public abstract class Grid {
         mySimulation.update();
     }
 
-    public void initializeRectangleGrid(){
-        HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
-        setGridProportion();
-        for (int i = 0; i < myGridWidth; i++){
-            for (int j = 0; j < myGridHeight; j++){
-                randInt = rand.nextInt(100) + 1;
-                for (int k = 0; k < percentageStates.size(); k++){
-                    if(randInt <= percentageStates.get(k)) {
-                        myCurrentState[i][j] = new Cell(i, j, myCellSizeX, myCellSizeY, stateLookupTable.get(states.get(k)));
-                        myNextState[i][j] = new Cell(i, j, myCellSizeX, myCellSizeY,-1);
-                        break;
-                    }
-                }
-            }
-        }
 
-    }
 /*
     public void initializeTriangleGrid() {
         HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
