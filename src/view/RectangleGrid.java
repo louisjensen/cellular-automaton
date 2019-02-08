@@ -11,8 +11,10 @@ public class RectangleGrid extends Grid {
     private int myRectangleWidth;
 
 
-    public RectangleGrid(String filePath, int numRows, int numCols, int displaySize){
+    public RectangleGrid(String filePath, int displaySize){
         super(filePath);
+        int numRows = myXML.getGridX();
+        int numCols = myXML.getGridY();
         myCurrentState = new Cell[numRows][numCols];// for testing
         myNextState = new Cell[numRows][numCols];
         myDisplaySize = displaySize;
