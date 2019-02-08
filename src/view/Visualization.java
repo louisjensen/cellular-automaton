@@ -36,13 +36,13 @@ public class Visualization extends Application {
     private String PlayButtonImage = "PlayButton.png";
     private String PauseButtonImage = "PauseButton.png";
     private String InitializeButtonImage = "InitializeButton.png";
-    private String FastForwardButtonImage = "FastForwardButton.png";
+    //private String FastForwardButtonImage = "FastForwardButton.png";
     private String StepButtonImage = "step.png";
     private final String COUNT_TEXT = "Rounds: ";
     private final String UPLOAD_TEXT = "UploadFile";
     private final String STEP_TEXT = "Debug";
     private final String PLAY_TEXT = "Play";
-    private final String FAST_FORWARD_TEXT = "FastForward";
+   // private final String FAST_FORWARD_TEXT = "FastForward";
     private final String PAUSE_TEXT = "Pause";
     private final String RESET_TEXT = "Reset";
     private final String INITIALIZE_TEXT = "Initialize";
