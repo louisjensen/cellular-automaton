@@ -71,6 +71,7 @@ public class Visualization extends Application {
     private int count;
     private int simulationSize;
     private String shapetype;
+    private XMLParser parser;
     //private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
 
     public void start (Stage stage) {
@@ -199,6 +200,13 @@ public class Visualization extends Application {
         alert.show();
     }
 
+    private void invalidFileError(){
+        Alert fileError = new Alert(Alert.AlertType.CONFIRMATION);
+        fileError.setTitle("Invalid File");
+        fileError.setHeaderText("This is not a valid file");
+        fileError.setContentText("Please upload a valid XML configuration file");
+    }
+
     private void makeInitialize(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Initialization Error");
@@ -270,6 +278,11 @@ public class Visualization extends Application {
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
                 filepath = selectedFile.toString();
+            }
+            parser = new XMLParser(filepath);
+            if (parser.getSimulationType() == null){
+                invalidFileError();
+                filepath="";
             }
         });
 
