@@ -56,7 +56,7 @@ public abstract class Grid {
         //mySimulation.setCurrentGrid(myCurrentState);
         //mySimulation.setNextGrid(myNextState);
 
-        //myCell = getSpecificCell(xml.getSimulationType(), xml.getRandomInfo();
+        Cell myCell = getSpecificCell(xml.getSimulationType(), xml.getRandomInfo();
 
         //calculateCellSizeX();
         //calculateCellSizeY();
@@ -220,8 +220,8 @@ public abstract class Grid {
     }
 
 
-/*
-    public void initializeTriangleGrid() {
+
+   /* public void initializeTriangleGrid() {
         HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
         setGridProportion();
         int numBottomCells;
@@ -240,10 +240,10 @@ public abstract class Grid {
         HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
         setGridProportion();
 
-    }
+    }*/
 
 
-    private void setGridProportion(){
+    public void setGridProportion(){
         int currentTotal = 0;
         int percentage;
         for (int i = 0; i < proportionStates.size(); i++) {
@@ -252,6 +252,6 @@ public abstract class Grid {
             currentTotal = percentage;
         }
     }
-    */
+
 
 }
