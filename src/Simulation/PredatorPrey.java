@@ -3,6 +3,8 @@ package Simulation;
 
 import javafx.scene.paint.Color;
 import Cell.*;
+import view.NeighborsMaker;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -20,6 +20,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
     public Simulation (NeighborsMaker nm){
         myNeighborsMaker = nm;
     }
+    public Simulation(){}
 
     /**
      * Returns the next state of cell based on the states of its neighbors.
