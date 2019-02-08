@@ -1,10 +1,11 @@
 package view;
 
 import javax.swing.plaf.basic.BasicTreeUI;
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.shape.Polygon;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import java.util.Map;
 
@@ -14,8 +15,7 @@ public class ShapeMaker {
     private String HexagonAttributes[] = {"row", "col", "pixel_x", "pixel_y", "size_x", "size_y", "state"};
 
 
-    public ShapeMaker(String shapetype, HashMap map){
-
+    public ShapeMaker(){
     }
 
 
@@ -51,21 +51,28 @@ public class ShapeMaker {
                 row + width, col + height,
                 row, col + height,
             });
+        initialize(rectangle);
         return rectangle;
     }
 
-    public Polygon makeHexagon(Point point, int d){
+    public Polygon makeHexagon(Point point, double d){
 
         double row = point.x;
         double col = point.y;
         Polygon hexagon = new Polygon();
         hexagon.getPoints().addAll(new Double[]{
-                    row -d, col -2*d,
-                    row -d, col + 2 *d,
-                    row +d, col - 2 *d,
-                    row +d, col +2*d,
-                    row +d, col,
-                    row -d, col});
+                    row -d, col -d,
+                    row, col - 2 *d,
+                    row +d, col - d,
+                    row +d, col +d,
+                    row, col +2*d,
+                    row -d, col+d
+        });
         return hexagon;
-        }
+    }
+
+    private void initialize(Polygon shape){
+        shape.setFill(Color.WHITE);
+        shape.setStroke(Color.BLACK);
+    }
 }

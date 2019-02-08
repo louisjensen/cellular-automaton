@@ -6,47 +6,54 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
-import java.awt.*;
+import javafx.scene.shape.Polygon;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Cell{
 
-    private int myRow;
-    private int myCol;
-    private int myState;
-    private Rectangle myImage;
-    private int myEnergy;
-    private String myShape;
+    public int myState;
+    public Polygon myShape;
+    public int myRow;
+    public int myCol;
 
-   /* public Cell(Point coordinates, int state, String shape, HashMap<String, ArrayList> map){
-        myRow = coordinates.x;
-        myCol = coordinates.y;
-        myState = state;
+    //public Cell (int row, int col){
+     //   myRow = row;
+    //    myCol = col;
+    //}
+    public Cell (Polygon shape){
         myShape = shape;
-    }*/
-
+    }
 
     public int getRow(){
         return myRow;
     }
+    public void setRow(int row){
+        myRow = row;
+    }
+
     public int getCol(){
         return myCol;
     }
+    public void setCol(int col){
+        myCol = col;
+    }
+
     public int getState(){
         return myState;
     }
+    public void setState(int state){
+        myState = state;
+    }
 
-    public String getShape(){
+    public Polygon getShape(){
         return myShape;
     }
 
     public void setColor(Paint color){
-        myImage.setFill(color);
+        myShape.setFill(color);
     }
 
-    public void setState(int state){
-        myState = state;
-    }
+
 }
