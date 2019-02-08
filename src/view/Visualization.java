@@ -97,10 +97,10 @@ public class Visualization extends Application {
             myGrid.unDisplay(root);
             root.getChildren().remove(chart);
             myGrid.updateGrid();
-            //if(myGrid.checkGameEnding()){
-            //    animation.stop();
-                //makeGameEnding();
-            //}
+            if(myGrid.checkGameEnding()){
+                animation.stop();
+                makeGameEnding();
+            }
             myGrid.moveNexttoCurrent();
             count ++;
             myGrid.display(root);
@@ -109,6 +109,7 @@ public class Visualization extends Application {
 
         }
         else {
+            root.getChildren().remove(chart);
             myGrid.updateGrid();
             count ++;
             myGrid.display(root);
@@ -160,6 +161,8 @@ public class Visualization extends Application {
     }
 
     private PieChart setupChart(Grid myGrid) {
+
+        //have to read in grid info as a map
 
         int white=0;
         int black=0;
@@ -362,7 +365,7 @@ public class Visualization extends Application {
 
         Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, 800);
         InitializeButton.setOnMouseClicked((event)->{
-            if(filepath.equals("")){
+            if(filepath.equals("") || shapetype == null){
                 makeAlert();
             }
             else {
