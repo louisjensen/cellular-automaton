@@ -58,7 +58,7 @@ public abstract class Grid {
             return new Segregation(map, myCurrentState, myNextState, myNeighborsMaker);
         }
         if (sim.equals("PredatorPrey")) {
-            return new PredatorPrey(map);
+            //return new PredatorPrey(map);
         }
         return null;
     }
