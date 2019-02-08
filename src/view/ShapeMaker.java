@@ -19,22 +19,6 @@ public class ShapeMaker {
     }
 
 
-    public Shape getShape(String type){
-        Shape myShape;
-        if(type.equals("rectangle")){
-            myShape = makeRectangle(myAttributes.get(type), d);
-        }
-        if(type.equals("triangle")){
-            myShape = makeTriangle(myAttributes.get(type), d);
-        }
-        else{
-            myShape =  makeHexagon(myAttributes.get(type), d);
-        }
-
-        return myShape;
-    }
-
-
     public Polygon makeTriangle(Point point, int d, int isPointed){
         double row = point.x;
         double col = point.y;
