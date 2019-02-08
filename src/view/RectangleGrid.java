@@ -24,7 +24,7 @@ public class RectangleGrid extends Grid {
 
     @Override
     public void initialize(){
-        int pixelX = 200;
+        int pixelX = 500;
         int pixelY = 150;
         Polygon shape;
         Cell current;
@@ -47,7 +47,7 @@ public class RectangleGrid extends Grid {
 
                 pixelX += myRectangleWidth;
             }
-            pixelX = 200;
+            pixelX = 600;
             pixelY += myRectangleHeight;
         }
     }

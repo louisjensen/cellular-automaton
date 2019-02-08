@@ -56,18 +56,20 @@ public class ShapeMaker {
         return rectangle;
     }
 
-    public Polygon makeHexagon(Point point, int d){
+    public Polygon makeHexagon(Point point, double d){
 
         double row = point.x;
         double col = point.y;
         Polygon hexagon = new Polygon();
         hexagon.getPoints().addAll(new Double[]{
-                    row -d, col -2d,
-                    row -d, col + 2d,
-                    row +d, col - 2d,
-                    row +d, col +2d,
-                    row +d, col,
-                    row -d, col});
+                    row -d, col -d,
+                    row, col - 2 *d,
+                    row +d, col - d,
+                    row +d, col +d,
+                    row, col +2*d,
+                    row -d, col+d
+        });
+        initialize(hexagon);
         return hexagon;
     }
 

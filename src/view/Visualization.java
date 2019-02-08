@@ -233,16 +233,8 @@ public class Visualization extends Application {
             myGrid = new RectangleGrid(filepath, GridDisplaySize);
         }
         else if(shapetype.equals("hexagon")){
-            //myGrid = new HexagonGrid(filepath, GridDisplaySize, shapetype);
+            myGrid = new HexagonGrid(filepath, GridDisplaySize);
         }
-        //myGrid = new Grid(filepath, GridDisplaySize, shapetype);
-        //SimulationName = MakeText(myGrid.getSimulationName(),  SimulationTitle_POS_X, SimulationTitle_POS_Y, fontsize2);
-        //myGrid.getGridPane().setVisible(true);
-        //myGrid.getGridPane().setLayoutX(GRID_POS_X);
-        //myGrid.getGridPane().setLayoutY(GRID_POS_Y);
-        //BorderPane.setAlignment(myGrid.getGridPane(),Pos.CENTER_RIGHT);
-        //root.getChildren().add(SimulationName);
-        //root.getChildren().add(myGrid.getGridPane());
     }
 
     private Text MakeText(String message, int x, int y, int FontSize) {
