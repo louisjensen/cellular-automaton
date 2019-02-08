@@ -31,11 +31,8 @@ public class TriangleGrid extends Grid {
         int pixelY = 150;
 
         Polygon shape;
-        Cell current;
         boolean isPointy;
-        Cell next;
         ShapeMaker sm = new ShapeMaker();
-        int middleIndex = (myCurrentState.length-1)/2;
 
         for (int i = 0; i < myCurrentState.length; i++) {
             for (int j = 0; j < myCurrentState[0].length; j++) {
@@ -46,21 +43,7 @@ public class TriangleGrid extends Grid {
                     isPointy = false;
                 }
                 shape = sm.makeTriangle(new Point(pixelX, pixelY), myTriangleLength, isPointy);
-
-                myCurrentState[i][j] = getSpecificCell(shape);
-                current = myCurrentState[i][j];
-                current.setRow(i);
-                current.setCol(j);
-
-                myNextState[i][j] = getSpecificCell(shape);
-                next = myNextState[i][j];
-                next.setRow(i);
-                next.setCol(j);
-
-                current.setState(-1);
-                current.setState(-1);
-
-
+                initializeCurrentNext(shape, i, j);
                 pixelX += myTriangleLength;
             }
             pixelX = 500;

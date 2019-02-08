@@ -72,6 +72,22 @@ public abstract class Grid {
         return new GameOfLifeCell(shape);
     }
 
+    public void initializeCurrentNext(Polygon shape, int row, int col){
+        myCurrentState[row][col] = getSpecificCell(shape);
+        Cell current = myCurrentState[row][col];
+        initializeCell(current, row, col);
+
+        myNextState[row][col] = getSpecificCell(shape);
+        Cell next = myNextState[row][col];
+        initializeCell(next, row, col);
+    }
+
+    private void initializeCell(Cell cell, int row, int col){
+        cell.setState(-1);
+        cell.setRow(row);
+        cell.setCol(col);
+    }
+
 
     public void moveNexttoCurrent() {
         for (int i = 0; i < myCurrentState.length; i++) {

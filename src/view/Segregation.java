@@ -58,20 +58,15 @@ public class Segregation extends Simulation {
     }
 
 
-    public boolean AreYouSatisfied(Cell cell,  ArrayList<Cell> neighbors){
-        int nextState = 0;
+    public boolean checkIfSatisfied(Cell cell,  ArrayList<Cell> neighbors){
         int myState = cell.getState(); // get red or blue
         int numMyState = 0; // if red, count how many red neighbors.
         int numOtherState = 0;
         int emptySpace = 0;
         float percentage;
-        //Cell cellNextState = new Cell(cell.getRow(), cell.getCol(), cell.getSize(), 0);
-
-        //if cell is an empty space
         if(myState == 0){
             return true;
         }
-
         for (Cell neighbor : neighbors) {
             if (neighbor.getState() == 0) {
                 emptySpace += 1;
@@ -93,9 +88,16 @@ public class Segregation extends Simulation {
 
     @Override
     public void update(){
-        copy();
-        ArrayList<Cell> DissatisfiedCells = new ArrayList<Cell>();
-        ArrayList<Cell> EmptyCells = new ArrayList<Cell>();
+        copyCurrentToNext();
+        ArrayList<Cell> dissatisfiedCells = new ArrayList<Cell>();
+        ArrayList<Cell> emptyCells = new ArrayList<Cell>();
+
+        getDissatisfiedAndEmpty(dissatisfiedCells, emptyCells);
+        moveDissatisfiedToEmpty(dissatisfiedCells, emptyCells);
+
+    }
+
+    private void getDissatisfiedAndEmpty(ArrayList<Cell> dissatisfiedCells, ArrayList<Cell> emptyCells){
         ArrayList<Cell> neighbors;
         Cell current;
         Cell next;
@@ -103,40 +105,41 @@ public class Segregation extends Simulation {
             for(int j=0; j<myCurrentGrid[0].length; j++){
                 current = myCurrentGrid[i][j];
                 neighbors = getNeighbors(current);
-                if (!AreYouSatisfied(current, neighbors)){
-                    DissatisfiedCells.add(current);
+                if (!checkIfSatisfied(current, neighbors)){
+                    dissatisfiedCells.add(current);
                 }
                 else if (myCurrentGrid[i][j].getState() == 0){
-                    EmptyCells.add(myCurrentGrid[i][j]);
+                    emptyCells.add(myCurrentGrid[i][j]);
                 }
             }
         }
+    }
 
-
-        if(!DissatisfiedCells.isEmpty()){
+    private void moveDissatisfiedToEmpty(ArrayList<Cell> dissatisfiedCells, ArrayList<Cell> emptyCells){
+        if(!dissatisfiedCells.isEmpty()){
             //for(Cell MovingCell: DissatisfiedCells){
-            for (int i = 0; i < DissatisfiedCells.size(); i++){
-                dissatisfiedCellsSize = DissatisfiedCells.size();
+            for (int i = 0; i < dissatisfiedCells.size(); i++){
+                dissatisfiedCellsSize = dissatisfiedCells.size();
                 randomIntMoving = random.nextInt(dissatisfiedCellsSize);
-                cellMoving = DissatisfiedCells.get(randomIntMoving);
-                if(!EmptyCells.isEmpty()){
-                    emptyCellsSize = EmptyCells.size();
+                cellMoving = dissatisfiedCells.get(randomIntMoving);
+                if(!emptyCells.isEmpty()){
+                    emptyCellsSize = emptyCells.size();
                     randomIntEmpty = random.nextInt(emptyCellsSize);
-                    cellEmpty = EmptyCells.get(randomIntEmpty);
+                    cellEmpty = emptyCells.get(randomIntEmpty);
                     nextStateMove = myNextGrid[cellEmpty.getRow()][cellEmpty.getCol()];
                     nextStateEmpty = myNextGrid[cellMoving.getRow()][cellMoving.getCol()];
 
                     nextStateMove.setState(cellMoving.getState());
                     nextStateEmpty.setState(0);
-                    EmptyCells.remove(cellEmpty);
+                    emptyCells.remove(cellEmpty);
                 }
-                DissatisfiedCells.remove(cellMoving);
+                dissatisfiedCells.remove(cellMoving);
             }
         }
     }
 
 
-    private void copy(){
+    private void copyCurrentToNext(){
         Cell current;
         Cell next;
         for (int i=0 ; i<myCurrentGrid.length ; i ++) {

@@ -31,24 +31,11 @@ public class HexagonGrid extends Grid{
         int pixelX = 200;
         int pixelY = 150;
         Polygon shape;
-        Cell current;
-        Cell next;
         ShapeMaker sm = new ShapeMaker();
         for (int row = 0; row < myCurrentState.length; row++) {
             for (int col = 0; col < myCurrentState[0].length; col++) {
                 shape = sm.makeHexagon(new Point(pixelX, pixelY), d) ;
-                myCurrentState[row][col] = getSpecificCell(shape);
-                current = myCurrentState[row][col];
-                current.setState(-1);
-                current.setRow(row);
-                current.setCol(col);
-
-                myNextState[row][col] = getSpecificCell(shape);
-                next = myNextState[row][col];
-                next.setState(-1);
-                next.setRow(row);
-                next.setCol(col);
-
+                initializeCurrentNext(shape, row, col);
                 pixelX += 6*d;
             }
             if(row % 2 == 0){

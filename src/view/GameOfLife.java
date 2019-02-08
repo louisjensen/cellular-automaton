@@ -65,26 +65,6 @@ public class GameOfLife extends Simulation{
         return nextState;
     }
 
-    public void update(){
-        Cell cellToUpdate;
-        Cell currentCell;
-        ArrayList<Cell> neighbors;
-        for (int row = 0; row < myCurrentGrid.length; row++){
-            for (int col = 0; col < myCurrentGrid[0].length; col++){
-
-                cellToUpdate = myNextGrid[row][col];
-                currentCell = myCurrentGrid[row][col];
-
-                neighbors = getNeighbors(currentCell);
-
-                cellToUpdate.setState(getNextStateOfCell(currentCell, neighbors));
-                cellToUpdate.setColor(myColorLookupTable.get(currentCell.getState()));
-
-
-            }
-        }
-
-    }
 
 }
 

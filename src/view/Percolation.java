@@ -66,7 +66,5 @@ public class Percolation extends Simulation {
         return nextState;
     }
 
-    public void update(){
 
-    }
 }
