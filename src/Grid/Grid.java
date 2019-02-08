@@ -53,7 +53,7 @@ public abstract class Grid {
             return new Segregation(map, myCurrentState, myNextState);
         }
         if (sim.equals("PredatorPrey")) {
-            //return new PredatorPrey(map);
+            return new PredatorPrey(map);
         }
         return null;
     }
@@ -67,6 +67,10 @@ public abstract class Grid {
         }
         else if (myXML.getSimulationType().equals("Segregation")){
             return new SegregationCell(shape);
+        } else if (myXML.getSimulationType().equals("Percolation")){
+            return new PercolationCell(shape);
+        } else if (myXML.getSimulationType().equals("PredatorPrey")){
+            return new PredatorPreyCell(shape);
         }
         return new GameOfLifeCell(shape);
     }
