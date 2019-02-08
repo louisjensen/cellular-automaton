@@ -3,6 +3,7 @@
     <type>GameOfLife</type>
     <horizontalSize>20</horizontalSize>
     <verticalSize>20</verticalSize>
+    <basedOnStates>No</basedOnStates>
     <specifics>
         <property>dead 0.5</property>
         <property>alive 0.5</property>

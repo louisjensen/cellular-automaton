@@ -18,6 +18,7 @@ public class XMLParser {
     private HashMap<String, Double> randomInfo = new HashMap<String, Double>();
     private ArrayList<String> states = new ArrayList<>();
     private ArrayList<Double> stateProportions = new ArrayList<>();
+    private String basedOnStates;
 
     public XMLParser(String filepath){
         File file = new File(filepath);
@@ -28,6 +29,7 @@ public class XMLParser {
             Document doc = dBuilder.parse(file);
             doc.getDocumentElement().normalize();
 
+            basedOnStates = doc.getElementsByTagName("basedOnStates").item(0).getTextContent();
             simulationType = doc.getElementsByTagName("type").item(0).getTextContent();
             xSize = Integer.parseInt(doc.getElementsByTagName("horizontalSize").item(0).getTextContent());
             ySize = Integer.parseInt(doc.getElementsByTagName("verticalSize").item(0).getTextContent());
@@ -72,5 +74,9 @@ public class XMLParser {
 
     public ArrayList<Double> getStateProportions() {
         return stateProportions;
+    }
+
+    public boolean isItBasedOnStates(){
+        return basedOnStates.equals("Yes");
     }
 }
