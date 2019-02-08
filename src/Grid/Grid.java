@@ -27,7 +27,6 @@ public abstract class Grid {
             System.out.print("xml is null");
         }
         System.out.println(filePath);
-        mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         myDisplaySize = displaySize;
 
 
@@ -58,7 +57,7 @@ public abstract class Grid {
             return new Segregation(map, myCurrentState, myNextState, myNeighborsMaker);
         }
         if (sim.equals("PredatorPrey")) {
-            //return new PredatorPrey(map);
+            return new PredatorPrey(map, myCurrentState, myNextState, myNeighborsMaker);
         }
         return null;
     }

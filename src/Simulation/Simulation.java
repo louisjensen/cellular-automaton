@@ -9,18 +9,12 @@ import java.util.HashMap;
 import view.NeighborsMaker;
 
 public abstract class Simulation { // since this doesn't have any instance variables, perhaps make this an enum class
-    public ArrayList<Point> myPossibleNeighbors;
     public HashMap<Integer, Color> myColorLookupTable;
     public HashMap<String, Integer> myStateLookupTable;
     public HashMap<String, Double> myMoreInfoLookupTable;
     public NeighborsMaker myNeighborsMaker;
     public Cell[][] myCurrentGrid;
     public Cell[][] myNextGrid;
-
-    public Simulation (NeighborsMaker nm){
-        myNeighborsMaker = nm;
-    }
-    public Simulation(){}
 
     /**
      * Returns the next state of cell based on the states of its neighbors.

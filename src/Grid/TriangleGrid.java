@@ -24,6 +24,8 @@ public class TriangleGrid extends Grid {
         myNextState = new Cell[numRows][numCols];
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         myNeighborsMaker = new NeighborsMaker("triangle", myXML.getSimulationType());
+        mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
+
         calculateTriangleLength();
         System.out.println(numRows);
         System.out.println(numCols);
