@@ -65,14 +65,14 @@ public abstract class Grid {
 
     public Cell getSpecificCell(Polygon shape) {
         if (myXML.getSimulationType().equals("GameOfLife")) {
-            //default constructor;
             return new GameOfLifeCell(shape);
         }
-        if (myXML.getSimulationType().equals("SpreadingOfFire")){
-            System.out.println("dddddddddddddddd");
+        else if (myXML.getSimulationType().equals("SpreadingOfFire")){
             return new SpreadingOfFireCell(shape);
         }
-        System.out.println("adfhalkdufhakj");
+        else if (myXML.getSimulationType().equals("Segregation")){
+            return new SegregationCell(shape);
+        }
         return new GameOfLifeCell(shape);
     }
 

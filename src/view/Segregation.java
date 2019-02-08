@@ -96,13 +96,13 @@ public class Segregation extends Simulation {
 
         getDissatisfiedAndEmpty(dissatisfiedCells, emptyCells);
         moveDissatisfiedToEmpty(dissatisfiedCells, emptyCells);
+        updateColor();
 
     }
 
     private void getDissatisfiedAndEmpty(ArrayList<Cell> dissatisfiedCells, ArrayList<Cell> emptyCells){
         ArrayList<Cell> neighbors;
         Cell current;
-        Cell next;
         for(int i=0 ; i<myCurrentGrid.length ; i ++){
             for(int j=0; j<myCurrentGrid[0].length; j++){
                 current = myCurrentGrid[i][j];
@@ -119,7 +119,6 @@ public class Segregation extends Simulation {
 
     private void moveDissatisfiedToEmpty(ArrayList<Cell> dissatisfiedCells, ArrayList<Cell> emptyCells){
         if(!dissatisfiedCells.isEmpty()){
-            //for(Cell MovingCell: DissatisfiedCells){
             for (int i = 0; i < dissatisfiedCells.size(); i++){
                 dissatisfiedCellsSize = dissatisfiedCells.size();
                 randomIntMoving = random.nextInt(dissatisfiedCellsSize);
@@ -132,6 +131,7 @@ public class Segregation extends Simulation {
                     nextStateEmpty = myNextGrid[cellMoving.getRow()][cellMoving.getCol()];
 
                     nextStateMove.setState(cellMoving.getState());
+
                     nextStateEmpty.setState(0);
                     emptyCells.remove(cellEmpty);
                 }
