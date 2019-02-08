@@ -51,6 +51,7 @@ public class ShapeMaker {
                 row + width, col + height,
                 row, col + height,
             });
+        initialize(rectangle);
         return rectangle;
     }
 

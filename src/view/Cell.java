@@ -34,7 +34,7 @@ public abstract class Cell{
     }
 
     public int getCol(){
-        return myState;
+        return myCol;
     }
     public void setCol(int col){
         myCol = col;

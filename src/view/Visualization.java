@@ -49,7 +49,7 @@ public class Visualization extends Application {
     private final String DEFAULT_FONT = "Times New Roman";
     private static final int fontsize2 = 50;
     private static final int fontsize1 = 25;
-    private static final int GridDisplaySize = 900;
+    private static final int GridDisplaySize = 700;
     private static final int ScreenWIDTH = 1300;
     private static final int ScreenHEIGHT = 1300;
     private static final int FRAMES_PER_SECOND = 1;
@@ -95,10 +95,10 @@ public class Visualization extends Application {
             myGrid.unDisplay(root);
             //root.getChildren().remove(myGrid.getGridPane());
             myGrid.updateGrid();
-            if(myGrid.checkGameEnding()){
-                animation.stop();
-                makeGameEnding();
-            }
+            //if(myGrid.checkGameEnding()){
+            //    animation.stop();
+                //makeGameEnding();
+            //}
             myGrid.moveNexttoCurrent();
             count ++;
             //myGrid.setGridPane();
@@ -376,6 +376,7 @@ public class Visualization extends Application {
                 root.getChildren().remove(SimulationName);
                 setupGrid(filepath, root, shapetype);
                 myGrid.initialize();
+                myGrid.setInitialGridColors();
                 myGrid.display(root);
                 setupChart(myGrid);
             }

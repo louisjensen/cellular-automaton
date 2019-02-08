@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.io.File;
+import java.util.Random;
 import java.util.HashMap;
 import javafx.scene.Group;
 
@@ -255,8 +256,17 @@ public abstract class Grid {
 
     }
 
+*/
+    public void setInitialGridColors(){
+        List<Double> proportionStates = myXML.getStateProportions();
+        List<Integer> percentageStates = new ArrayList<>();
+        HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
+        List<String> states = myXML.getStates();
+        HashMap<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
 
-    private void setGridProportion(){
+        Random rand = new Random();
+        Cell current;
+        int randInt;
         int currentTotal = 0;
         int percentage;
         for (int i = 0; i < proportionStates.size(); i++) {
@@ -264,7 +274,27 @@ public abstract class Grid {
             percentageStates.add(percentage);
             currentTotal = percentage;
         }
+
+
+
+        for (int i = 0; i < myCurrentState.length; i++){
+            for (int j = 0; j < myCurrentState[0].length; j++){
+                randInt = rand.nextInt(100) + 1;
+                for (int k = 0; k < percentageStates.size(); k++){
+                    if(randInt <= percentageStates.get(k)) {
+                        current = myCurrentState[i][j];
+                        current.setState(stateLookupTable.get(states.get(k)));
+                        current.setColor(stateToColorMap.get(current.getState()));
+                        break;
+                    }
+                }
+            }
+        }
+
     }
-    */
+
+
+
+
 
 }

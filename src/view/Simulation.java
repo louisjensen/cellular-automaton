@@ -75,36 +75,8 @@ public abstract class Simulation { // since this doesn't have any instance varia
     /**
      * Updates myNextGrid based on myCurrentGrid
      */
-    public void update(){
-        Cell cellToUpdate;
-        Cell currentCell;
-        ArrayList<Cell> neighbors;
+    public abstract void update();
 
-        //System.out.println(myNextGrid);
-        //System.out.println(myCurrentGrid);
-
-        for (int row = 0; row < myCurrentGrid.length; row++){
-            for (int col = 0; col < myCurrentGrid[0].length; col++){
-
-                cellToUpdate = myNextGrid[row][col];
-                currentCell = myCurrentGrid[row][col];
-                //System.out.println(cellToUpdate);
-                //System.out.println(currentCell);
-
-                neighbors = getNeighbors(currentCell);
-                //for (Cell cell: neighbors){
-                //    System.out.println(cell.getRow() + ", " + cell.getCol());
-                //}
-
-                cellToUpdate.setState(getNextStateOfCell(currentCell, neighbors));
-                cellToUpdate.setColor(myColorLookupTable.get(currentCell.getState()));
-                //break;
-            }
-            //break;
-        }
-
-
-    }
 
     /**
      * Checks if the row and col are "safe" in grid. Must be in bounds and the state of the Cell must not be -1

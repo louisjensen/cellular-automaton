@@ -76,4 +76,7 @@ public class SpreadingOfFire extends Simulation {
     public int getState(String stateString){return stateLookupTable.get(stateString);}
 
 
+    public void update(){
+
+    }
 }

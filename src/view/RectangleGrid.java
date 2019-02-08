@@ -25,23 +25,35 @@ public class RectangleGrid extends Grid {
 
     @Override
     public void initialize(){
-        int pixelX = 0;
-        int pixelY = 0;
+        int pixelX = 200;
+        int pixelY = 150;
         Polygon shape;
+        Cell current;
+        Cell next;
         ShapeMaker sm = new ShapeMaker();
         for (int row = 0; row < myCurrentState.length; row++) {
             for (int col = 0; col < myCurrentState[0].length; col++) {
                 shape = sm.makeRectangle(new Point(pixelX, pixelY), myRectangleWidth, myRectangleHeight) ;
                 myCurrentState[row][col] = getSpecificCell(shape);
-                myCurrentState[row][col].setState(-1);
+                current = myCurrentState[row][col];
+                current.setState(-1);
+                current.setRow(row);
+                current.setCol(col);
+
                 myNextState[row][col] = getSpecificCell(shape);
-                myNextState[row][col].setState(-1);
+                next = myNextState[row][col];
+                next.setState(-1);
+                next.setRow(row);
+                next.setCol(col);
 
                 pixelX += myRectangleWidth;
             }
+            pixelX = 200;
             pixelY += myRectangleHeight;
         }
     }
+
+
 
 
     private void calculateMyRectangleHeight(){
