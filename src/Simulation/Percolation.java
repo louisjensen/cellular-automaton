@@ -2,7 +2,7 @@ package Simulation;
 
 import Cell.Cell;
 import javafx.scene.paint.Color;
-
+import view.NeighborsMaker;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -33,8 +33,8 @@ public class Percolation extends Simulation {
         add(new Point(-1,-1));
     }};
 
-    public Percolation(Cell[][] current, Cell[][] next){
-        myPossibleNeighbors = possibleNeighbors;
+    public Percolation(Cell[][] current, Cell[][] next, NeighborsMaker nm){
+        super(nm);
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
         myCurrentGrid = current;

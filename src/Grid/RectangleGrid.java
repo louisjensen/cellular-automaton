@@ -2,6 +2,7 @@ package Grid;
 
 import javafx.scene.shape.Polygon;
 import Cell.Cell;
+import view.NeighborsMaker;
 import view.ShapeMaker;
 
 import java.awt.Point;
@@ -20,6 +21,8 @@ public class RectangleGrid extends Grid {
         myCurrentState = new Cell[numCols][numRows];// for testing
         myNextState = new Cell[numCols][numRows];
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
+        myNeighborsMaker = new NeighborsMaker("rectangle", myXML.getSimulationType());
+
         calculateMyRectangleHeight();
         calculateMyRectangleWidth();
     }

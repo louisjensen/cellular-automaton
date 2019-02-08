@@ -3,11 +3,12 @@ package view;
 
 import java.awt.*;
 import java.util.ArrayList;
+import Cell.*;
 
 public class NeighborsMaker {
 
     private String myGridType;
-    private String mySimulation;
+    private String mySimulationType;
 
     final ArrayList<Point> rectangleTouch = new ArrayList<Point>(){{
         add(new Point( 0, 1));
@@ -63,12 +64,6 @@ public class NeighborsMaker {
         add(new Point( 0, -1));
         add(new Point( -1, 0));
     }};
-    
-
-
-
-    public NeighborsMaker(){
-    }
 
     final ArrayList<Point> hexagon = new ArrayList<Point>(){{
         add(new Point(-1, -1));
@@ -84,4 +79,79 @@ public class NeighborsMaker {
         add(new Point(0, 1));
         add(new Point(1, 0));
     }};
+    
+
+    private ArrayList<Point> myPossibleNeighbors;
+
+    public NeighborsMaker(String gridType, String simulationType){
+        myGridType = gridType;
+        mySimulationType = simulationType;
+    }
+
+    public ArrayList<Cell> getNeighbors(Cell cell, Cell[][] currentGrid) {
+        getPossibleNeighbors(cell);
+        ArrayList<Cell> neighbors = new ArrayList<Cell>();
+        int cellRow = cell.getRow();
+        int cellCol = cell.getCol();
+
+        int cellNeighborRow;
+        int cellNeighborCol;
+
+        for (Point rc: myPossibleNeighbors){
+            cellNeighborRow = cellRow + (int) rc.getX();
+            cellNeighborCol = cellCol + (int) rc.getY();
+            if (isSafe(cellNeighborRow, cellNeighborCol, currentGrid)) {
+                neighbors.add(currentGrid[cellNeighborRow][cellNeighborCol]);
+            }
+        }
+        return neighbors;
+
+    }
+
+    private boolean isSafe(int row, int col, Cell[][] currentGrid){
+        int gridRowMax = currentGrid.length;
+        int gridColMax = currentGrid[0].length;
+        if (!((row >= 0 && row < gridRowMax) && (col >= 0 && col < gridColMax))){
+            return false;
+        }
+
+        int cellState = currentGrid[row][col].getState();
+
+        return (cellState != -2);
+    }
+
+    private void getPossibleNeighbors(Cell cell){
+        if (myGridType.equals("hexagon")){
+            myPossibleNeighbors = hexagon;
+        }
+        else if (myGridType.equals("rectangle")){
+            if (mySimulationType.equals("SpreadingOfFire") || mySimulationType.equals("PredatorPrey")) {
+                myPossibleNeighbors = rectangleSide;
+            } else {
+                myPossibleNeighbors = rectangleTouch;
+            }
+        }
+        else { // triangle
+            if (isPointy(cell)){
+                if (mySimulationType.equals("SpreadingOfFire") || mySimulationType.equals("PredatorPrey")){
+                    myPossibleNeighbors = triangleSidePointy;
+                } else {
+                    myPossibleNeighbors = triangleTouchPointy;
+                }
+            } else {
+                if (mySimulationType.equals("SpreadingOfFire") || mySimulationType.equals("PredatorPrey")){
+                    myPossibleNeighbors = triangleSideFlat;
+                } else {
+                    myPossibleNeighbors = triangleTouchFlat;
+                }
+            }
+        }
+    }
+
+    private boolean isPointy(Cell cell){
+        return ((cell.getCol() + cell.getRow()) % 2 == 1);
+    }
+
+
+
 }

@@ -5,6 +5,7 @@ package Simulation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.Point;
+import view.NeighborsMaker;
 
 import Cell.Cell;
 import javafx.scene.paint.Color;
@@ -33,7 +34,8 @@ public class GameOfLife extends Simulation{
         add(new Point(-1,-1));
     }};
 
-    public GameOfLife(Cell[][] current, Cell[][] next){
+    public GameOfLife(Cell[][] current, Cell[][] next, NeighborsMaker nm){
+        super(nm);
         myPossibleNeighbors = possibleNeighbors;
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;

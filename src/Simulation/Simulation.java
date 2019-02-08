@@ -6,14 +6,20 @@ import javafx.scene.paint.Color;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import view.NeighborsMaker;
 
 public abstract class Simulation { // since this doesn't have any instance variables, perhaps make this an enum class
     public ArrayList<Point> myPossibleNeighbors;
     public HashMap<Integer, Color> myColorLookupTable;
     public HashMap<String, Integer> myStateLookupTable;
     public HashMap<String, Double> myMoreInfoLookupTable;
+    public NeighborsMaker myNeighborsMaker;
     public Cell[][] myCurrentGrid;
     public Cell[][] myNextGrid;
+
+    public Simulation (NeighborsMaker nm){
+        myNeighborsMaker = nm;
+    }
 
     /**
      * Returns the next state of cell based on the states of its neighbors.
@@ -39,32 +45,6 @@ public abstract class Simulation { // since this doesn't have any instance varia
     public void setNextGrid(Cell[][] grid){
         myNextGrid = grid;
     }
-
-    /**
-     * Returns a list of the neighboring cells of cell. Based on
-     * @param cell cell to get neighbors of
-     * @return list of the neighbors of cell in grid.
-     */
-    public ArrayList<Cell> getNeighbors(Cell cell) {
-
-        ArrayList<Cell> neighbors = new ArrayList<Cell>();
-        int cellRow = cell.getRow();
-        int cellCol = cell.getCol();
-
-        int cellNeighborRow;
-        int cellNeighborCol;
-
-        for (Point rc: myPossibleNeighbors){
-                cellNeighborRow = cellRow + (int) rc.getX();
-                cellNeighborCol = cellCol + (int) rc.getY();
-                if (isSafe(cellNeighborRow, cellNeighborCol)) {
-                    neighbors.add(myCurrentGrid[cellNeighborRow][cellNeighborCol]);
-                }
-        }
-        return neighbors;
-
-    }
-
 
     /**
      * Returns an int that is mapped to a certain state
@@ -95,6 +75,10 @@ public abstract class Simulation { // since this doesn't have any instance varia
         updateColor();
     }
 
+    public ArrayList<Cell> getNeighbors(Cell cell){
+        return myNeighborsMaker.getNeighbors(cell, myCurrentGrid);
+    }
+
     public void updateColor(){
         Cell cellToUpdate;
         Cell currentCell;
@@ -108,23 +92,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
     }
 
 
-    /**
-     * Checks if the row and col are "safe" in grid. Must be in bounds and the state of the Cell must not be -1
-     * @param row
-     * @param col
-     * @return true if the row and col are "safe"
-     */
-    public boolean isSafe(int row, int col){
-        int gridRowMax = myCurrentGrid.length;
-        int gridColMax = myCurrentGrid[0].length;
-        if (!((row >= 0 && row < gridRowMax) && (col >= 0 && col < gridColMax))){
-            return false;
-        }
 
-        int cellState = myCurrentGrid[row][col].getState();
-
-        return (cellState != -2);
-    }
 
     public HashMap<Integer, Color> getMyColorLookupTable(){
         return myColorLookupTable;

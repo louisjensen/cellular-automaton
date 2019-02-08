@@ -3,6 +3,7 @@ package Simulation;
 import Cell.Cell;
 import Simulation.Simulation;
 import javafx.scene.paint.Color;
+import view.NeighborsMaker;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class SpreadingOfFire extends Simulation {
         add(new Point(-1, 0));
     }};
 
-    public SpreadingOfFire(HashMap<String, Double> map, Cell[][] current, Cell[][] next) {
+    public SpreadingOfFire(HashMap<String, Double> map, Cell[][] current, Cell[][] next, NeighborsMaker nm) {
+        super(nm);
         myPossibleNeighbors = possibleNeighbors;
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;

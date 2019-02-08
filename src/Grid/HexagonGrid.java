@@ -2,6 +2,7 @@ package Grid;
 
 import javafx.scene.shape.Polygon;
 import Cell.Cell;
+import view.NeighborsMaker;
 import view.ShapeMaker;
 
 import java.awt.*;
@@ -18,6 +19,8 @@ public class HexagonGrid extends Grid {
         System.out.println(myCurrentState.length);
         myNextState = new Cell[numRows][numCols];
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
+        myNeighborsMaker = new NeighborsMaker("hexagon", myXML.getSimulationType());
+
         calculateD();
         System.out.println(d);
     }

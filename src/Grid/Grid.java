@@ -19,7 +19,7 @@ public abstract class Grid {
     public Simulation mySimulation;
     public int myDisplaySize;
     public XMLParser myXML;
-    public Cell myCell;
+    public NeighborsMaker myNeighborsMaker;
 
     public Grid(String filePath, int displaySize) {
         myXML = new XMLParser(filePath);
@@ -30,6 +30,7 @@ public abstract class Grid {
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         myDisplaySize = displaySize;
 
+
     }
 
     public abstract void initialize();
@@ -39,18 +40,22 @@ public abstract class Grid {
     }
 
 
+
+
+
+
     public Simulation getSimulation(String sim, HashMap<String, Double> map) {
         if (sim.equals("GameOfLife")) {
-            return new GameOfLife(myCurrentState, myNextState);
+            return new GameOfLife(myCurrentState, myNextState, myNeighborsMaker);
         }
         if (sim.equals("Percolation")) {
-            return new Percolation(myCurrentState, myNextState);
+            return new Percolation(myCurrentState, myNextState, myNeighborsMaker);
         }
         if (sim.equals("SpreadingOfFire")) {
-            return new SpreadingOfFire(map, myCurrentState, myNextState);
+            return new SpreadingOfFire(map, myCurrentState, myNextState, myNeighborsMaker);
         }
         if (sim.equals("Segregation")) {
-            return new Segregation(map, myCurrentState, myNextState);
+            return new Segregation(map, myCurrentState, myNextState, myNeighborsMaker);
         }
         if (sim.equals("PredatorPrey")) {
             //return new PredatorPrey(map);

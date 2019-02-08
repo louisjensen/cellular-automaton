@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Cell{
+public class Cell{
 
     public int myState;
     public Polygon myShape;
