@@ -47,7 +47,7 @@ public class RectangleGrid extends Grid {
 
                 pixelX += myRectangleWidth;
             }
-            pixelX = 600;
+            pixelX = 500;
             pixelY += myRectangleHeight;
         }
     }

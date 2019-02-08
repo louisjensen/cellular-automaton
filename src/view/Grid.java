@@ -28,7 +28,7 @@ public abstract class Grid {
 
     public Grid(String filePath, int displaySize) {
         myXML = new XMLParser(filePath);
-        //mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
+        mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         myDisplaySize = displaySize;
 
     }
@@ -64,6 +64,11 @@ public abstract class Grid {
             //default constructor;
             return new GameOfLifeCell(shape);
         }
+        if (myXML.getSimulationType().equals("SpreadingOfFire")){
+            System.out.println("dddddddddddddddd");
+            return new SpreadingOfFireCell(shape);
+        }
+        System.out.println("adfhalkdufhakj");
         return new GameOfLifeCell(shape);
     }
 

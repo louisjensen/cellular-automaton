@@ -18,10 +18,6 @@ public abstract class Cell{
     public int myRow;
     public int myCol;
 
-    //public Cell (int row, int col){
-     //   myRow = row;
-    //    myCol = col;
-    //}
     public Cell (Polygon shape){
         myShape = shape;
     }
