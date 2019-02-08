@@ -59,9 +59,9 @@ public class NeighborsMaker {
     }};
 
     final ArrayList<Point> triangleSideFlat = new ArrayList<Point>(){{
-        add(new Point( 1, 0));
-        add(new Point( -1, 0));
+        add(new Point( 0, 1));
         add(new Point( 0, -1));
+        add(new Point( -1, 0));
     }};
     
 
@@ -80,8 +80,8 @@ public class NeighborsMaker {
     }};
 
     final ArrayList<Point> triangleSidePointy = new ArrayList<Point>(){{
-        add(new Point(-1, 0));
-        add(new Point(1, 0));
+        add(new Point(0, -1));
         add(new Point(0, 1));
+        add(new Point(1, 0));
     }};
 }
