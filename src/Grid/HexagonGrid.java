@@ -1,10 +1,12 @@
-package view;
+package Grid;
 
 import javafx.scene.shape.Polygon;
+import Cell.Cell;
+import view.ShapeMaker;
 
 import java.awt.*;
 
-public class HexagonGrid extends Grid{
+public class HexagonGrid extends Grid {
 
     private int d;
 

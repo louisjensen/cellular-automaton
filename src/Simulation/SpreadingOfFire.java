@@ -1,5 +1,7 @@
-package view;
+package Simulation;
 
+import Cell.Cell;
+import Simulation.Simulation;
 import javafx.scene.paint.Color;
 
 import java.awt.*;

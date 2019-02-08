@@ -60,6 +60,7 @@ public class NeighborsMaker {
     }};
 
 
+
     public NeighborsMaker(){
     }
 }

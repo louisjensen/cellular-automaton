@@ -1,9 +1,9 @@
-package view;
+package Simulation;
 
+import Cell.Cell;
 import javafx.scene.paint.Color;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;

@@ -1,12 +1,9 @@
-package view;
+package Cell;
 
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.HashMap;
+import Cell.Cell;
 import javafx.scene.shape.Polygon;
-import java.util.Map;
 
-public class GameOfLifeCell extends Cell{
+public class GameOfLifeCell extends Cell {
 
     public GameOfLifeCell(Polygon shape){
         super(shape);

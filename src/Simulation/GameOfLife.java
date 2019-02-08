@@ -1,10 +1,12 @@
 
-package view;
+package Simulation;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.Point;
+
+import Cell.Cell;
 import javafx.scene.paint.Color;
 
 

@@ -1,5 +1,6 @@
-package view;
+package Cell;
 
+import Cell.Cell;
 import javafx.scene.shape.Polygon;
 
 public class PercolationCell extends Cell {

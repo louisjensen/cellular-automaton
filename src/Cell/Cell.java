@@ -1,4 +1,4 @@
-package view;
+package Cell;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;

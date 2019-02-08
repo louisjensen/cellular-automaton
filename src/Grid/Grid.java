@@ -1,20 +1,15 @@
-package view;
+package Grid;
 
+import Cell.*;
+import Simulation.*;
 import javafx.scene.shape.Polygon;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
-import java.io.File;
 import java.util.Random;
 import java.util.HashMap;
 import javafx.scene.Group;
+import view.*;
 
-import java.util.Random;
 import java.util.List;
 
 public abstract class Grid {

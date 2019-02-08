@@ -1,16 +1,15 @@
 package view;
 
-import javafx.animation.Animation;
+
+import Grid.*;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.Group;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.scene.layout.BorderPane;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,7 +23,6 @@ import javafx.util.Duration;
 import javafx.scene.chart.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Side;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 //import java.util.ResourceBundle;

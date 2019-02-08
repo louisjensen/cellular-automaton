@@ -1,11 +1,13 @@
 
-package view;
+package Grid;
 
 import javafx.scene.shape.Polygon;
 
 import java.awt.*;
-import java.util.*;
+
 import javafx.scene.paint.Color;
+import Cell.Cell;
+import view.ShapeMaker;
 
 
 public class TriangleGrid extends Grid {

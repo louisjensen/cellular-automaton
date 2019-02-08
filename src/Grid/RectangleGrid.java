@@ -1,7 +1,9 @@
-package view;
+package Grid;
 
-import java.util.HashMap;
 import javafx.scene.shape.Polygon;
+import Cell.Cell;
+import view.ShapeMaker;
+
 import java.awt.Point;
 
 
