@@ -85,6 +85,7 @@ public abstract class Grid {
     public boolean checkGameEnding() {
         for (int i = 0; i < myCurrentState.length; i++) {
             for (int j = 0; j < myCurrentState[0].length; j++) {
+                //return Boolean instead of this
                 if (myCurrentState[i][j].getState() != myNextState[i][j].getState()) {
                     return false;
                 }
