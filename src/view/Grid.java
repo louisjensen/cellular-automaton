@@ -1,5 +1,6 @@
 package view;
 
+import javafx.scene.shape.Polygon;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.shape.Rectangle;
@@ -20,10 +21,10 @@ public abstract class Grid {
     public Simulation mySimulation;
     public int myDisplaySize;
     public XMLParser myXML;
-    //private Cell myCell;
+    public Cell myCell;
     //private Cell currentCell;
     //private GridPane myGridPane;
-    private String myFilePath;
+    //private String myFilePath;
     //private int myDisplaySize;
     //private int myGridWidth;
     //private int myGridHeight;
@@ -42,8 +43,7 @@ public abstract class Grid {
 
 
     public Grid(String filePath){
-        myFilePath = filePath;
-        myXML = new XMLParser(myFilePath);
+        myXML = new XMLParser(filePath);
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
 
         //construct grid from XML File
@@ -56,7 +56,7 @@ public abstract class Grid {
         //mySimulation.setCurrentGrid(myCurrentState);
         //mySimulation.setNextGrid(myNextState);
 
-        //myCell = getSpecificCell(xml.getSimulationType(), xml.getRandomInfo();
+        //myCell = getSpecificCell(myXML.getSimulationType(), myXML.getRandomInfo());
 
         //calculateCellSizeX();
         //calculateCellSizeY();
@@ -68,7 +68,7 @@ public abstract class Grid {
 
     public abstract void initialize();
 
-    private Cell getCellBasedOnSimulation(){
+    private void getCellBasedOnSimulation(){
 
     }
 
@@ -92,14 +92,15 @@ public abstract class Grid {
         return null;
     }
 
-    private Cell getSpecificCell(String simulationName, HashMap<String, Double> map, String shape){
-        if (simulationName.equals("GameOfLife")) {
-
+    public Cell getSpecificCell(Polygon shape){
+        if (myXML.getSimulationType().equals("GameOfLife")) {
             //default constructor;
             return new GameOfLifeCell(shape);
         }
         return new GameOfLifeCell(shape);
     }
+
+
        /* if (simulationName.equals("Percolation")){
             return new Percolation(myCurrentState, myNextState);
         }
@@ -128,15 +129,8 @@ public abstract class Grid {
     }
     */
 
-    /**
-     * returns myGridPane
-     * @return GridPane that contains all of the cells
-     */
-    public GridPane getGridPane() {
-        setGridPane();
-        return myGridPane;
-    }
 
+/*
     // configure myGridPane based on the cells in myCurrentState
     public void setGridPane(){
         Cell currentCell;
@@ -163,13 +157,16 @@ public abstract class Grid {
         }
         //myGridPane.setOnMouseClicked();
     }
+    */
 
+/*
     public void setGrid(){
         Cell currentCell;
         Color color;
         HashMap<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
         for
     }
+*/
 
     public void moveNexttoCurrent() {
         for (int row = 0; row < myCurrentState.length; row++) {
@@ -181,24 +178,14 @@ public abstract class Grid {
     }
 
     public boolean checkGameEnding(){
-        for(int i=0; i<myGridWidth; i++){
-            for(int j=0; j<myGridHeight; j++){
+        for(int i=0; i<myCurrentState.length; i++){
+            for(int j=0; j<myCurrentState[0].length; j++){
                 if(myCurrentState[i][j].getState() != myNextState[i][j].getState()){
                     return false;
                 }
             }
         }
         return true;
-    }
-    // calculates the size of a cell based on how big the display is and the number of cells to fit
-    private void calculateCellSizeX(){
-        float temp = (float) myDisplaySize/myGridWidth;
-        myCellSizeX = (int) temp;
-    }
-
-    private void calculateCellSizeY(){
-        float temp = (float) myDisplaySize/myGridHeight;
-        myCellSizeY = (int) temp;
     }
 
 
@@ -210,9 +197,6 @@ public abstract class Grid {
         return myNextState;
     }
 
-    public String getSimulationName(){
-        return SimulationName;
-    }
 
 
     public void updateGrid(){

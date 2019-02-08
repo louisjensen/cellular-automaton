@@ -14,8 +14,7 @@ public class ShapeMaker {
     private String HexagonAttributes[] = {"row", "col", "pixel_x", "pixel_y", "size_x", "size_y", "state"};
 
 
-    public ShapeMaker(String shapetype, HashMap map){
-
+    public ShapeMaker(){
     }
 
 

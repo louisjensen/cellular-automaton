@@ -1,8 +1,9 @@
 package view;
 
-import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.scene.shape.Polygon;
 import java.util.Map;
 
 public class GameOfLifeCell extends Cell{
@@ -11,18 +12,21 @@ public class GameOfLifeCell extends Cell{
     private int myCol;
     private int myState;
     private String myShapeType;
-    private Shape myShape;
+    private Polygon myShape;
 
-    public GameOfLifeCell(String shape){
-        myShapeType = shape;
+    public GameOfLifeCell(Polygon shape){
+        myShape = shape;
     }
 
-    public GameOfLifeCell(Point rc, int state, String shape, HashMap<String, ArrayList> attributes, int d){
+    public GameOfLifeCell(Point rc, int state, Polygon shape, HashMap<String, ArrayList> attributes, int d){
         myRow = rc.x;
         myCol = rc.y;
         myState = state;
         ShapeMaker sm = new ShapeMaker(myRow, myCol, myState, d);
-        myShape = sm.getShape(shape);
+        //myShape = sm.getShape(shape);
+    }
+    public GameOfLifeCell makeCopy(){
+        new GameOfLifeCell(new Point(myRow, myCol), myShape, attributes, )
     }
 
 }
