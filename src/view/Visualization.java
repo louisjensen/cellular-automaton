@@ -73,6 +73,7 @@ public class Visualization extends Application {
     private String shapetype;
     private XMLParser parser;
     private TextField value;
+    private PieChart chart;
     //private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
 
     public void start (Stage stage) {
@@ -94,7 +95,7 @@ public class Visualization extends Application {
     private void step() {
         if(root != null) {
             myGrid.unDisplay(root);
-            //root.getChildren().remove(myGrid.getGridPane());
+            root.getChildren().remove(chart);
             myGrid.updateGrid();
             //if(myGrid.checkGameEnding()){
             //    animation.stop();
@@ -102,16 +103,17 @@ public class Visualization extends Application {
             //}
             myGrid.moveNexttoCurrent();
             count ++;
-            //myGrid.setGridPane();
             myGrid.display(root);
-            //root.getChildren().add(myGrid.getGridPane());
+            setupChart(myGrid);
+            root.getChildren().add(chart);
+
         }
         else {
             myGrid.updateGrid();
             count ++;
-            //myGrid.setGridPane();
             myGrid.display(root);
-            //root.getChildren().add(myGrid.getGridPane());
+            setupChart(myGrid);
+            root.getChildren().add(chart);
         }
 
         showCount.setText(COUNT_TEXT + count);
@@ -127,7 +129,7 @@ public class Visualization extends Application {
 
     }
 
-    //Below here should all be move in a separate class
+    //Below here should all be move to a separate class
     //----------------------------------------------------------------------------------------------
 
     private MenuButton selectCellShape(String file, int x, int y){
@@ -158,20 +160,33 @@ public class Visualization extends Application {
     }
 
     private PieChart setupChart(Grid myGrid) {
+
+        int white=0;
+        int black=0;
+
+        for(int row=0; row<myGrid.getMyCurrentState().length; row++){
+            for(int col=0; col<myGrid.getMyCurrentState()[0].length; col++){
+                if (myGrid.getMyCurrentState()[row][col].getState() ==0){
+                    white++;
+                }
+                else{
+                    black++;
+                }
+            }
+        }
         ObservableList<PieChart.Data>  pieChartData = FXCollections.observableArrayList(
                 //in here loop through myGrid state add do new Piechart.data("name", number)
                 //to do this, we need a map inside the grid class
-                new PieChart.Data("Grapefruit", 13),
-                new PieChart.Data("Oranges", 25),
-                new PieChart.Data("Plums", 10),
-                new PieChart.Data("Pears", 22),
-                new PieChart.Data("Apples", 30));
-        PieChart chart = new PieChart(pieChartData);
+                new PieChart.Data("Dead", white),
+                new PieChart.Data("Alive", black));
+
+        chart = new PieChart(pieChartData);
         chart.setVisible(true);
+        chart.setLayoutX(650);
+        chart.setLayoutY(ScreenHEIGHT - 200);
         chart.setPrefSize(200,200);
         chart.setMinSize(100,100);
         chart.setTitle("Number of Variables");
-        root.getChildren().add(chart);
         return chart;
     }
 
@@ -300,12 +315,9 @@ public class Visualization extends Application {
             if(myGrid == null){
                 makeInitialize();
             }
-            //root.getChildren().remove(myGrid.getGridPane());
             myGrid.unDisplay(root);
             myGrid.updateGrid();
             count ++;
-            //myGrid.setGridPane();
-            //root.getChildren().add(myGrid.getGridPane());
             myGrid.display(root);
         });
 
@@ -322,20 +334,6 @@ public class Visualization extends Application {
             }
 
         });
-/*
-        Button FastForwardButton = makeButton(FAST_FORWARD_TEXT, FastForwardButtonImage,  500);
-        FastForwardButton.setOnMouseClicked((event)->{
-            if(filepath.equals("")){
-                makeAlert();
-            }
-            if(myGrid == null){
-                makeInitialize();
-            }
-            else {
-                AnimationSpeed += 1;
-                animation.setRate(AnimationSpeed);
-            }
-        });*/
 
         Button PauseButton = makeButton(PAUSE_TEXT, PauseButtonImage,  650);
         PauseButton.setOnMouseClicked((event)->{
@@ -382,6 +380,7 @@ public class Visualization extends Application {
                 myGrid.setInitialGridColors();
                 myGrid.display(root);
                 setupChart(myGrid);
+                root.getChildren().add(chart);
             }
         });
 
