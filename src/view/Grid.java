@@ -26,39 +26,40 @@ public abstract class Grid {
     public XMLParser myXML;
     public Cell myCell;
 
-    public Grid(String filePath){
+    public Grid(String filePath, int displaySize) {
         myXML = new XMLParser(filePath);
-        mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
+        //mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
+        myDisplaySize = displaySize;
 
     }
 
     public abstract void initialize();
 
-    private void getCellBasedOnSimulation(){
+    private void getCellBasedOnSimulation() {
 
     }
 
 
-    public Simulation getSimulation(String sim, HashMap<String, Double> map){
-        if (sim.equals("GameOfLife")){
+    public Simulation getSimulation(String sim, HashMap<String, Double> map) {
+        if (sim.equals("GameOfLife")) {
             return new GameOfLife(myCurrentState, myNextState);
         }
-        if (sim.equals("Percolation")){
+        if (sim.equals("Percolation")) {
             return new Percolation(myCurrentState, myNextState);
         }
-        if (sim.equals("SpreadingOfFire")){
+        if (sim.equals("SpreadingOfFire")) {
             return new SpreadingOfFire(map, myCurrentState, myNextState);
         }
-        if(sim.equals("Segregation")){
+        if (sim.equals("Segregation")) {
             return new Segregation(map);
         }
-        if(sim.equals("PredatorPrey")){
+        if (sim.equals("PredatorPrey")) {
             //return new PredatorPrey(map);
         }
         return null;
     }
 
-    public Cell getSpecificCell(Polygon shape){
+    public Cell getSpecificCell(Polygon shape) {
         if (myXML.getSimulationType().equals("GameOfLife")) {
             //default constructor;
             return new GameOfLifeCell(shape);
@@ -68,18 +69,18 @@ public abstract class Grid {
 
 
     public void moveNexttoCurrent() {
-        for (int row = 0; row < myCurrentState.length; row++) {
-            for (int col = 0; col < myCurrentState[0].length; col++) {
-                myCurrentState[row][col].setState(myNextState[row][col].getState());
-                myNextState[row][col].setState(-1);
+        for (int i = 0; i < myCurrentState.length; i++) {
+            for (int j = 0; j < myCurrentState[0].length; j++) {
+                myCurrentState[i][j].setState(myNextState[i][j].getState());
+                myNextState[i][j].setState(-1);
             }
         }
     }
 
-    public boolean checkGameEnding(){
-        for(int i=0; i<myCurrentState.length; i++){
-            for(int j=0; j<myCurrentState[0].length; j++){
-                if(myCurrentState[i][j].getState() != myNextState[i][j].getState()){
+    public boolean checkGameEnding() {
+        for (int i = 0; i < myCurrentState.length; i++) {
+            for (int j = 0; j < myCurrentState[0].length; j++) {
+                if (myCurrentState[i][j].getState() != myNextState[i][j].getState()) {
                     return false;
                 }
             }
@@ -88,7 +89,7 @@ public abstract class Grid {
     }
 
 
-    public Cell[][] getMyCurrentState(){
+    public Cell[][] getMyCurrentState() {
         return myCurrentState;
     }
 
@@ -97,33 +98,32 @@ public abstract class Grid {
     }
 
 
-
-    public void updateGrid(){
+    public void updateGrid() {
         mySimulation.update();
     }
 
-    public String getSimulationName(){
+    public String getSimulationName() {
         return myXML.getSimulationType();
     }
 
-    public void display( Group root){
+    public void display(Group root) {
         Cell current;
-        for (int row = 0; row < myCurrentState.length; row ++){
-            for (int col = 0; col < myCurrentState[0].length; col ++){
-                current = myCurrentState[row][col];
-                if (!root.getChildren().contains(current.getShape())){
+        for (int i = 0; i < myCurrentState.length; i++) {
+            for (int j = 0; j < myCurrentState[0].length; j++) {
+                current = myCurrentState[i][j];
+                if (!root.getChildren().contains(current.getShape()) && current.getState() != -2) {
                     root.getChildren().add(current.getShape());
                 }
             }
         }
     }
 
-    public void unDisplay(Group root){
+    public void unDisplay(Group root) {
         Cell current;
-        for (int row = 0; row < myCurrentState.length; row ++){
-            for (int col = 0; col < myCurrentState[0].length; col ++){
-                current = myCurrentState[row][col];
-                if (root.getChildren().contains(current.getShape())){
+        for (int i = 0; i < myCurrentState.length; i++) {
+            for (int j = 0; j < myCurrentState[0].length; j++) {
+                current = myCurrentState[i][j];
+                if (root.getChildren().contains(current.getShape())) {
                     root.getChildren().remove(current.getShape());
                 }
             }
@@ -131,12 +131,12 @@ public abstract class Grid {
     }
 
 
-public void setInitialGridColors() {
-    List<Double> proportionStates = myXML.getStateProportions();
-    List<Integer> percentageStates = new ArrayList<>();
-    HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
-    List<String> states = myXML.getStates();
-    HashMap<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
+    public void setInitialGridColors() {
+        List<Double> proportionStates = myXML.getStateProportions();
+        List<Integer> percentageStates = new ArrayList<>();
+        HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
+        List<String> states = myXML.getStates();
+        HashMap<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
 
         Random rand = new Random();
         Cell current;
@@ -149,21 +149,22 @@ public void setInitialGridColors() {
             currentTotal = percentage;
         }
 
-
         for (int i = 0; i < myCurrentState.length; i++) {
             for (int j = 0; j < myCurrentState[0].length; j++) {
-                randInt = rand.nextInt(100) + 1;
-                for (int k = 0; k < percentageStates.size(); k++) {
-                    if (randInt <= percentageStates.get(k)) {
-                        current = myCurrentState[i][j];
-                        current.setState(stateLookupTable.get(states.get(k)));
-                        current.setColor(stateToColorMap.get(current.getState()));
-                        break;
+                if (myCurrentState[i][j].getState() != -2) {
+                    randInt = rand.nextInt(100) + 1;
+                    for (int k = 0; k < percentageStates.size(); k++) {
+                        if (randInt <= percentageStates.get(k)) {
+                            current = myCurrentState[i][j];
+                            current.setState(stateLookupTable.get(states.get(k)));
+                            current.setColor(stateToColorMap.get(current.getState()));
+                            break;
+                        }
+
                     }
+
                 }
             }
         }
-
     }
-
 }

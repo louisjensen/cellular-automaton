@@ -19,23 +19,24 @@ public class ShapeMaker {
     }
 
 
-    public Polygon makeTriangle(Point point, int d, int isPointed){
-        double row = point.x;
-        double col = point.y;
+    public Polygon makeTriangle(Point point, int d, boolean isPointed){
+        double x = point.x;
+        double y = point.y;
 
         Polygon triangle = new Polygon();
-        if(isPointed == 1) {
+        if(isPointed) {
             triangle.getPoints().addAll(new Double[]{
-                    row, col + d,
-                    row - d, col,
-                    row + d, col});
+                    x, y,
+                    x + d, y + d,
+                    x - d, y + d});
         }
         else{
             triangle.getPoints().addAll(new Double[]{
-                    row, col - d,
-                    row - d, col,
-                    row + d, col});
+                    x - d, y,
+                    x + d, y,
+                    x, y + d});
         }
+        initialize(triangle);
 
         return triangle;
     }
@@ -68,6 +69,7 @@ public class ShapeMaker {
                     row, col +2*d,
                     row -d, col+d
         });
+        initialize(hexagon);
         return hexagon;
     }
 

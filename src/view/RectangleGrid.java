@@ -12,12 +12,11 @@ public class RectangleGrid extends Grid {
 
 
     public RectangleGrid(String filePath, int displaySize){
-        super(filePath);
+        super(filePath, displaySize);
         int numRows = myXML.getGridX();
         int numCols = myXML.getGridY();
-        myCurrentState = new Cell[numRows][numCols];// for testing
-        myNextState = new Cell[numRows][numCols];
-        myDisplaySize = displaySize;
+        myCurrentState = new Cell[numCols][numRows];// for testing
+        myNextState = new Cell[numCols][numRows];
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         calculateMyRectangleHeight();
         calculateMyRectangleWidth();
@@ -25,30 +24,30 @@ public class RectangleGrid extends Grid {
 
     @Override
     public void initialize(){
-        int pixelX = 200;
+        int pixelX = 500;
         int pixelY = 150;
         Polygon shape;
         Cell current;
         Cell next;
         ShapeMaker sm = new ShapeMaker();
-        for (int row = 0; row < myCurrentState.length; row++) {
-            for (int col = 0; col < myCurrentState[0].length; col++) {
+        for (int i = 0; i < myCurrentState.length; i++) {
+            for (int j = 0; j < myCurrentState[0].length; j++) {
                 shape = sm.makeRectangle(new Point(pixelX, pixelY), myRectangleWidth, myRectangleHeight) ;
-                myCurrentState[row][col] = getSpecificCell(shape);
-                current = myCurrentState[row][col];
+                myCurrentState[i][j] = getSpecificCell(shape);
+                current = myCurrentState[i][j];
                 current.setState(-1);
-                current.setRow(row);
-                current.setCol(col);
+                current.setRow(j);
+                current.setCol(i);
 
-                myNextState[row][col] = getSpecificCell(shape);
-                next = myNextState[row][col];
+                myNextState[i][j] = getSpecificCell(shape);
+                next = myNextState[i][j];
                 next.setState(-1);
-                next.setRow(row);
-                next.setCol(col);
+                next.setRow(j);
+                next.setCol(i);
 
                 pixelX += myRectangleWidth;
             }
-            pixelX = 200;
+            pixelX = 600;
             pixelY += myRectangleHeight;
         }
     }
@@ -57,6 +56,7 @@ public class RectangleGrid extends Grid {
 
 
     private void calculateMyRectangleHeight(){
+
         myRectangleHeight = myDisplaySize/myCurrentState.length;
     }
 

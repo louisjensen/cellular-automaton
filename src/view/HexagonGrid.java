@@ -8,14 +8,13 @@ public class HexagonGrid extends Grid{
 
     private int d;
 
-    public HexagonGrid(String filePath, int displaysize){
-        super(filePath);
+    public HexagonGrid(String filePath, int displaySize){
+        super(filePath, displaySize);
         int numRows = myXML.getGridX();
         int numCols = myXML.getGridY();
         myCurrentState = new Cell[numRows][numCols];
         System.out.println(myCurrentState.length);
         myNextState = new Cell[numRows][numCols];
-        myDisplaySize = displaysize;
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         calculateD();
         System.out.println(d);

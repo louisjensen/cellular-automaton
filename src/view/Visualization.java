@@ -49,7 +49,7 @@ public class Visualization extends Application {
     private final String DEFAULT_FONT = "Times New Roman";
     private static final int fontsize2 = 50;
     private static final int fontsize1 = 25;
-    private static final int GridDisplaySize = 800;
+    private static final int GridDisplaySize = 500;
     private static final int ScreenWIDTH = 1300;
     private static final int ScreenHEIGHT = 1300;
     private static final int FRAMES_PER_SECOND = 1;
@@ -232,7 +232,7 @@ public class Visualization extends Application {
     }
     private void setupGrid(String filepath,  Group root, String shapetype){
         if(shapetype.equals("triangle")){
-            //myGrid = new TriangleGrid(filepath, GridDisplaySize, shapetype);
+            myGrid = new TriangleGrid(filepath, GridDisplaySize);
         }
         else if(shapetype.equals("rectangle")){
             myGrid = new RectangleGrid(filepath, GridDisplaySize);
