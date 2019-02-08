@@ -45,12 +45,14 @@ public class Segregation extends Simulation {
     private double myTolerance;
     private Random random = new Random();
 
-    public Segregation(HashMap<String, Double> moreInfoLookupTable){
+    public Segregation(HashMap<String, Double> moreInfoLookupTable, Cell[][] current, Cell[][] next){
         myPossibleNeighbors = possibleNeighbors;
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
         myMoreInfoLookupTable = moreInfoLookupTable;
         myTolerance = myMoreInfoLookupTable.get("tolerance");
+        myCurrentGrid = current;
+        myNextGrid = next;
     }
 
     public int getState(String stateString){

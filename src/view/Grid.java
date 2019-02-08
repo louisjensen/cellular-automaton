@@ -55,7 +55,7 @@ public abstract class Grid {
             return new SpreadingOfFire(map, myCurrentState, myNextState);
         }
         if (sim.equals("Segregation")) {
-            return new Segregation(map);
+            return new Segregation(map, myCurrentState, myNextState);
         }
         if (sim.equals("PredatorPrey")) {
             //return new PredatorPrey(map);
