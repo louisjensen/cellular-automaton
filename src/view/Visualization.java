@@ -72,6 +72,7 @@ public class Visualization extends Application {
     private int simulationSize;
     private String shapetype;
     private XMLParser parser;
+    private TextField value;
     //private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
 
     public void start (Stage stage) {
@@ -122,7 +123,6 @@ public class Visualization extends Application {
         Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT);
         allButtons(stage);
         makeTextsLabels();
-
         return myScene;
 
     }
@@ -130,10 +130,15 @@ public class Visualization extends Application {
     //Below here should all be move in a separate class
     //----------------------------------------------------------------------------------------------
 
-    private MenuButton selectCellShape(String file){
+    private MenuButton selectCellShape(String file, int x, int y){
         MenuButton menuButton = new MenuButton("Choose Shape");
         Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
-        menuButton.setGraphic(new ImageView(image));
+        ImageView iv = new ImageView(image);
+        iv.setFitHeight(BUTTON_SIZE);
+        iv.setFitWidth(BUTTON_SIZE);
+        menuButton.setGraphic(iv);
+        menuButton.setLayoutX(x);
+        menuButton.setLayoutY(y);
         MenuItem triangle = new MenuItem("triangle");
         triangle.setOnAction(event -> {
            shapetype = "triangle";
@@ -165,7 +170,7 @@ public class Visualization extends Application {
         chart.setVisible(true);
         chart.setPrefSize(200,200);
         chart.setMinSize(100,100);
-        chart.setTitle("Imported Fruits");
+        chart.setTitle("Number of Variables");
         root.getChildren().add(chart);
         return chart;
     }
@@ -247,25 +252,29 @@ public class Visualization extends Application {
         return text;
     }
 
+
     private void allButtons(Stage stage){
         FileChooser fileChooser = new FileChooser();
+
+
         TextField value = new TextField();
         value.setLayoutX(50);
         value.setLayoutY(1200);
 
-        Button numberOfSimulationsButton = makeButton("Set", "submit.png", 1000);
-        numberOfSimulationsButton.setMaxSize(50, 50);
+        Image image = new Image(getClass().getClassLoader().getResourceAsStream("submit.png"));
+        ImageView imageview = new ImageView(image);
+        imageview.setFitWidth(50);
+        imageview.setFitHeight(30);
+        Button numberOfSimulationsButton= new Button("Submit",imageview);
         numberOfSimulationsButton.setLayoutX(200);
         numberOfSimulationsButton.setLayoutY(1150);
         numberOfSimulationsButton.setOnMouseClicked(e -> {
-            if(value.getText().equals("")){
+            if(value.getText().equals("") || value.getText() == null){
                 makeAlert();
             }
             simulationSize = Integer.valueOf(value.getText());
             System.out.println(simulationSize);
         });
-
-
 
         Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, 50);
         BorderPane.setAlignment(FileUploadButton, Pos.TOP_LEFT);
@@ -281,7 +290,9 @@ public class Visualization extends Application {
             }
         });
 
-        Button StepButton = makeButton(STEP_TEXT, StepButtonImage, 200);
+        MenuButton chooseShape = selectCellShape("shapes.png", 50, 200 );
+
+        Button StepButton = makeButton(STEP_TEXT, StepButtonImage, 350 );
         StepButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -298,7 +309,7 @@ public class Visualization extends Application {
             myGrid.display(root);
         });
 
-        Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  350);
+        Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  500);
         PlayButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -383,8 +394,6 @@ public class Visualization extends Application {
                 animation.setRate(AnimationSpeed);
             }
         });
-
-        MenuButton chooseShape = selectCellShape("shapes.png");
 
         root.getChildren().addAll(chooseShape, ChangeSpeedOfGame, StepButton, FileUploadButton, ResetButton, PlayButton, PauseButton, InitializeButton,
                 value, numberOfSimulationsButton);
