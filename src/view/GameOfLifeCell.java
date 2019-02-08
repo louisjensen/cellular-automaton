@@ -8,15 +8,8 @@ import java.util.Map;
 
 public class GameOfLifeCell extends Cell{
 
-    private int myRow;
-    private int myCol;
-    private int myState;
-    private String myShapeType;
-    private Polygon myShape;
-
     public GameOfLifeCell(Polygon shape){
         super(shape);
-
     }
 
     /*
