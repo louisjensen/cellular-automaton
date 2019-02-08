@@ -45,9 +45,10 @@ public abstract class Grid {
 
 
 
-    public Grid(String filePath){
+    public Grid(String filePath, int displaySize){
         myXML = new XMLParser(filePath);
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
+        myDisplaySize = displaySize;
 
         //construct grid from XML File
         //myDisplaySize = displaySize;

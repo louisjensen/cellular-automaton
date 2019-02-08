@@ -19,12 +19,12 @@ public class ShapeMaker {
     }
 
 
-    public Polygon makeTriangle(Point point, int d, int isPointed){
+    public Polygon makeTriangle(Point point, int d, boolean isPointed){
         double row = point.x;
         double col = point.y;
 
         Polygon triangle = new Polygon();
-        if(isPointed == 1) {
+        if(isPointed) {
             triangle.getPoints().addAll(new Double[]{
                     row, col + d,
                     row - d, col,
@@ -36,6 +36,7 @@ public class ShapeMaker {
                     row - d, col,
                     row + d, col});
         }
+        initialize(triangle);
 
         return triangle;
     }

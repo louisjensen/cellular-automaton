@@ -227,7 +227,7 @@ public class Visualization extends Application {
     }
     private void setupGrid(String filepath,  Group root, String shapetype){
         if(shapetype.equals("triangle")){
-            //myGrid = new TriangleGrid(filepath, GridDisplaySize, shapetype);
+            myGrid = new TriangleGrid(filepath, GridDisplaySize);
         }
         else if(shapetype.equals("rectangle")){
             myGrid = new RectangleGrid(filepath, GridDisplaySize);

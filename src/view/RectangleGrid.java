@@ -12,13 +12,12 @@ public class RectangleGrid extends Grid {
 
 
     public RectangleGrid(String filePath, int displaySize){
-        super(filePath);
+        super(filePath, displaySize);
         int numRows = myXML.getGridX();
         int numCols = myXML.getGridY();
         myCurrentState = new Cell[numRows][numCols];// for testing
         myNextState = new Cell[numRows][numCols];
-        myDisplaySize = displaySize;
-        mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
+
         calculateMyRectangleHeight();
         calculateMyRectangleWidth();
     }
@@ -57,6 +56,7 @@ public class RectangleGrid extends Grid {
 
 
     private void calculateMyRectangleHeight(){
+
         myRectangleHeight = myDisplaySize/myCurrentState.length;
     }
 
