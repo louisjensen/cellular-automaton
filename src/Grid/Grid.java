@@ -34,13 +34,9 @@ public abstract class Grid {
 
     public abstract void initialize();
 
-    private void getCellBasedOnSimulation() {
-
+    public HashMap<String, Integer> getSimulationMap(){
+        return mySimulation.myStateLookupTable;
     }
-
-
-
-
 
 
     public Simulation getSimulation(String sim, HashMap<String, Double> map) {

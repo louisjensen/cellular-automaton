@@ -4,6 +4,7 @@ package view;
 import Grid.*;
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.Group;
 import javafx.scene.text.Font;
@@ -16,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.File;
+import java.util.HashMap;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -73,7 +75,7 @@ public class Visualization extends Application {
     private String shapetype = "";
     private XMLParser parser;
     private TextField value;
-    private PieChart chart;
+    private PieChart myChart;
     //private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
 
     public void start (Stage stage) {
@@ -95,7 +97,7 @@ public class Visualization extends Application {
     private void step() {
         if(root != null) {
             myGrid.unDisplay(root);
-            root.getChildren().remove(chart);
+            root.getChildren().remove(myChart);
             myGrid.updateGrid();
             if(myGrid.checkGameEnding()){
                 animation.stop();
@@ -104,17 +106,17 @@ public class Visualization extends Application {
             myGrid.moveNexttoCurrent();
             count ++;
             myGrid.display(root);
-            setupChart(myGrid);
-            root.getChildren().add(chart);
+            myChart = setupChart(myGrid);
+            root.getChildren().add(myChart);
 
         }
         else {
-            root.getChildren().remove(chart);
+            root.getChildren().remove(myChart);
             myGrid.updateGrid();
             count ++;
             myGrid.display(root);
-            setupChart(myGrid);
-            root.getChildren().add(chart);
+            myChart = setupChart(myGrid);
+            root.getChildren().add(myChart);
         }
 
         showCount.setText(COUNT_TEXT + count);
@@ -162,35 +164,39 @@ public class Visualization extends Application {
 
     private PieChart setupChart(Grid myGrid) {
 
+        PieChart myChart = new PieChart();
         //have to read in grid info as a map
+        HashMap<String, Integer> SimulationStateMap;
+        SimulationStateMap = myGrid.getSimulationMap();
 
-        int white=0;
-        int black=0;
+        System.out.println(myGrid.getSimulationName());
 
-        for(int row=0; row<myGrid.getMyCurrentState().length; row++){
-            for(int col=0; col<myGrid.getMyCurrentState()[0].length; col++){
-                if (myGrid.getMyCurrentState()[row][col].getState() ==0){
-                    white++;
-                }
-                else{
-                    black++;
+        HashMap<Integer, String> myNewHashMap = new HashMap<>();
+        for(HashMap.Entry<String, Integer> entry :SimulationStateMap.entrySet()){
+            myNewHashMap.put(entry.getValue(), entry.getKey());
+        }
+
+        int count;
+        for(int state: myNewHashMap.keySet()) {
+            count =0;
+            for (int row = 0; row < myGrid.getMyCurrentState().length; row++) {
+                for (int col = 0; col < myGrid.getMyCurrentState()[0].length; col++) {
+                    if (myGrid.getMyCurrentState()[row][col].getState() == state) {
+                        count++;
+                    }
                 }
             }
+            myChart.getData().add(new PieChart.Data(myNewHashMap.get(state), count));
         }
-        ObservableList<PieChart.Data>  pieChartData = FXCollections.observableArrayList(
-                //in here loop through myGrid state add do new Piechart.data("name", number)
-                //to do this, we need a map inside the grid class
-                new PieChart.Data("Dead", white),
-                new PieChart.Data("Alive", black));
 
-        chart = new PieChart(pieChartData);
-        chart.setVisible(true);
-        chart.setLayoutX(650);
-        chart.setLayoutY(ScreenHEIGHT - 200);
-        chart.setPrefSize(200,200);
-        chart.setMinSize(100,100);
-        chart.setTitle("Number of Variables");
-        return chart;
+        myChart.setLegendSide(Side.RIGHT);
+        myChart.setVisible(true);
+        myChart.setLayoutX(650);
+        myChart.setLayoutY(ScreenHEIGHT - 400);
+        myChart.setPrefSize(400,400);
+        myChart.setMinSize(400,400);
+        //myChart.setTitle("INFO");
+        return myChart;
     }
 
 
@@ -350,18 +356,6 @@ public class Visualization extends Application {
                 animation.pause();
             }
         });
-/*
-        Button ResetButton = makeButton(RESET_TEXT, ResetButtonImage,  950);
-        ResetButton.setOnMouseClicked((event)->{
-            if(filepath.equals("")){
-                makeAlert();
-            }
-            else {
-                AnimationSpeed =1;
-                animation.setRate(AnimationSpeed);
-            }
-
-        });*/
 
         Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, 800);
         InitializeButton.setOnMouseClicked((event)->{
@@ -370,6 +364,7 @@ public class Visualization extends Application {
                 System.out.println("this is it");
             }
             else {
+                animation.pause();
                 // we will have to add for loop here to create multiple grids
                 if(myGrid != null){
                     myGrid.unDisplay(root);
@@ -377,14 +372,13 @@ public class Visualization extends Application {
                 AnimationSpeed = 1;
                 animation.setRate(AnimationSpeed);
                 count = 0;
-                //root.getChildren().remove(myGrid);
                 root.getChildren().remove(SimulationName);
                 setupGrid(filepath, root, shapetype);
                 myGrid.initialize();
                 myGrid.setInitialGridColors();
                 myGrid.display(root);
-                setupChart(myGrid);
-                root.getChildren().add(chart);
+                myChart = setupChart(myGrid);
+                root.getChildren().add(myChart);
             }
         });
 
