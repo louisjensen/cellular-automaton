@@ -134,7 +134,7 @@ public class NeighborsMaker {
         else if (row >= currentGrid.length)
             newRow = row - currentGrid.length;
         if (col < 0)
-            newCol = currentGrid[0].length;
+            newCol = currentGrid[0].length + col;
         else if (col >= currentGrid.length)
             newCol = col - currentGrid[0].length;
         return currentGrid[newRow][newCol];
