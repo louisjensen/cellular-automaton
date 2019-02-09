@@ -118,6 +118,7 @@ public class Visualization extends Application {
         }
         showCount.setText(COUNT_TEXT + count);
     }
+
     private Scene setupVisualization(Stage stage) {
         root = new Group();
         Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT);
@@ -186,11 +187,11 @@ public class Visualization extends Application {
         menuButton.setLayoutY(y);
         MenuItem regular = new MenuItem("regular");
         regular.setOnAction(event -> {
-            edgeType = "triangle";
+            edgeType = "regular";
         });
-        MenuItem toroidal = new MenuItem("toroidal");
+        MenuItem toroidal = new MenuItem("toroid");
         toroidal.setOnAction(event -> {
-            edgeType = "rectangle";
+            edgeType = "toroid";
         });
 
         menuButton.getItems().addAll(regular, toroidal);
@@ -394,13 +395,23 @@ public class Visualization extends Application {
             if(filepath.equals("") || shapetype.equals("")){
                 makeAlert();
             }
-            if(myGrid == null){
-                makeInitialize();
-            }
-            myGrid.unDisplay(root);
-            myGrid.updateGrid();
+            unDisplayAllGrids();
+            UpdateAllGrids();
+            checkgameendingforAllGrids();
+            moveNexttoCurrentAllGrids();
             count ++;
-            myGrid.display(root);
+            DisplayAllGrids(root);
+
+
+            unDisplayAllGrids();
+            removeAllCharts();
+            UpdateAllGrids();
+            checkgameendingforAllGrids();
+            moveNexttoCurrentAllGrids();
+            count ++;
+            System.out.println("aha");
+            DisplayAllGrids(root);
+            makeChartforEachGrid(allGrids);
         });
 
         Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  500);

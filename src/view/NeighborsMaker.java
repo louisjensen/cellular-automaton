@@ -127,15 +127,15 @@ public class NeighborsMaker {
     }
 
     private Cell getToroidNeighbor(int row, int col, Cell[][] currentGrid){
-        int newRow = 0;
-        int newCol = 0;
+        int newRow = row;
+        int newCol = col;
         if (row < 0)
             newRow = currentGrid.length + row;
         else if (row >= currentGrid.length)
             newRow = row - currentGrid.length;
         if (col < 0)
             newCol = currentGrid[0].length + col;
-        else if (col >= currentGrid.length)
+        else if (col >= currentGrid[0].length)
             newCol = col - currentGrid[0].length;
         return currentGrid[newRow][newCol];
     }
