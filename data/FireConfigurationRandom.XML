@@ -5,9 +5,9 @@
     <verticalSize>25</verticalSize>
     <basedOnStates>No</basedOnStates>
     <specifics>
-        <property>alive 0.33</property>
-        <property>dead 0.33</property>
-        <property>burning 0.34</property>
+        <property>alive 0.95</property>
+        <property>dead 0.00</property>
+        <property>burning 0.05</property>
     </specifics>
     <moreInfo>
         <info>probCatch 0.5</info>
