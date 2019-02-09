@@ -76,7 +76,7 @@ public class RPS extends Simulation {
 
     private double generateRandomDouble(){
         Random random = new Random();
-        return random.nextDouble() * (.2);
+        return random.nextDouble() * (.4);
     }
 
 }
