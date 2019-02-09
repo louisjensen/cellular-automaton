@@ -13,7 +13,7 @@ public class HexagonGrid extends Grid {
     private int GridStartingPoint_X;
     private int GridStartingPoint_Y;
 
-    public HexagonGrid(String filePath, int displaySize, int Starting_X, int Starting_Y){
+    public HexagonGrid(String filePath, int displaySize, int Starting_X, int Starting_Y, String boundaryType){
         super(filePath, displaySize);
         int numRows = myXML.getGridX();
         int numCols = myXML.getGridY();
@@ -21,7 +21,7 @@ public class HexagonGrid extends Grid {
         System.out.println(myCurrentState.length);
         myNextState = new Cell[numRows][numCols];
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
-        myNeighborsMaker = new NeighborsMaker("hexagon", myXML.getSimulationType());
+        myNeighborsMaker = new NeighborsMaker("hexagon", myXML.getSimulationType(), boundaryType);
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         GridStartingPoint_X = Starting_X;
         GridStartingPoint_Y = Starting_Y;
