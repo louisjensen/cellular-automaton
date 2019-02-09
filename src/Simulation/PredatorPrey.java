@@ -1,3 +1,4 @@
+/*
 
 package Simulation;
 
@@ -239,3 +240,4 @@ public class PredatorPrey extends Simulation {
 
 }
 
+*/

@@ -36,13 +36,15 @@ public class Visualization extends Application {
     private String InitializeButtonImage = "InitializeButton.png";
     //private String FastForwardButtonImage = "FastForwardButton.png";
     private String StepButtonImage = "step.png";
+    private String ShapeButtonImage = "shapes.png";
     private final String COUNT_TEXT = "Rounds: ";
     private final String UPLOAD_TEXT = "UploadFile";
     private final String STEP_TEXT = "Debug";
     private final String PLAY_TEXT = "Play";
    // private final String FAST_FORWARD_TEXT = "FastForward";
     private final String PAUSE_TEXT = "Pause";
-    private final String RESET_TEXT = "Reset";
+    //private final String RESET_TEXT = "Reset";
+    private final String SubmitButtonImage = "submit.png";
     private final String INITIALIZE_TEXT = "Initialize";
     private final String DEFAULT_FONT = "Times New Roman";
     private static final int fontsize2 = 50;
@@ -198,9 +200,9 @@ public class Visualization extends Application {
         mySlider.setShowTickMarks(true);
         mySlider.setMajorTickUnit(5);
         mySlider.setMinorTickCount(1);
-        mySlider.prefWidth(300);
+        mySlider.prefWidth(500);
         mySlider.setLayoutX(50);
-        mySlider.setLayoutY(1100);
+        mySlider.setLayoutY(950);
         return mySlider;
     }
 
@@ -275,15 +277,15 @@ public class Visualization extends Application {
 
         TextField value = new TextField();
         value.setLayoutX(50);
-        value.setLayoutY(1200);
+        value.setLayoutY(1050);
 
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream("submit.png"));
+        Image image = new Image(getClass().getClassLoader().getResourceAsStream(SubmitButtonImage));
         ImageView imageview = new ImageView(image);
         imageview.setFitWidth(50);
         imageview.setFitHeight(30);
-        Button numberOfSimulationsButton= new Button("Submit",imageview);
+        Button numberOfSimulationsButton= new Button("",imageview);
         numberOfSimulationsButton.setLayoutX(200);
-        numberOfSimulationsButton.setLayoutY(1150);
+        numberOfSimulationsButton.setLayoutY(1030);
         numberOfSimulationsButton.setOnMouseClicked(e -> {
             if(value.getText().equals("") || value.getText() == null){
                 makeAlert();
@@ -306,11 +308,11 @@ public class Visualization extends Application {
           //  }
         });
 
-        MenuButton chooseShape = selectCellShape("shapes.png", 50, 200 );
+        MenuButton chooseShape = selectCellShape(ShapeButtonImage, 50, 200 );
 
         Button StepButton = makeButton(STEP_TEXT, StepButtonImage, 350 );
         StepButton.setOnMouseClicked((event)->{
-            if(filepath.equals("")){
+            if(filepath.equals("") || shapetype.equals("")){
                 makeAlert();
             }
             if(myGrid == null){
@@ -348,7 +350,7 @@ public class Visualization extends Application {
                 animation.pause();
             }
         });
-
+/*
         Button ResetButton = makeButton(RESET_TEXT, ResetButtonImage,  950);
         ResetButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
@@ -359,11 +361,11 @@ public class Visualization extends Application {
                 animation.setRate(AnimationSpeed);
             }
 
-        });
+        });*/
 
         Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, 800);
         InitializeButton.setOnMouseClicked((event)->{
-            if(filepath.equals("")){
+            if(filepath.equals("") || shapetype.equals("")){
                 makeAlert();
                 System.out.println("this is it");
             }
@@ -396,14 +398,14 @@ public class Visualization extends Application {
             }
         });
 
-        root.getChildren().addAll(chooseShape, ChangeSpeedOfGame, StepButton, FileUploadButton, ResetButton, PlayButton, PauseButton, InitializeButton,
+        root.getChildren().addAll(chooseShape, ChangeSpeedOfGame, StepButton, FileUploadButton, PlayButton, PauseButton, InitializeButton,
                 value, numberOfSimulationsButton);
     }
 
     private void makeTextsLabels(){
         Label numberOfSimulations = new Label("Number of simulations:");
         numberOfSimulations.setLayoutX(50);
-        numberOfSimulations.setLayoutY(1150);
+        numberOfSimulations.setLayoutY(1025);
         showCount = MakeText(COUNT_TEXT + count, 850,975, fontsize1);
         root.getChildren().addAll(numberOfSimulations, showCount);
 
