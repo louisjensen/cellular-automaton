@@ -2,8 +2,10 @@ package Grid;
 
 import Cell.*;
 import Simulation.*;
+import javafx.event.EventHandler;
 import javafx.scene.shape.Polygon;
 import javafx.scene.paint.Color;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.HashMap;
@@ -21,6 +23,7 @@ public abstract class Grid {
     public XMLParser myXML;
     public NeighborsMaker myNeighborsMaker;
 
+
     public Grid(String filePath, int displaySize) {
         myXML = new XMLParser(filePath);
         if(myXML == null){
@@ -28,8 +31,6 @@ public abstract class Grid {
         }
         System.out.println(filePath);
         myDisplaySize = displaySize;
-
-
     }
 
     public abstract void initialize();
@@ -136,6 +137,14 @@ public abstract class Grid {
         for (int i = 0; i < myCurrentState.length; i++) {
             for (int j = 0; j < myCurrentState[0].length; j++) {
                 current = myCurrentState[i][j];
+/*
+                current.getShape().setOnMouseClicked(e {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        System.out.println("mouse click detected!");
+                    }
+                });*/
+
                 if (!root.getChildren().contains(current.getShape()) && current.getState() != -2) {
                     root.getChildren().add(current.getShape());
                 }

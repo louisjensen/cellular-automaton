@@ -14,17 +14,22 @@ import view.ShapeMaker;
 public class TriangleGrid extends Grid {
 
     private int myTriangleLength; // triangle has height of distance, base of 2 * length
+    private int GridStartingPoint_X;
+    private int GridStartingPoint_Y;
 
-    public TriangleGrid(String filePath, int displaySize){
+    public TriangleGrid(String filePath, int displaySize, int Starting_X, int Starting_Y){
         super(filePath, displaySize);
         int numRows = myXML.getGridX();
         int numCols = myXML.getGridY();
+
 
         myCurrentState = new Cell[numRows][numCols];// for testing
         myNextState = new Cell[numRows][numCols];
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         myNeighborsMaker = new NeighborsMaker("triangle", myXML.getSimulationType());
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
+        GridStartingPoint_X = Starting_X;
+        GridStartingPoint_Y = Starting_Y;
 
         calculateTriangleLength();
         System.out.println(numRows);
@@ -33,8 +38,8 @@ public class TriangleGrid extends Grid {
     }
 
     public void initialize(){
-        int pixelX = 500;
-        int pixelY = 150;
+        int pixelX = GridStartingPoint_X;
+        int pixelY = GridStartingPoint_Y;
 
         Polygon shape;
         boolean isPointy;
@@ -52,7 +57,7 @@ public class TriangleGrid extends Grid {
                 initializeCurrentNext(shape, i, j);
                 pixelX += myTriangleLength;
             }
-            pixelX = 500;
+            pixelX = GridStartingPoint_X;
             pixelY += myTriangleLength;
         }
     }

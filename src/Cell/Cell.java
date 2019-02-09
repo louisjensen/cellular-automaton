@@ -51,5 +51,4 @@ public class Cell{
         myShape.setFill(color);
     }
 
-
 }

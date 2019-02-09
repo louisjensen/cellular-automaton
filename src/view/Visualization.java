@@ -17,14 +17,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import javafx.scene.chart.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 //import java.util.ResourceBundle;
@@ -71,11 +69,12 @@ public class Visualization extends Application {
     private Group root;
     private Timeline animation;
     private int count;
-    private int simulationSize;
+    private int simulationNumber;
     private String shapetype = "";
     private XMLParser parser;
     private TextField value;
     private PieChart myChart;
+    private ArrayList<Grid> allGrids;
     //private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
 
     public void start (Stage stage) {
@@ -134,6 +133,24 @@ public class Visualization extends Application {
 
     //Below here should all be move to a separate class
     //----------------------------------------------------------------------------------------------
+
+    private void DisplayAllGrids(Group root){
+        for(int a=0; a<allGrids.size(); a++){
+            allGrids.get(a).display(root);
+        }
+    }
+
+    private void unDisplayAllGrids(Group root){
+        for(int a=0; a<allGrids.size(); a++){
+            allGrids.get(a).unDisplay(root);
+        }
+    }
+
+    private void makeGridList(Integer numberofSimulations){
+        for(int a=0; a< simulationNumber; a++){
+            allGrids.add(myGrid);
+        }
+    }
 
     private MenuButton selectCellShape(String file, int x, int y){
         MenuButton menuButton = new MenuButton("Choose Shape");
@@ -254,16 +271,20 @@ public class Visualization extends Application {
         alert.setContentText("This is the final state. Press Reset Button");
         alert.show();
     }
-    private void setupGrid(String filepath,  Group root, String shapetype){
+    private Grid setupGrid(String filepath,  Group root, String shapetype, int space_X, int space_Y){
+        Grid newGrid = new TriangleGrid(filepath, GridDisplaySize, GRID_POS_X, GRID_POS_Y);
+
         if(shapetype.equals("triangle")){
-            myGrid = new TriangleGrid(filepath, GridDisplaySize);
+           newGrid = new TriangleGrid(filepath, GridDisplaySize, GRID_POS_X + space_X, GRID_POS_Y + space_Y);
         }
         else if(shapetype.equals("rectangle")){
-            myGrid = new RectangleGrid(filepath, GridDisplaySize);
+            newGrid = new RectangleGrid(filepath, GridDisplaySize, GRID_POS_X +space_X, GRID_POS_Y + space_Y);
         }
-        else if(shapetype.equals("hexagon")){
-            myGrid = new HexagonGrid(filepath, GridDisplaySize);
+        else{
+            newGrid = new HexagonGrid(filepath, GridDisplaySize, GRID_POS_X + space_X, GRID_POS_Y + space_Y);
         }
+
+        return newGrid;
     }
 
     private Text MakeText(String message, int x, int y, int FontSize) {
@@ -296,8 +317,8 @@ public class Visualization extends Application {
             if(value.getText().equals("") || value.getText() == null){
                 makeAlert();
             }
-            simulationSize = Integer.valueOf(value.getText());
-            System.out.println(simulationSize);
+            simulationNumber = Integer.valueOf(value.getText());
+            System.out.println(simulationNumber);
         });
 
         Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, 250);
@@ -366,19 +387,20 @@ public class Visualization extends Application {
             else {
                 animation.pause();
                 // we will have to add for loop here to create multiple grids
-                if(myGrid != null){
-                    myGrid.unDisplay(root);
+                if(allGrids != null){
+                    unDisplayAllGrids(root);
                 }
                 AnimationSpeed = 1;
                 animation.setRate(AnimationSpeed);
                 count = 0;
                 root.getChildren().remove(SimulationName);
-                setupGrid(filepath, root, shapetype);
+                makeallGrids();
+                /*setupGrid(filepath, root, shapetype);
                 myGrid.initialize();
                 myGrid.setInitialGridColors();
-                myGrid.display(root);
-                myChart = setupChart(myGrid);
-                root.getChildren().add(myChart);
+                myGrid.display(root);*/
+                //myChart = setupChart(myGrid);
+                //root.getChildren().add(myChart);
             }
         });
 
@@ -395,6 +417,17 @@ public class Visualization extends Application {
         root.getChildren().addAll(chooseShape, ChangeSpeedOfGame, StepButton, FileUploadButton, PlayButton, PauseButton, InitializeButton,
                 value, numberOfSimulationsButton);
     }
+
+    private void makeallGrids(){
+        for(int a=0; a<simulationNumber; a++) {
+            Grid newGrid = setupGrid(filepath, root, shapetype, 400*a, 400*a);
+            newGrid.initialize();
+            newGrid.setInitialGridColors();
+            newGrid.display(root);
+        }
+    }
+
+
 
     private void makeTextsLabels(){
         Label numberOfSimulations = new Label("Number of simulations:");

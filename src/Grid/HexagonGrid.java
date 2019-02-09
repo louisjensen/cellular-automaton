@@ -10,8 +10,10 @@ import java.awt.*;
 public class HexagonGrid extends Grid {
 
     private int d;
+    private int GridStartingPoint_X;
+    private int GridStartingPoint_Y;
 
-    public HexagonGrid(String filePath, int displaySize){
+    public HexagonGrid(String filePath, int displaySize, int Starting_X, int Starting_Y){
         super(filePath, displaySize);
         int numRows = myXML.getGridX();
         int numCols = myXML.getGridY();
@@ -21,6 +23,8 @@ public class HexagonGrid extends Grid {
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         myNeighborsMaker = new NeighborsMaker("hexagon", myXML.getSimulationType());
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
+        GridStartingPoint_X = Starting_X;
+        GridStartingPoint_Y = Starting_Y;
 
         calculateD();
         System.out.println(d);
@@ -34,21 +38,22 @@ public class HexagonGrid extends Grid {
     public void initialize(){
 
         //Starting Points
-        int pixelX = 200;
-        int pixelY = 150;
+        int pixelX = GridStartingPoint_X;
+        int pixelY = GridStartingPoint_Y;
         Polygon shape;
         ShapeMaker sm = new ShapeMaker();
         for (int row = 0; row < myCurrentState.length; row++) {
             for (int col = 0; col < myCurrentState[0].length; col++) {
-                shape = sm.makeHexagon(new Point(pixelX, pixelY), d) ;
+                shape = sm.makeHexagon(new Point(pixelX, pixelY), d);
+
                 initializeCurrentNext(shape, row, col);
                 pixelX += 6*d;
             }
             if(row % 2 == 0){
-                pixelX = 200 + 4*d;
+                pixelX = GridStartingPoint_X + 4*d;
             }
             else{
-                pixelX = 200;
+                pixelX = GridStartingPoint_X;
             }
             pixelY += 4*d;
         }
