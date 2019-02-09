@@ -56,6 +56,9 @@ public abstract class Grid {
         if (sim.equals("PredatorPrey")) {
             return new PredatorPrey(map, myCurrentState, myNextState, myNeighborsMaker);
         }
+        if (sim.equals("RPS")){
+            return new RPS(map,myCurrentState, myNextState, myNeighborsMaker);
+        }
         return null;
     }
 
@@ -72,6 +75,8 @@ public abstract class Grid {
             return new PercolationCell(shape);
         } else if (myXML.getSimulationType().equals("PredatorPrey")){
             return new PredatorPreyCell(shape);
+        } else if(myXML.getSimulationType().equals("RPS")){
+            return new RPS(shape);
         }
         return new GameOfLifeCell(shape);
     }
