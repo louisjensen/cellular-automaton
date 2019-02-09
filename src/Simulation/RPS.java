@@ -44,10 +44,10 @@ public class RPS extends Simulation {
         int opponentState = getOpponent(cell.getState());
         int numOpponents = countOpponents(cell, neighbors);
         if ((double)numOpponents/neighbors.size() >= myThreshold + generateRandomDouble()){
-            return cell.getState();
+            return opponentState;
         }
         else {
-            return opponentState;
+            return cell.getState();
         }
     }
 
