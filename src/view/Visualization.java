@@ -320,7 +320,7 @@ public class Visualization extends Application {
     }
 
     private Grid setupGrid(String filepath,  Group root, String shapetype, int space_X, int space_Y){
-        Grid newGrid = new TriangleGrid(filepath, GridDisplaySize, GRID_POS_X, GRID_POS_Y);
+        Grid newGrid;// = new TriangleGrid(filepath, GridDisplaySize, GRID_POS_X, GRID_POS_Y);
 
 
         if(shapetype.equals("triangle")){
