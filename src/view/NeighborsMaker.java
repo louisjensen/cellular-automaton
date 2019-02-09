@@ -9,6 +9,7 @@ public class NeighborsMaker {
 
     private String myGridType;
     private String mySimulationType;
+    private String myBoundaryType;
 
     final ArrayList<Point> rectangleTouch = new ArrayList<Point>(){{
         add(new Point( 0, 1));
@@ -83,9 +84,10 @@ public class NeighborsMaker {
 
     private ArrayList<Point> myPossibleNeighbors;
 
-    public NeighborsMaker(String gridType, String simulationType){
+    public NeighborsMaker(String gridType, String simulationType, String boundaryType){
         myGridType = gridType;
         mySimulationType = simulationType;
+        myBoundaryType = boundaryType;
     }
 
     public ArrayList<Cell> getNeighbors(Cell cell, Cell[][] currentGrid) {
@@ -103,6 +105,10 @@ public class NeighborsMaker {
             if (isSafe(cellNeighborRow, cellNeighborCol, currentGrid)) {
                 neighbors.add(currentGrid[cellNeighborRow][cellNeighborCol]);
             }
+            if (!isSafe(cellNeighborRow, cellNeighborCol, currentGrid) && isToroid()){
+                neighbors.add(getToroidNeighbor(cellNeighborRow, cellNeighborCol, currentGrid));
+            }
+
         }
         return neighbors;
 
@@ -118,6 +124,20 @@ public class NeighborsMaker {
         int cellState = currentGrid[row][col].getState();
 
         return (cellState != -2);
+    }
+
+    private Cell getToroidNeighbor(int row, int col, Cell[][] currentGrid){
+        int newRow = 0;
+        int newCol = 0;
+        if (row < 0)
+            newRow = currentGrid.length + row;
+        else if (row >= currentGrid.length)
+            newRow = row - currentGrid.length;
+        if (col < 0)
+            newCol = currentGrid[0].length;
+        else if (col >= currentGrid.length)
+            newCol = col - currentGrid[0].length;
+        return currentGrid[newRow][newCol];
     }
 
     private void getPossibleNeighbors(Cell cell){
@@ -150,6 +170,10 @@ public class NeighborsMaker {
 
     private boolean isPointy(Cell cell){
         return ((cell.getCol() + cell.getRow()) % 2 == 1);
+    }
+
+    private boolean isToroid(){
+        return (myBoundaryType.equals("toroid"));
     }
 
 
