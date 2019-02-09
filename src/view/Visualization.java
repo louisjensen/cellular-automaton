@@ -44,6 +44,7 @@ public class Visualization extends Application {
     private final String MultipleSimulationsButtonImage = "MultipleButton.png";
     private final String INITIALIZE_TEXT = "Initialize";
     private final String DEFAULT_FONT = "Times New Roman";
+    private final String BoundaryButtonImage = "boundaryButton.png";
     private static final int fontsize2 = 50;
     private static final int fontsize1 = 25;
     private static final int GridDisplaySize = 500;
@@ -71,6 +72,7 @@ public class Visualization extends Application {
     private int count;
     private int simulationNumber;
     private String shapetype = "";
+    private String edgeType = "";
     private XMLParser parser;
     private TextField value;
     private PieChart myChart;
@@ -96,7 +98,7 @@ public class Visualization extends Application {
 
     private void step() {
         if(root != null) {
-            unDisplayAllGrids(root);
+            unDisplayAllGrids();
             removeAllCharts();
             UpdateAllGrids();
             checkgameendingforAllGrids();
@@ -167,11 +169,32 @@ public class Visualization extends Application {
         }
     }
 
-    private void unDisplayAllGrids(Group root){
+    private void unDisplayAllGrids(){
         for(int a=0; a<allGrids.size(); a++){
             allGrids.get(a).unDisplay(root);
             root.getChildren().remove(allGrids.get(a));
         }
+    }
+    private MenuButton selectEdgeTypes(String file, int x, int y){
+        MenuButton menuButton = new MenuButton("Choose Boundary Type");
+        Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
+        ImageView iv = new ImageView(image);
+        iv.setFitHeight(BUTTON_SIZE);
+        iv.setFitWidth(BUTTON_SIZE);
+        menuButton.setGraphic(iv);
+        menuButton.setLayoutX(x);
+        menuButton.setLayoutY(y);
+        MenuItem regular = new MenuItem("regular");
+        regular.setOnAction(event -> {
+            edgeType = "triangle";
+        });
+        MenuItem toroidal = new MenuItem("toroidal");
+        toroidal.setOnAction(event -> {
+            edgeType = "rectangle";
+        });
+
+        menuButton.getItems().addAll(regular, toroidal);
+        return menuButton;
     }
 
     private MenuButton selectCellShape(String file, int x, int y){
@@ -324,13 +347,13 @@ public class Visualization extends Application {
 
 
         if(shapetype.equals("triangle")){
-           newGrid = new TriangleGrid(filepath, GridDisplaySize, GRID_POS_X + space_X,  GRID_POS_Y + space_Y);
+           newGrid = new TriangleGrid(filepath, GridDisplaySize, GRID_POS_X + space_X,  GRID_POS_Y + space_Y, edgeType);
         }
         else if(shapetype.equals("rectangle")){
-            newGrid = new RectangleGrid(filepath, GridDisplaySize, GRID_POS_X +space_X,  GRID_POS_Y +space_Y);
+            newGrid = new RectangleGrid(filepath, GridDisplaySize, GRID_POS_X +space_X,  GRID_POS_Y +space_Y, edgeType);
         }
         else{
-            newGrid = new HexagonGrid(filepath, GridDisplaySize, GRID_POS_X + space_X, GRID_POS_Y +space_Y);
+            newGrid = new HexagonGrid(filepath, GridDisplaySize, GRID_POS_X + space_X, GRID_POS_Y +space_Y, edgeType);
         }
 
         return newGrid;
@@ -418,9 +441,9 @@ public class Visualization extends Application {
                 }
                 root.getChildren().remove(SimulationName);
                 animation.pause();
-                unDisplayAllGrids(root);
                 if(allGrids.size() !=0){
-                    unDisplayAllGrids(root);
+                    unDisplayAllGrids();
+                    allGrids = new ArrayList<Grid>(simulationNumber);
                 }
                 AnimationSpeed = 1;
                 animation.setRate(AnimationSpeed);
@@ -444,9 +467,10 @@ public class Visualization extends Application {
         });
 
         MenuButton numberOfSimulationsButton = selectNumSimulations(MultipleSimulationsButtonImage, 50, 950);
+        MenuButton edgeTypeButton = selectEdgeTypes(BoundaryButtonImage, 75,300);
 
         root.getChildren().addAll(chooseShape, ChangeSpeedOfGame, StepButton, FileUploadButton, PlayButton, PauseButton, InitializeButton,
-                 numberOfSimulationsButton);
+                 numberOfSimulationsButton, edgeTypeButton);
     }
 
     private void makeTextsLabels(){
