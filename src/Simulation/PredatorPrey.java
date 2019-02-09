@@ -1,13 +1,15 @@
-/*
 
 package Simulation;
 
 import javafx.scene.paint.Color;
 import Cell.*;
+import view.NeighborsMaker;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+
 
 public class PredatorPrey extends Simulation {
 
@@ -26,12 +28,6 @@ public class PredatorPrey extends Simulation {
 
     }};
 
-    final ArrayList<Point> possibleNeighbors = new ArrayList<Point>(){{
-        add(new Point( 0, 1));
-        add(new Point( 0,-1));
-        add(new Point( 1, 0));
-        add(new Point(-1, 0));
-    }};
 
     private int myEnergyRequirement; //number of rounds needed to pass before reproduction;
     private int mySharkMaxLives; // shark will die if its lives reaches zero.
@@ -40,15 +36,17 @@ public class PredatorPrey extends Simulation {
     private int energyPerFish;
 
 
-    public PredatorPrey(HashMap<String, Double> moreInfoLookupTable){
-        myPossibleNeighbors = possibleNeighbors;
+    public PredatorPrey(HashMap<String, Double> moreInfoLookupTable,  Cell[][] current, Cell[][] next, NeighborsMaker nm){
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
         myMoreInfoLookupTable = moreInfoLookupTable;
+        myNeighborsMaker = nm;
         mySharkMaxLives = 2 * (int) Math.round(moreInfoLookupTable.get("initSharkEnergy"));
         myEnergyRequirement = 2 * (int) Math.round(moreInfoLookupTable.get("ticksToReproduce"));
         //tateLookupTable.put("sharks", 2 * mySharkMaxLives);
         energyPerFish = 2 * (int) Math.round(moreInfoLookupTable.get("energyGainedPerFish"));
+        myCurrentGrid = current;
+        myNextGrid = next;
 
     }
 
@@ -149,7 +147,7 @@ public class PredatorPrey extends Simulation {
         myRoundsPassed ++;
 
 
-
+        updateColor();
     }
 
 
@@ -240,4 +238,3 @@ public class PredatorPrey extends Simulation {
 
 }
 
-*/

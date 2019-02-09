@@ -23,22 +23,11 @@ public class GameOfLife extends Simulation{
         put(1, Color.BLACK);
     }};
 
-    final ArrayList<Point> possibleNeighbors = new ArrayList<Point>(){{
-        add(new Point( 0, 1));
-        add(new Point( 0,-1));
-        add(new Point( 1, 0));
-        add(new Point(-1, 0));
-        add(new Point( 1, 1));
-        add(new Point( 1,-1));
-        add(new Point(-1, 1));
-        add(new Point(-1,-1));
-    }};
 
     public GameOfLife(Cell[][] current, Cell[][] next, NeighborsMaker nm){
-        super(nm);
-        myPossibleNeighbors = possibleNeighbors;
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
+        myNeighborsMaker = nm;
         myCurrentGrid = current;
         myNextGrid = next;
     }

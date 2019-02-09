@@ -20,8 +20,8 @@ public class RectangleGrid extends Grid {
         int numCols = myXML.getGridY();
         myCurrentState = new Cell[numCols][numRows];// for testing
         myNextState = new Cell[numCols][numRows];
-        mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         myNeighborsMaker = new NeighborsMaker("rectangle", myXML.getSimulationType());
+        mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
 
         calculateMyRectangleHeight();
         calculateMyRectangleWidth();

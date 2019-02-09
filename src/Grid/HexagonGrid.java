@@ -20,6 +20,7 @@ public class HexagonGrid extends Grid {
         myNextState = new Cell[numRows][numCols];
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
         myNeighborsMaker = new NeighborsMaker("hexagon", myXML.getSimulationType());
+        mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
 
         calculateD();
         System.out.println(d);

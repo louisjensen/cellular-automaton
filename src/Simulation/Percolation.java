@@ -22,21 +22,10 @@ public class Percolation extends Simulation {
         put(2, Color.BLUE);
     }};
 
-    final ArrayList<Point> possibleNeighbors = new ArrayList<Point>(){{
-        add(new Point( 0, 1));
-        add(new Point( 0,-1));
-        add(new Point( 1, 0));
-        add(new Point(-1, 0));
-        add(new Point( 1, 1));
-        add(new Point( 1,-1));
-        add(new Point(-1, 1));
-        add(new Point(-1,-1));
-    }};
-
     public Percolation(Cell[][] current, Cell[][] next, NeighborsMaker nm){
-        super(nm);
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
+        myNeighborsMaker = nm;
         myCurrentGrid = current;
         myNextGrid = next;
     }

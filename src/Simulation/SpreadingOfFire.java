@@ -29,18 +29,10 @@ public class SpreadingOfFire extends Simulation {
         put(2, Color.RED);
     }};
 
-    final ArrayList<Point> possibleNeighbors = new ArrayList<>() {{
-        add(new Point(0, 1));
-        add(new Point(0, -1));
-        add(new Point(1, 0));
-        add(new Point(-1, 0));
-    }};
-
     public SpreadingOfFire(HashMap<String, Double> map, Cell[][] current, Cell[][] next, NeighborsMaker nm) {
-        super(nm);
-        myPossibleNeighbors = possibleNeighbors;
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
+        myNeighborsMaker = nm;
         probCatch = map.get("probCatch");
         myCurrentGrid = current;
         myNextGrid = next;
