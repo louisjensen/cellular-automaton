@@ -76,7 +76,7 @@ public abstract class Grid {
         } else if (myXML.getSimulationType().equals("PredatorPrey")){
             return new PredatorPreyCell(shape);
         } else if(myXML.getSimulationType().equals("RPS")){
-            return new RPS(shape);
+            return new RPSCell(shape);
         }
         return new GameOfLifeCell(shape);
     }
