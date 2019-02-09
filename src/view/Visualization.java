@@ -176,8 +176,8 @@ public class Visualization extends Application {
             root.getChildren().remove(allGrids.get(a));
         }
     }
-    private MenuButton selectEdgeTypes(String file, int x, int y){
-        MenuButton menuButton = new MenuButton("Choose Boundary Type");
+
+    private void menubuttonimagaereader(String file, MenuButton menuButton, int x, int y){
         Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
         ImageView iv = new ImageView(image);
         iv.setFitHeight(BUTTON_SIZE);
@@ -185,6 +185,11 @@ public class Visualization extends Application {
         menuButton.setGraphic(iv);
         menuButton.setLayoutX(x);
         menuButton.setLayoutY(y);
+    }
+
+    private MenuButton selectEdgeTypes(String file, int x, int y){
+        MenuButton menuButton = new MenuButton("Choose Boundary Type");
+        menubuttonimagaereader(file, menuButton, x, y);
         MenuItem regular = new MenuItem("regular");
         regular.setOnAction(event -> {
             edgeType = "regular";
@@ -200,13 +205,7 @@ public class Visualization extends Application {
 
     private MenuButton selectCellShape(String file, int x, int y){
         MenuButton menuButton = new MenuButton("Choose Shape");
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
-        ImageView iv = new ImageView(image);
-        iv.setFitHeight(BUTTON_SIZE);
-        iv.setFitWidth(BUTTON_SIZE);
-        menuButton.setGraphic(iv);
-        menuButton.setLayoutX(x);
-        menuButton.setLayoutY(y);
+        menubuttonimagaereader(file, menuButton, x, y);
         MenuItem triangle = new MenuItem("triangle");
         triangle.setOnAction(event -> {
            shapetype = "triangle";
@@ -227,13 +226,7 @@ public class Visualization extends Application {
 
     private MenuButton selectNumSimulations(String file, int x, int y){
         MenuButton menuButton = new MenuButton("Number of \n Simulations");
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
-        ImageView iv = new ImageView(image);
-        iv.setFitHeight(BUTTON_SIZE);
-        iv.setFitWidth(BUTTON_SIZE);
-        menuButton.setGraphic(iv);
-        menuButton.setLayoutX(x);
-        menuButton.setLayoutY(y);
+        menubuttonimagaereader(file, menuButton, x, y);
         MenuItem onesimulation = new MenuItem("1");
         onesimulation.setOnAction(event -> {
             simulationNumber = 1;
@@ -401,17 +394,6 @@ public class Visualization extends Application {
             moveNexttoCurrentAllGrids();
             count ++;
             DisplayAllGrids(root);
-
-
-            unDisplayAllGrids();
-            removeAllCharts();
-            UpdateAllGrids();
-            checkgameendingforAllGrids();
-            moveNexttoCurrentAllGrids();
-            count ++;
-            System.out.println("aha");
-            DisplayAllGrids(root);
-            makeChartforEachGrid(allGrids);
         });
 
         Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  500);

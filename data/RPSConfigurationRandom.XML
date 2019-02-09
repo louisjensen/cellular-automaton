@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>RPS</type>
-    <horizontalSize>20</horizontalSize>
-    <verticalSize>20</verticalSize>
+    <horizontalSize>100</horizontalSize>
+    <verticalSize>100</verticalSize>
     <basedOnStates>No</basedOnStates>
     <specifics>
         <property>rock 0.33</property>
@@ -10,7 +10,7 @@
         <property>scissors 0.33</property>
     </specifics>
     <moreInfo>
-        <info>threshold 0.5</info>
+        <info>threshold 0.3</info>
     </moreInfo>
     <author>Louis Lee</author>
 </simulation>
