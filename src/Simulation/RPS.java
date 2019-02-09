@@ -43,7 +43,7 @@ public class RPS extends Simulation {
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         int opponentState = getOpponent(cell.getState());
         int numOpponents = countOpponents(cell, neighbors);
-        if ((double)numOpponents/neighbors.size() >= myThreshold){
+        if ((double)numOpponents/neighbors.size() >= myThreshold + generateRandomDouble()){
             return cell.getState();
         }
         else {
@@ -74,9 +74,9 @@ public class RPS extends Simulation {
 
     }
 
-    private int generateRandomInt(int bound){
+    private double generateRandomDouble(){
         Random random = new Random();
-        return random.nextInt(bound);
+        return random.nextDouble() * (.2);
     }
 
 }
