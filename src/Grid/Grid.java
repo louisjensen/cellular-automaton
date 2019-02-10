@@ -59,7 +59,9 @@ public abstract class Grid {
         if (sim.equals("RPS")){
             return new RPS(map,myCurrentState, myNextState, myNeighborsMaker);
         }
-        return null;
+        else{
+            return new ForagingAnts(map, myCurrentState, myNextState, myNeighborsMaker);
+        }
     }
 
     public Cell getSpecificCell(Polygon shape) {
@@ -77,8 +79,9 @@ public abstract class Grid {
             return new PredatorPreyCell(shape);
         } else if(myXML.getSimulationType().equals("RPS")){
             return new RPSCell(shape);
+        } else{
+            return new ForagingAntsCell(shape);
         }
-        return new GameOfLifeCell(shape);
     }
 
     public void initializeCurrentNext(Polygon shape, int row, int col){
