@@ -7,19 +7,20 @@ import java.awt.*;
 public class Ants {
 
     boolean hasfood;
-    Integer direction;
     int X_pos;
     int Y_pos;
-    Point myLocation;
+    Point myDirection;
 
 
     public Ants(Point point){
-        myLocation = point;
+        X_pos = point.x;
+        Y_pos = point.y;
     }
 
     public boolean gethasfoodstate(){
         return hasfood;
     }
+
     public boolean dropfood(){
         hasfood = false;
         return hasfood;
@@ -30,10 +31,9 @@ public class Ants {
         return hasfood;
     }
 
-    public Point getPoint(){
-        return myLocation;
+    public Point getDirection(){
+        return myDirection;
     }
-
 
 
 }
