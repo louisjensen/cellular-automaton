@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+    <type>SpreadingOfFire</type>
+    <horizontalSize>40</horizontalSize>
+    <verticalSize>40</verticalSize>
+    <basedOnStates>No</basedOnStates>
+    <specifics>
+        <property>empty 1</property>
+    </specifics>
+    <moreInfo>
+        <info>maxAnts 150</info>
+        <info>maxAntsPerLocation 5</info>
+        <info>antLifetime 200</info>
+        <info>initAntsAtNest 2</info>
+        <info>antsBornPerStep 2</info>
+        <info>maxPheromones 100</info>
+        <info>evaporationRatio 0.1</info>
+        <info>diffusionRatio 0.1</info>
+        <info>kValue 0.001</info>
+        <info>nValue 10</info>
+    </moreInfo>
+    <author>Louis Jensen</author>
+</simulation>
