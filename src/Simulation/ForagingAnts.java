@@ -55,17 +55,19 @@ public class ForagingAnts extends Simulation {
     public void update() {
 
         ForagingAntsCell currentCell;
-        ForagingAntsCell next;
+        ForagingAntsCell nextCell;
         ForagingAntsCell randomCell;
         ArrayList<ForagingAntsCell> neighbors;
         ArrayList<Ants> antsArrayList;
 
         for (int row = 0; row < myCurrentGrid.length; row++) {
             for (int col = 0; col < myCurrentGrid[0].length; col++) {
-                currentCell = myCurrentGrid[row][col];
+                currentCell = (ForagingAntsCell) myCurrentGrid[row][col];
+                nextCell = (ForagingAntsCell) myNextGrid[row][col];
                 antsArrayList = currentCell.getMyAntsList();
+                Ants myAnt;
                 for (int a = 0; a < antsArrayList.size(); a++) {
-                    Ants myAnt = antsArrayList.get(a);
+                    myAnt = antsArrayList.get(a);
                     //just got to food source
                     if(currentCell.getMyLocation() == food){
                         myAnt.pickupfood();
@@ -77,31 +79,29 @@ public class ForagingAnts extends Simulation {
                     // has food so going back home
                     if(myAnt.gethasfoodstate()){
                         Point direction = myAnt.getDirection();
-                        neighbors = forwardNeighbors(currentCell, direction);
+                        neighbors = getForwardNeighbors(direction);
                         double max =0;
-                        Cell nextCell;
                         for(int b=0; b<neighbors.size(); b++ ){
                             if(max>neighbors.get(b).getHomePheromone()){
                                 max = neighbors.get(b).getHomePheromone();
                                 nextCell = neighbors.get(b);
                             }
                         }
-                        ((ForagingAntsCell) nextCell).addAnt(myAnt);
+                        (nextCell).addAnt(myAnt);
                         currentCell.removeAnt(myAnt);
                     }
                     //does not have food, so looking for food source
                     else{
                         Point direction = myAnt.getDirection();
-                        neighbors = forwardNeighbors(currentCell, direction);
+                        neighbors = getForwardNeighbors(currentCell, direction);
                         double max =0;
-                        Cell nextCell;
                         for(int b=0; b<neighbors.size(); b++ ){
                             if(max>neighbors.get(b).getFoodPheromone()){
                                 max = neighbors.get(b).getFoodPheromone();
                                 nextCell = neighbors.get(b);
                             }
                         }
-                        ((ForagingAntsCell) nextCell).addAnt(myAnt);
+                        (nextCell).addAnt(myAnt);
                         currentCell.removeAnt(myAnt);
 
                     }
@@ -111,25 +111,28 @@ public class ForagingAnts extends Simulation {
     }
 
 
-    private ArrayList<Point> getForwardNeighbors(Point direction){
-        ArrayList<Point> forwardNeighbors = new ArrayList<Point>();
+    private ArrayList<ForagingAntsCell> getForwardNeighbors(ForagingAntsCell currentCell, Point direction){
+        ArrayList<ForagingAntsCell> forwardNeighbors = new ArrayList<ForagingAntsCell>();
         int rowDir = (int) direction.getX();
         int colDir = (int) direction.getY();
-        forwardNeighbors.add(direction);
+
+        int row = currentCell.getRow();
+        int col = currentCell.getCol();
+        forwardNeighbors.add((ForagingAntsCell) myNextGrid[row][col]);
 
         if (Math.abs(rowDir) == Math.abs(colDir)){
-            forwardNeighbors.add(new Point(0, colDir));
-            forwardNeighbors.add(new Point(rowDir, 0));
+            forwardNeighbors.add((ForagingAntsCell) myNextGrid[row][col + colDir]);
+            forwardNeighbors.add((ForagingAntsCell) myNextGrid[row + rowDir][col]);
         }
 
         if (rowDir == 0 || colDir == 0){
             if (rowDir == 0) {
-                forwardNeighbors.add(new Point(rowDir + 1, colDir));
-                forwardNeighbors.add(new Point(rowDir - 1, colDir));
+                forwardNeighbors.add((ForagingAntsCell) myNextGrid[row + rowDir + 1][col + colDir]);
+                forwardNeighbors.add((ForagingAntsCell) myNextGrid[row + rowDir - 1][col + colDir]);
             }
             if (colDir == 0){
-                forwardNeighbors.add(new Point(rowDir, colDir + 1));
-                forwardNeighbors.add(new Point(rowDir, colDir - 1));
+                forwardNeighbors.add((ForagingAntsCell) myNextGrid[row + rowDir][col + colDir + 1]);
+                forwardNeighbors.add((ForagingAntsCell) myNextGrid[row + rowDir][col + colDir - 1]);
             }
         }
         return forwardNeighbors;
