@@ -78,4 +78,31 @@ public class ForagingAnts extends Simulation {
             }
         }
     }
+
+
+    private ArrayList<Point> getForwardNeighbors(Point direction){
+        ArrayList<Point> forwardNeighbors = new ArrayList<Point>();
+        int rowDir = (int) direction.getX();
+        int colDir = (int) direction.getY();
+        forwardNeighbors.add(direction);
+
+        if (Math.abs(rowDir) == Math.abs(colDir)){
+            forwardNeighbors.add(new Point(0, colDir));
+            forwardNeighbors.add(new Point(rowDir, 0));
+        }
+
+        if (rowDir == 0 || colDir == 0){
+            if (rowDir == 0) {
+                forwardNeighbors.add(new Point(rowDir + 1, colDir));
+                forwardNeighbors.add(new Point(rowDir - 1, colDir));
+            }
+            if (colDir == 0){
+                forwardNeighbors.add(new Point(rowDir, colDir + 1));
+                forwardNeighbors.add(new Point(rowDir, colDir - 1));
+            }
+        }
+        return forwardNeighbors;
+
+    }
+
 }
