@@ -31,7 +31,7 @@ public class HexagonGrid extends Grid {
     }
 
     private void calculateD(){
-        d = myDisplaySize/ (4 * myCurrentState.length);
+        d = myDisplaySize/ (3 * myCurrentState[0].length);
     }
 
     @Override
@@ -47,15 +47,15 @@ public class HexagonGrid extends Grid {
                 shape = sm.makeHexagon(new Point(pixelX, pixelY), d);
 
                 initializeCurrentNext(shape, row, col);
-                pixelX += 6*d;
+                pixelX += 2*d;
             }
             if(row % 2 == 0){
-                pixelX = GridStartingPoint_X + 4*d;
+                pixelX = GridStartingPoint_X + d;
             }
             else{
                 pixelX = GridStartingPoint_X;
             }
-            pixelY += 4*d;
+            pixelY += 3*d;
         }
     }
 

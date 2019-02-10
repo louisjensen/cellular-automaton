@@ -47,7 +47,7 @@ public class Visualization extends Application {
     private final String BoundaryButtonImage = "boundaryButton.png";
     private static final int fontsize2 = 50;
     private static final int fontsize1 = 25;
-    private static final int GridDisplaySize = 800;
+    private static final int GridDisplaySize = 500;
     private static final int ScreenWIDTH = 1300;
     private static final int ScreenHEIGHT = 1300;
     private static final int FRAMES_PER_SECOND = 1;
@@ -480,11 +480,11 @@ public class Visualization extends Application {
             }
             if(simulationNumber ==4) {
                 if(a<2){
-                    newGrid = setupGrid(filepath, root, shapetype, GridDisplaySize * a, 0);
+                    newGrid = setupGrid(filepath, root, shapetype, (GridDisplaySize +50)* a, 0);
                     System.out.println("aa1");
                 }
                 else{
-                    newGrid = setupGrid(filepath, root, shapetype, GridDisplaySize * (a-2), GridDisplaySize);
+                    newGrid = setupGrid(filepath, root, shapetype, (GridDisplaySize +50)* (a-2), 50+ GridDisplaySize);
                     System.out.println();
                 }
             }
