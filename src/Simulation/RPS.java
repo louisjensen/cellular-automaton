@@ -65,18 +65,18 @@ public class RPS extends Simulation {
     private int getOpponent(int state){
         int i = 0;
         if (state == 0)
-            i = 1;
-        else if (state == 1)
             i = 2;
-        else if (state == 2)
+        else if (state == 1)
             i = 0;
+        else if (state == 2)
+            i = 1;
         return i;
 
     }
 
     private double generateRandomDouble(){
         Random random = new Random();
-        return random.nextDouble() * (.4);
+        return -.2 + random.nextDouble() * (.4);
     }
 
 }
