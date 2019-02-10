@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
-    <type>GameOfLife</type>
+    <type>SpreadingOfFire</type>
     <horizontalSize>6</horizontalSize>
     <verticalSize>6</verticalSize>
     <basedOnStates>Yes</basedOnStates>
@@ -9,12 +9,12 @@
         <property>2 0</property>
         <property>3 0</property>
         <property>4 0</property>
-        <property>5 1</property>
+        <property>5 0</property>
         <property>6 0</property>
         <property>7 0</property>
-        <property>8 0</property>
+        <property>8 2</property>
         <property>9 0</property>
-        <property>10 1</property>
+        <property>10 0</property>
         <property>11 0</property>
         <property>12 0</property>
         <property>13 0</property>
@@ -30,17 +30,20 @@
         <property>23 0</property>
         <property>24 0</property>
         <property>25 0</property>
-        <property>26 1</property>
-        <property>27 1</property>
-        <property>28 1</property>
-        <property>29 0</property>
+        <property>26 0</property>
+        <property>27 0</property>
+        <property>28 0</property>
+        <property>29 2</property>
         <property>30 0</property>
         <property>31 0</property>
-        <property>32 1</property>
+        <property>32 0</property>
         <property>33 0</property>
         <property>34 0</property>
         <property>35 0</property>
         <property>36 0</property>
     </specifics>
+    <moreInfo>
+        <info>probCatch 0.5</info>
+    </moreInfo>
     <author>Louis Jensen</author>
 </simulation>

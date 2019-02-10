@@ -164,6 +164,29 @@ public abstract class Grid {
 
 
     public void setInitialGridColors() {
+        if (myXML.isItBasedOnStates()){
+            setColorsBasedOnStates();
+            return;
+        }
+        setColorsBasedOnNumbers();
+    }
+
+    private void setColorsBasedOnStates(){
+        int cell = 0;
+        Cell current;
+        List<Double> proportionStates = myXML.getStateProportions();
+        HashMap<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
+        for (int i = 0; i < myCurrentState.length; i++) {
+            for (int j = 0; j < myCurrentState[0].length; j++) {
+                current = myCurrentState[i][j];
+                current.setState(proportionStates.get(cell).intValue());
+                current.setColor(stateToColorMap.get(current.getState()));
+                cell++;
+            }
+        }
+    }
+
+    private void setColorsBasedOnNumbers(){
         List<Double> proportionStates = myXML.getStateProportions();
         List<Integer> percentageStates = new ArrayList<>();
 
