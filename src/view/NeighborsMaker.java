@@ -10,7 +10,7 @@ public class NeighborsMaker {
     private String myGridType;
     private String mySimulationType;
     private String myBoundaryType;
-Cell
+
     final ArrayList<Point> rectangleTouch = new ArrayList<Point>(){{
         add(new Point( 0, 1));
         add(new Point( 0,-1));
@@ -103,10 +103,10 @@ Cell
             cellNeighborRow = cellRow + (int) rc.getX();
             cellNeighborCol = cellCol + (int) rc.getY();
             if (isSafe(cellNeighborRow, cellNeighborCol, currentGrid)) {
-                neighbors.add(currentGrid[cellNeighborRow][cellNeighborCol]);
+                neighbors.add((Cell) currentGrid[cellNeighborRow][cellNeighborCol]);
             }
             if (!isSafe(cellNeighborRow, cellNeighborCol, currentGrid) && isToroid()){
-                neighbors.add(getToroidNeighbor(cellNeighborRow, cellNeighborCol, currentGrid));
+                neighbors.add((Cell) getToroidNeighbor(cellNeighborRow, cellNeighborCol, currentGrid));
             }
 
         }
