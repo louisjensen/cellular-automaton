@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>SpreadingOfFire</type>
-    <horizontalSize>25</horizontalSize>
-    <verticalSize>25</verticalSize>
+    <horizontalSize>20</horizontalSize>
+    <verticalSize>20</verticalSize>
     <basedOnStates>No</basedOnStates>
     <specifics>
-        <property>alive 0.95</property>
-        <property>dead 0.00</property>
-        <property>burning 0.05</property>
+        <property>alive 133</property>
+        <property>dead 133</property>
+        <property>burning 134</property>
     </specifics>
     <moreInfo>
         <info>probCatch 0.5</info>

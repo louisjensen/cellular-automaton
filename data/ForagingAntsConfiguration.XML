@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
-    <type>SpreadingOfFire</type>
-    <horizontalSize>40</horizontalSize>
-    <verticalSize>40</verticalSize>
+    <type>ForagingAnts</type>
+    <horizontalSize>20</horizontalSize>
+    <verticalSize>20</verticalSize>
     <basedOnStates>No</basedOnStates>
     <specifics>
-        <property>empty 1</property>
+        <property>empty 398</property>
+        <property>home 1</property>
+        <property>food 1</property>
     </specifics>
     <moreInfo>
         <info>maxAnts 150</info>

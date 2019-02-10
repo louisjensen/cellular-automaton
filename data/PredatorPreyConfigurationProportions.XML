@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>PredatorPrey</type>
-    <horizontalSize>30</horizontalSize>
-    <verticalSize>30</verticalSize>
+    <horizontalSize>20</horizontalSize>
+    <verticalSize>20</verticalSize>
     <basedOnStates>No</basedOnStates>
     <specifics>
-        <property>water 0.4</property>
-        <property>fish 0.5</property>
-        <property>shark 0.1</property>
+        <property>water 160</property>
+        <property>fish 200</property>
+        <property>shark 40</property>
     </specifics>
     <moreInfo>
         <info>initSharkEnergy 3</info>

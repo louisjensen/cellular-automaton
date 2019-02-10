@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>Segregation</type>
-    <horizontalSize>40</horizontalSize>
-    <verticalSize>40</verticalSize>
+    <horizontalSize>20</horizontalSize>
+    <verticalSize>20</verticalSize>
     <basedOnStates>No</basedOnStates>
     <specifics>
-        <property>empty 0.33</property>
-        <property>blue 0.33</property>
-        <property>red 0.34</property>
+        <property>empty 134</property>
+        <property>blue 133</property>
+        <property>red 133</property>
     </specifics>
     <moreInfo>
         <info>tolerance 0.6</info>

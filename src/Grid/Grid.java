@@ -166,6 +166,7 @@ public abstract class Grid {
     public void setInitialGridColors() {
         List<Double> proportionStates = myXML.getStateProportions();
         List<Integer> percentageStates = new ArrayList<>();
+
         HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
         List<String> states = myXML.getStates();
         HashMap<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
@@ -175,24 +176,41 @@ public abstract class Grid {
         int randInt;
         int currentTotal = 0;
         int percentage;
+        int totalNum = 0;
+        for(int i = 0; i < proportionStates.size(); i++){
+            totalNum += proportionStates.get(i);
+        }
+
         for (int i = 0; i < proportionStates.size(); i++) {
-            percentage = (currentTotal + (int) (proportionStates.get(i) * 100));
+           /* percentage = (currentTotal + (int) (proportionStates.get(i) / totalNum * 100));
+            if (i == proportionStates.size()-1){
+                percentage = 100;
+            }
             percentageStates.add(percentage);
+            System.out.println(percentage + "percentages");
+            currentTotal = percentage; */
+            percentage = (currentTotal + (proportionStates.get(i)).intValue());
+            percentageStates.add(percentage);
+            System.out.println(percentage + "percentages");
             currentTotal = percentage;
+
         }
 
         for (int i = 0; i < myCurrentState.length; i++) {
             for (int j = 0; j < myCurrentState[0].length; j++) {
                 if (myCurrentState[i][j].getState() != -2) {
-                    randInt = rand.nextInt(100) + 1;
-                    for (int k = 0; k < percentageStates.size(); k++) {
-                        if (randInt <= percentageStates.get(k)) {
-                            current = myCurrentState[i][j];
-                            current.setState(stateLookupTable.get(states.get(k)));
-                            current.setColor(stateToColorMap.get(current.getState()));
-                            break;
-                        }
+                    current = myCurrentState[i][j];
+                    while(current.getState()<0) {
+                        randInt = rand.nextInt(currentTotal) + 1;
+                        for (int k = 0; k < percentageStates.size(); k++) {
+                            if (randInt <= percentageStates.get(k) && proportionStates.get(k) > 0) {
+                                current.setState(stateLookupTable.get(states.get(k)));
+                                current.setColor(stateToColorMap.get(current.getState()));
+                                proportionStates.set(k, proportionStates.get(k) - 1);
+                                break;
+                            }
 
+                        }
                     }
 
                 }

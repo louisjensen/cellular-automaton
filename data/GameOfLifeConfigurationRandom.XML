@@ -5,8 +5,8 @@
     <verticalSize>20</verticalSize>
     <basedOnStates>No</basedOnStates>
     <specifics>
-        <property>dead 0.5</property>
-        <property>alive 0.5</property>
+        <property>dead 200</property>
+        <property>alive 200</property>
     </specifics>
     <author>Louis Jensen</author>
 </simulation>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>RPS</type>
-    <horizontalSize>100</horizontalSize>
-    <verticalSize>100</verticalSize>
+    <horizontalSize>20</horizontalSize>
+    <verticalSize>20</verticalSize>
     <basedOnStates>No</basedOnStates>
     <specifics>
-        <property>rock 0.33</property>
-        <property>paper 0.34</property>
-        <property>scissors 0.33</property>
+        <property>rock 133</property>
+        <property>paper 133</property>
+        <property>scissors 134</property>
     </specifics>
     <moreInfo>
         <info>threshold 0.3</info>

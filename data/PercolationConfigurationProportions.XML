@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>Percolation</type>
-    <horizontalSize>25</horizontalSize>
-    <verticalSize>40</verticalSize>
+    <horizontalSize>20</horizontalSize>
+    <verticalSize>20</verticalSize>
     <basedOnStates>No</basedOnStates>
     <specifics>
-        <property>opened 0.45</property>
-        <property>closed 0.54</property>
-        <property>filled 0.01</property>
+        <property>opened 180</property>
+        <property>closed 210</property>
+        <property>filled 10</property>
     </specifics>
     <author>Louis Jensen</author>
 </simulation>
