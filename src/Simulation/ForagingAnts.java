@@ -54,24 +54,55 @@ public class ForagingAnts extends Simulation {
     @Override
     public void update() {
 
-        ForagingAntsCell current;
+        ForagingAntsCell currentCell;
         ForagingAntsCell next;
         ForagingAntsCell randomCell;
-        ArrayList<Cell> neighbors;
+        ArrayList<ForagingAntsCell> neighbors;
         ArrayList<Ants> antsArrayList;
 
         for (int row = 0; row < myCurrentGrid.length; row++) {
             for (int col = 0; col < myCurrentGrid[0].length; col++) {
-                current = myCurrentGrid[row][col];
-                antsArrayList = current.getMyAntsList();
+                currentCell = myCurrentGrid[row][col];
+                antsArrayList = currentCell.getMyAntsList();
                 for (int a = 0; a < antsArrayList.size(); a++) {
                     Ants myAnt = antsArrayList.get(a);
-                    if(myAnt.getPoint() == Nest.pos){
+                    //just got to food source
+                    if(currentCell.getMyLocation() == food){
+                        myAnt.pickupfood();
+                    }
+                    //just got to the nest
+                    if(currentCell.getMyLocation() == nest){
                         myAnt.dropfood();
-                        neighbors = getNeighbors(current);
-
-
-
+                    }
+                    // has food so going back home
+                    if(myAnt.gethasfoodstate()){
+                        Point direction = myAnt.getDirection();
+                        neighbors = forwardNeighbors(currentCell, direction);
+                        double max =0;
+                        Cell nextCell;
+                        for(int b=0; b<neighbors.size(); b++ ){
+                            if(max>neighbors.get(b).getHomePheromone()){
+                                max = neighbors.get(b).getHomePheromone();
+                                nextCell = neighbors.get(b);
+                            }
+                        }
+                        ((ForagingAntsCell) nextCell).addAnt(myAnt);
+                        currentCell.removeAnt(myAnt);
+                    }
+                    //does not have food, so looking for food source
+                    else{
+                        Point direction = myAnt.getDirection();
+                        neighbors = forwardNeighbors(currentCell, direction);
+                        double max =0;
+                        Cell nextCell;
+                        for(int b=0; b<neighbors.size(); b++ ){
+                            if(max>neighbors.get(b).getFoodPheromone()){
+                                max = neighbors.get(b).getFoodPheromone();
+                                nextCell = neighbors.get(b);
+                            }
+                        }
+                        ((ForagingAntsCell) nextCell).addAnt(myAnt);
+                        currentCell.removeAnt(myAnt);
 
                     }
                 }

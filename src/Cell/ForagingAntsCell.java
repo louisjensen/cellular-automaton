@@ -12,6 +12,7 @@ public class ForagingAntsCell extends Cell {
     double FoodPheromone;
     final static int howmuchpheromone =2;
     final static double evaporationrate = 0.05;
+    Point myLocation;
 
 
     public ForagingAntsCell(Polygon shape){
@@ -50,6 +51,25 @@ public class ForagingAntsCell extends Cell {
 
     public ArrayList<Ants> getMyAntsList() {
         return myAntsList;
+    }
+
+    public double getHomePheromone(){
+        return HomePheromone;
+    }
+
+    public double getFoodPheromone(){
+        return FoodPheromone;
+    }
+
+    public void addAnt(Ants myAnt){
+        myAntsList.add(myAnt);
+    }
+    public  void removeAnt(Ants myAnt){
+        myAntsList.remove(myAnt);
+    }
+
+    public Point getMyLocation(){
+        return myLocation;
     }
 
 }
