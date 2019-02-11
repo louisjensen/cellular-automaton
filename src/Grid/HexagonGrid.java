@@ -4,7 +4,6 @@ import javafx.scene.shape.Polygon;
 import Cell.Cell;
 import view.NeighborsMaker;
 import view.ShapeMaker;
-
 import java.awt.*;
 
 public class HexagonGrid extends Grid {
@@ -36,7 +35,6 @@ public class HexagonGrid extends Grid {
 
     @Override
     public void initialize(){
-
         //Starting Points
         int pixelX = GridStartingPoint_X;
         int pixelY = GridStartingPoint_Y;

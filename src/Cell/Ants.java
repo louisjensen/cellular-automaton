@@ -1,7 +1,5 @@
 package Cell;
 
-import javafx.geometry.Pos;
-
 import java.awt.*;
 
 public class Ants {
@@ -9,8 +7,6 @@ public class Ants {
     private boolean hasFood;
     private Point myDirection;
     private int myLives;
-
-
 
     public Ants(Point point, int startingLives){
         myDirection = point;
@@ -23,8 +19,6 @@ public class Ants {
         myLives = ant.myLives;
         hasFood = ant.hasFood;
     }
-
-
 
     public boolean getHasFoodState(){
         return hasFood;

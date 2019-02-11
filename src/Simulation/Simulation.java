@@ -2,8 +2,6 @@ package Simulation;
 
 import Cell.Cell;
 import javafx.scene.paint.Color;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import view.NeighborsMaker;
@@ -23,7 +21,6 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * @return next state of cell
      */
     public abstract int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors);
-
 
     /**
      * sets myCurrentGrid to myCurrentState from the Grid class
@@ -66,7 +63,6 @@ public abstract class Simulation { // since this doesn't have any instance varia
                 cellToUpdate.setState(getNextStateOfCell(currentCell, neighbors));
             }
         }
-
         updateColor();
     }
 
@@ -95,9 +91,6 @@ public abstract class Simulation { // since this doesn't have any instance varia
         }
     }
 
-
-
-
     public HashMap<Integer, Color> getMyColorLookupTable(){
         return myColorLookupTable;
     }
@@ -105,4 +98,5 @@ public abstract class Simulation { // since this doesn't have any instance varia
     public HashMap<String, Integer> getMyStateLookupTable(){
         return myStateLookupTable;
     }
+
 }

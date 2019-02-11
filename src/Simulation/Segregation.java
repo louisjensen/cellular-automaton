@@ -32,8 +32,6 @@ public class Segregation extends Simulation {
         put(2, Color.RED);
     }};
 
-
-
     private double myTolerance;
     private Random random = new Random();
 
@@ -50,7 +48,6 @@ public class Segregation extends Simulation {
     public int getState(String stateString){
         return stateLookupTable.get(stateString);
     }
-
 
     public boolean checkIfSatisfied(Cell cell,  ArrayList<Cell> neighbors){
         int myState = cell.getState(); // get red or blue
@@ -132,7 +129,6 @@ public class Segregation extends Simulation {
         }
     }
 
-
     private void copyCurrentToNext(){
         Cell current;
         Cell next;
@@ -144,10 +140,10 @@ public class Segregation extends Simulation {
             }
         }
     }
+
     @Override
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         return 1;
     }
-
 
 }

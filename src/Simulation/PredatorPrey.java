@@ -1,15 +1,11 @@
-
 package Simulation;
 
 import javafx.scene.paint.Color;
 import Cell.*;
 import view.NeighborsMaker;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-
 
 public class PredatorPrey extends Simulation {
 
@@ -25,16 +21,12 @@ public class PredatorPrey extends Simulation {
         for (int i=2; i<100; i+=2){
             put(i, Color.GREEN);
         }
-
     }};
-
 
     private int myEnergyRequirement; //number of rounds needed to pass before reproduction;
     private int mySharkMaxLives; // shark will die if its lives reaches zero.
     // special state: unoccupied = -2. Where a shark died and no one can move into that space until the next turn. Turns into water after all fish and shark are done updating
     private int myRoundsPassed;
-    private int energyPerFish;
-
 
     public PredatorPrey(HashMap<String, Double> moreInfoLookupTable,  Cell[][] current, Cell[][] next, NeighborsMaker nm){
         myStateLookupTable = stateLookupTable;
@@ -43,11 +35,8 @@ public class PredatorPrey extends Simulation {
         myNeighborsMaker = nm;
         mySharkMaxLives = 2 * (int) Math.round(moreInfoLookupTable.get("initSharkEnergy"));
         myEnergyRequirement = 2 * (int) Math.round(moreInfoLookupTable.get("ticksToReproduce"));
-        //tateLookupTable.put("sharks", 2 * mySharkMaxLives);
-        energyPerFish = 2 * (int) Math.round(moreInfoLookupTable.get("energyGainedPerFish"));
         myCurrentGrid = current;
         myNextGrid = next;
-
     }
 
     public int getState(String stateString){
@@ -57,7 +46,6 @@ public class PredatorPrey extends Simulation {
 
     @Override
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
-
         return 1;
     }
 
@@ -91,7 +79,6 @@ public class PredatorPrey extends Simulation {
                             next = myNextGrid[randomCell.getRow()][randomCell.getCol()];
                             if (isFish(randomCell)) { // shark consumes fish
                                 next.setState(livesToSharkState(mySharkMaxLives)); // shark energy resets
-                               // next.setState(current.getState()+energyPerFish);
                                 randomCell.setState(0); // make a fish a water
                             } else { // make shark lose one life for not consuming a fish
                                 next.setState(current.getState() - 2); // lose one life (
@@ -143,19 +130,15 @@ public class PredatorPrey extends Simulation {
                 }
             }
         }
-
         myRoundsPassed ++;
-
-
         updateColor();
     }
-
-
 
     private boolean isShark(Cell cell){
         int state = cell.getState();
         return (isEven(state) && state != 0); // even is shark
     }
+
     private boolean isFish(Cell cell){
         int state = cell.getState();
         return (state == 1); // 1 is fish
@@ -234,7 +217,6 @@ public class PredatorPrey extends Simulation {
     private boolean isItTime(){
         return (myRoundsPassed % myEnergyRequirement == 0 && myRoundsPassed != 0);
     }
-
 
 }
 

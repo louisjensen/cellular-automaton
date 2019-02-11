@@ -2,10 +2,8 @@ package Grid;
 
 import Cell.*;
 import Simulation.*;
-import javafx.event.EventHandler;
 import javafx.scene.shape.Polygon;
 import javafx.scene.paint.Color;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.HashMap;
@@ -23,7 +21,6 @@ public abstract class Grid {
     public XMLParser myXML;
     public NeighborsMaker myNeighborsMaker;
 
-
     public Grid(String filePath, int displaySize) {
         myXML = new XMLParser(filePath);
         if(myXML == null){
@@ -38,7 +35,6 @@ public abstract class Grid {
     public HashMap<String, Integer> getSimulationMap(){
         return mySimulation.myStateLookupTable;
     }
-
 
     public Simulation getSimulation(String sim, HashMap<String, Double> map) {
         if (sim.equals("GameOfLife")) {
@@ -73,13 +69,17 @@ public abstract class Grid {
         }
         else if (myXML.getSimulationType().equals("Segregation")){
             return new SegregationCell(shape);
-        } else if (myXML.getSimulationType().equals("Percolation")){
+        }
+        else if (myXML.getSimulationType().equals("Percolation")){
             return new PercolationCell(shape);
-        } else if (myXML.getSimulationType().equals("PredatorPrey")){
+        }
+        else if (myXML.getSimulationType().equals("PredatorPrey")){
             return new PredatorPreyCell(shape);
-        } else if(myXML.getSimulationType().equals("RPS")){
+        }
+        else if(myXML.getSimulationType().equals("RPS")){
             return new RPSCell(shape);
-        } else{
+        }
+        else{
             return new ForagingAntsCell(shape);
         }
     }
@@ -100,7 +100,6 @@ public abstract class Grid {
         cell.setCol(col);
     }
 
-
     public void moveNexttoCurrent() {
         mySimulation.moveNextToCurrent();
     }
@@ -108,7 +107,8 @@ public abstract class Grid {
     public boolean checkGameEnding() {
         for (int i = 0; i < myCurrentState.length; i++) {
             for (int j = 0; j < myCurrentState[0].length; j++) {
-                //return Boolean instead of this
+                /*Cannot return boolean because shouldn't return
+                  True unless it loops through every cell*/
                 if (myCurrentState[i][j].getState() != myNextState[i][j].getState()) {
                     return false;
                 }
@@ -117,15 +117,9 @@ public abstract class Grid {
         return true;
     }
 
-
     public Cell[][] getMyCurrentState() {
         return myCurrentState;
     }
-
-    public Cell[][] getMyNextState() {
-        return myNextState;
-    }
-
 
     public void updateGrid() {
         mySimulation.update();
@@ -140,7 +134,6 @@ public abstract class Grid {
         for (int i = 0; i < myCurrentState.length; i++) {
             for (int j = 0; j < myCurrentState[0].length; j++) {
                 current = myCurrentState[i][j];
-
                 if (!root.getChildren().contains(current.getShape()) && current.getState() != -2) {
                     root.getChildren().add(current.getShape());
                 }
@@ -159,7 +152,6 @@ public abstract class Grid {
             }
         }
     }
-
 
     public void setInitialGridColors() {
         if (myXML.isItBasedOnStates()){
@@ -203,18 +195,10 @@ public abstract class Grid {
         }
 
         for (int i = 0; i < proportionStates.size(); i++) {
-           /* percentage = (currentTotal + (int) (proportionStates.get(i) / totalNum * 100));
-            if (i == proportionStates.size()-1){
-                percentage = 100;
-            }
-            percentageStates.add(percentage);
-            System.out.println(percentage + "percentages");
-            currentTotal = percentage; */
             percentage = (currentTotal + (proportionStates.get(i)).intValue());
             percentageStates.add(percentage);
             System.out.println(percentage + "percentages");
             currentTotal = percentage;
-
         }
 
         for (int i = 0; i < myCurrentState.length; i++) {
@@ -230,12 +214,11 @@ public abstract class Grid {
                                 proportionStates.set(k, proportionStates.get(k) - 1);
                                 break;
                             }
-
                         }
                     }
-
                 }
             }
         }
     }
+
 }
