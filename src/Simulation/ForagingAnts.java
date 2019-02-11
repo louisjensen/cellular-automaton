@@ -168,7 +168,7 @@ public class ForagingAnts extends Simulation {
                         myTotalAnts --;
                     }
                 }
-                antsArrayList.clear();
+                //antsArrayList.clear();
             }
         }
         updateStatesAndEvaporate();
@@ -239,7 +239,7 @@ public class ForagingAnts extends Simulation {
                     //System.out.println(next.getRow() + " " + next.getCol() + " " +next.getMyAntsList().size());
                     //System.out.println(next.getMyAntsList().size());
                     if (next.getMyAntsList().size() == 0) { // does not contain ants
-                        next.sgetState(0);
+                        next.setState(0);
 
                         //current.setState(0);
                     } else {
