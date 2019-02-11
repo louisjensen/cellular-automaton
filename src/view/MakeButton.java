@@ -1,6 +1,8 @@
 package view;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -20,5 +22,17 @@ public class MakeButton {
         button.setLayoutY(y);
         return button;
     }
+
+    public void menubuttonimagaereader(String file, MenuButton menuButton, int x, int y){
+        Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
+        ImageView iv = new ImageView(image);
+        iv.setFitHeight(BUTTON_SIZE);
+        iv.setFitWidth(BUTTON_SIZE);
+        menuButton.setGraphic(iv);
+        menuButton.setLayoutX(x);
+        menuButton.setLayoutY(y);
+    }
+
+
 
 }
