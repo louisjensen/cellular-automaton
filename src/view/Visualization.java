@@ -108,7 +108,6 @@ public class Visualization extends Application {
             checkgameendingforAllGrids();
             moveNexttoCurrentAllGrids();
             count ++;
-            System.out.println("aha");
             DisplayAllGrids(root);
             makeChartforEachGrid(allGrids);
 
@@ -117,7 +116,6 @@ public class Visualization extends Application {
             removeAllCharts();
             count ++;
             DisplayAllGrids(root);
-            System.out.println("aha1");
             makeChartforEachGrid(allGrids);
         }
         showCount.setText(COUNT_TEXT + count);
@@ -129,7 +127,7 @@ public class Visualization extends Application {
         Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT, Color.GRAY);
         allButtons(stage);
         makeTextsLabels();
-        myScene.getStylesheets().add("default.css");
+        myScene.getStylesheets().add("../default.css");
         return myScene;
     }
 
@@ -147,7 +145,6 @@ public class Visualization extends Application {
             PieChart myChart = setupChart(allGrids.get(a), a+1, (Chart_Position_x) *a);
             root.getChildren().add(myChart);
             allCharts.add(myChart);
-            System.out.println("aa");
         }
     }
 
@@ -254,7 +251,6 @@ public class Visualization extends Application {
     }
 
     private PieChart setupChart(Grid myGrid, int Gridnumber, int Position_X) {
-        System.out.println("This line ran0");
         PieChart myChart = new PieChart();
         HashMap<String, Integer> SimulationStateMap;
         SimulationStateMap = myGrid.getSimulationMap();
@@ -278,7 +274,6 @@ public class Visualization extends Application {
         myChart.setVisible(true);
         myChart.setLayoutX(Position_X);
         myChart.setLayoutY(ScreenHEIGHT * 31 / 40);
-        System.out.println("This line ran");
         myChart.setPrefSize(PieChartSize,PieChartSize);
         myChart.setMinSize(PieChartSize, PieChartSize);
         myChart.setTitle("Grid " + Gridnumber);
@@ -449,7 +444,6 @@ public class Visualization extends Application {
                 SimulationName = MakeText(SimulationTitle,  SimulationTitle_POS_X, SimulationTitle_POS_Y, fontsize2);
                 SimulationName.setFill(Color.WHITE);
                 root.getChildren().add(SimulationName);
-                System.out.println(allGrids.size());
                 makeChartforEachGrid(allGrids);
             }
         });
@@ -459,7 +453,6 @@ public class Visualization extends Application {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
                 AnimationSpeed = new_val.doubleValue();
-                System.out.println(new_val.doubleValue());
                 animation.setRate(AnimationSpeed);
             }
         });
@@ -486,18 +479,15 @@ public class Visualization extends Application {
             if(simulationNumber ==4) {
                 if(a<2){
                     newGrid = setupGrid(filepath, root, shapetype, (GridDisplaySize + ScreenSIZE/26)* a + ScreenSIZE/2, 0);
-                    System.out.println("aa1");
                 }
                 else{
                     newGrid = setupGrid(filepath, root, shapetype, (GridDisplaySize + ScreenSIZE/26)* (a-2) + ScreenSIZE/2, ScreenSIZE/26 + GridDisplaySize);
-                    System.out.println();
                 }
             }
             SimulationTitle = newGrid.getSimulationName();
             newGrid.initialize();
             newGrid.setInitialGridColors();
             allGrids.add(newGrid);
-            System.out.println(allGrids.size());
             DisplayAllGrids(root);
         }
     }
