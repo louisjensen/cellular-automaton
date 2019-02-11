@@ -8,6 +8,10 @@
         <property>empty 398</property>
         <property>nest 1</property>
         <property>food 1</property>
+        <property>hasAnts 0</property>
+        <property>nestWAnts 0</property>
+        <property>foodWAnts 0</property>
+
     </specifics>
     <moreInfo>
         <info>maxAnts 150</info>
