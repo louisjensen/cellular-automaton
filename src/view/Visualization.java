@@ -17,7 +17,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -27,7 +26,6 @@ import javafx.beans.value.ObservableValue;
 
 public class Visualization extends Application {
     private String Title = "Cell Automaton";
-    private String ResetButtonImage = "ResetButton.png";
     private String FileUploadButtonImage = "FileUploadButton.png";
     private String PlayButtonImage = "PlayButton.png";
     private String PauseButtonImage = "PauseButton.png";
@@ -55,17 +53,14 @@ public class Visualization extends Application {
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private final static int BUTTON_SIZE = ScreenSIZE / 25;
-    private final static int BUTTON_POS_X = ScreenSIZE/26;
     private final static int SimulationTitle_POS_X = ScreenWIDTH *2/5;
     private final static int SimulationTitle_POS_Y = ScreenSIZE/12;
     private final static int GRID_POS_X = ScreenSIZE /4;
     private final static int GRID_POS_Y = ScreenSIZE/8;
-    private final static int PieChartSize = ScreenSIZE/5;
     private final static int Chart_Position_x = ScreenSIZE*19/100;
     private double AnimationSpeed;
     private Text showCount;
     private Scene myScene;
-    private Grid myGrid;
     private String SimulationTitle;
     private Text SimulationName;
     private String filepath = "";
@@ -75,9 +70,6 @@ public class Visualization extends Application {
     private int simulationNumber;
     private String shapetype = "";
     private String edgeType = "";
-    private XMLParser parser;
-    private TextField value;
-    private PieChart myChart;
     private ArrayList<Grid> allGrids;
     private ArrayList<PieChart> allCharts;
     //private ResourceBundle myResources = ResourceBundle.getBundle("textForGui.properties");
@@ -140,7 +132,8 @@ public class Visualization extends Application {
 
     private void makeChartforEachGrid(ArrayList<Grid> allGrids){
         for(int a=0; a<allGrids.size(); a++){
-            PieChart myChart = setupChart(allGrids.get(a), a+1, (Chart_Position_x) *a);
+            MakeChart chartmaker = new MakeChart();
+            PieChart myChart = chartmaker.setupChart(allGrids.get(a), a+1, (Chart_Position_x) *a);
             root.getChildren().add(myChart);
             allCharts.add(myChart);
         }
@@ -248,62 +241,6 @@ public class Visualization extends Application {
 
     }
 
-    private PieChart setupChart(Grid myGrid, int Gridnumber, int Position_X) {
-        PieChart myChart = new PieChart();
-        HashMap<String, Integer> SimulationStateMap;
-        SimulationStateMap = myGrid.getSimulationMap();
-        HashMap<Integer, String> myNewHashMap = new HashMap<>();
-        for(HashMap.Entry<String, Integer> entry :SimulationStateMap.entrySet()){
-            myNewHashMap.put(entry.getValue(), entry.getKey());
-        }
-
-        int count;
-        for(int state: myNewHashMap.keySet()) {
-            count =0;
-            for (int row = 0; row < myGrid.getMyCurrentState().length; row++) {
-                for (int col = 0; col < myGrid.getMyCurrentState()[0].length; col++) {
-                    if (myGrid.getMyCurrentState()[row][col].getState() == state) {
-                        count++;
-                    }
-                }
-            }
-            myChart.getData().add(new PieChart.Data(myNewHashMap.get(state), count));
-        }
-        myChart.setVisible(true);
-        myChart.setLayoutX(Position_X);
-        myChart.setLayoutY(ScreenHEIGHT * 31 / 40);
-        myChart.setPrefSize(PieChartSize,PieChartSize);
-        myChart.setMinSize(PieChartSize, PieChartSize);
-        myChart.setTitle("Grid " + Gridnumber);
-        myChart.setStyle("-fx-font-size: " + fontsize1/2 + "px;");
-        return myChart;
-    }
-
-
-    private Slider makeSlider(){
-        Slider mySlider = new Slider(0,20,1);
-        mySlider.setShowTickLabels(true);
-        mySlider.setShowTickMarks(true);
-        mySlider.setMajorTickUnit(5);
-        mySlider.setMinorTickCount(1);
-        mySlider.prefWidth(ScreenSIZE/2);
-        mySlider.setLayoutX(ScreenSIZE / 26);
-        mySlider.setLayoutY(ScreenSIZE*7/10);
-        return mySlider;
-    }
-
-    //make button and set text and position
-    private Button makeButton(String text, String file, int y) {
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
-        ImageView imageview = new ImageView(image);
-        imageview.setFitWidth(BUTTON_SIZE);
-        imageview.setFitHeight(BUTTON_SIZE);
-        Button button = new Button(text,imageview);
-        button.setLayoutX(BUTTON_POS_X);
-        button.setLayoutY(y);
-        return button;
-    }
-
     private void makeAlert(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Input Error");
@@ -351,36 +288,26 @@ public class Visualization extends Application {
         return newGrid;
     }
 
-    private Text MakeText(String message, int x, int y, int FontSize) {
-        Text text = new Text();
-        text.setX(x);
-        text.setY(y);
-        text.setFont(Font.font(DEFAULT_FONT, FontSize));
-        text.setText(message);
-        text.setFill(Color.BLACK);
-        return text;
-    }
-
 
     private void allButtons(Stage stage){
+        MakeButton buttonmaker = new MakeButton();
+        MakeSlider slidermaker = new MakeSlider();
+        Slider ChangeSpeedOfGame = slidermaker.makeSlider();
         FileChooser fileChooser = new FileChooser();
-        Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, ScreenSIZE/12);
+        MakeText textmaker = new MakeText();
+
+        Button FileUploadButton = buttonmaker.makeButton(UPLOAD_TEXT, FileUploadButtonImage, ScreenSIZE/12);
         BorderPane.setAlignment(FileUploadButton, Pos.TOP_LEFT);
         FileUploadButton.setOnMouseClicked(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
                 filepath = selectedFile.toString();
             }
-            parser = new XMLParser(filepath);
-          //  if (parser.getSimulationType() == null){
-            //    invalidFileError();
-            //    filepath="";
-          //  }
         });
 
         MenuButton chooseShape = selectCellShape(ShapeButtonImage, ScreenSIZE/26, ScreenSIZE/6);
 
-        Button StepButton = makeButton(STEP_TEXT, StepButtonImage, ScreenSIZE/2);
+        Button StepButton = buttonmaker.makeButton(STEP_TEXT, StepButtonImage, ScreenSIZE/2);
         StepButton.setOnMouseClicked((event)->{
             if(filepath.equals("") || shapetype.equals("")){
                 makeAlert();
@@ -393,7 +320,7 @@ public class Visualization extends Application {
             DisplayAllGrids(root);
         });
 
-        Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  ScreenSIZE * 3/5);
+        Button PlayButton = buttonmaker.makeButton(PLAY_TEXT, PlayButtonImage,  ScreenSIZE * 3/5);
         PlayButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -407,7 +334,7 @@ public class Visualization extends Application {
 
         });
 
-        Button PauseButton = makeButton(PAUSE_TEXT, PauseButtonImage,  ScreenSIZE*5/6);
+        Button PauseButton =buttonmaker.makeButton(PAUSE_TEXT, PauseButtonImage,  ScreenSIZE*5/6);
         PauseButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -420,7 +347,7 @@ public class Visualization extends Application {
             }
         });
 
-        Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, ScreenSIZE * 33 / 80);
+        Button InitializeButton = buttonmaker.makeButton(INITIALIZE_TEXT, InitializeButtonImage, ScreenSIZE * 33 / 80);
         InitializeButton.setOnMouseClicked((event)->{
             if(filepath.equals("") || shapetype.equals("") || simulationNumber ==0){
                 makeAlert();
@@ -439,14 +366,13 @@ public class Visualization extends Application {
                 animation.setRate(AnimationSpeed);
                 count = 0;
                 makeallGrids();
-                SimulationName = MakeText(SimulationTitle,  SimulationTitle_POS_X, SimulationTitle_POS_Y, fontsize2);
+                SimulationName = textmaker.MakeText(SimulationTitle,  SimulationTitle_POS_X, SimulationTitle_POS_Y, fontsize2);
                 SimulationName.setFill(Color.WHITE);
                 root.getChildren().add(SimulationName);
                 makeChartforEachGrid(allGrids);
             }
         });
 
-        Slider ChangeSpeedOfGame = makeSlider();
         ChangeSpeedOfGame.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
@@ -462,7 +388,8 @@ public class Visualization extends Application {
     }
 
     private void makeTextsLabels(){
-        showCount = MakeText(COUNT_TEXT + count, ScreenWIDTH*5/6,ScreenSIZE/16, fontsize1);
+        MakeText textmaker = new MakeText();
+        showCount = textmaker.MakeText(COUNT_TEXT + count, ScreenWIDTH*5/6,ScreenSIZE/16, fontsize1);
         showCount.setFill(Color.WHITE);
         root.getChildren().addAll(showCount);
 
