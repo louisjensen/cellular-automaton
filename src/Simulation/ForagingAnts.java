@@ -79,6 +79,7 @@ public class ForagingAnts extends Simulation {
                 neighbors = getNeighbors(myNestCell);
                 randomCell = neighbors.get(random.nextInt(neighbors.size()));
                 myNestCell.addAnt(new Ants(new Point(randomCell.getRow(), randomCell.getCol())));
+                myTotalAnts ++;
             }
         }
 
