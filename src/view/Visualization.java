@@ -127,7 +127,7 @@ public class Visualization extends Application {
         Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT, Color.GRAY);
         allButtons(stage);
         makeTextsLabels();
-        myScene.getStylesheets().add("../default.css");
+        myScene.getStylesheets().add("default.css");
         return myScene;
     }
 
@@ -228,7 +228,7 @@ public class Visualization extends Application {
     }
 
     private MenuButton selectNumSimulations(String file, int x, int y){
-        MenuButton menuButton = new MenuButton("Number of \n Simulations");
+        MenuButton menuButton = new MenuButton("# of Simulations");
         menubuttonimagaereader(file, menuButton, x, y);
         MenuItem onesimulation = new MenuItem("1");
         onesimulation.setOnAction(event -> {
@@ -290,7 +290,7 @@ public class Visualization extends Application {
         mySlider.setMinorTickCount(1);
         mySlider.prefWidth(ScreenSIZE/2);
         mySlider.setLayoutX(ScreenSIZE / 26);
-        mySlider.setLayoutY(ScreenSIZE - (ScreenSIZE/6));
+        mySlider.setLayoutY(ScreenSIZE*7/10);
         return mySlider;
     }
 
@@ -366,7 +366,7 @@ public class Visualization extends Application {
 
     private void allButtons(Stage stage){
         FileChooser fileChooser = new FileChooser();
-        Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, ScreenSIZE/3);
+        Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, ScreenSIZE/12);
         BorderPane.setAlignment(FileUploadButton, Pos.TOP_LEFT);
         FileUploadButton.setOnMouseClicked(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
@@ -380,9 +380,9 @@ public class Visualization extends Application {
           //  }
         });
 
-        MenuButton chooseShape = selectCellShape(ShapeButtonImage, ScreenSIZE/26, ScreenSIZE/12);
+        MenuButton chooseShape = selectCellShape(ShapeButtonImage, ScreenSIZE/26, ScreenSIZE/6);
 
-        Button StepButton = makeButton(STEP_TEXT, StepButtonImage, ScreenSIZE/4);
+        Button StepButton = makeButton(STEP_TEXT, StepButtonImage, ScreenSIZE/2);
         StepButton.setOnMouseClicked((event)->{
             if(filepath.equals("") || shapetype.equals("")){
                 makeAlert();
@@ -395,7 +395,7 @@ public class Visualization extends Application {
             DisplayAllGrids(root);
         });
 
-        Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  ScreenSIZE * 33 / 80);
+        Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  ScreenSIZE * 3/5);
         PlayButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -409,7 +409,7 @@ public class Visualization extends Application {
 
         });
 
-        Button PauseButton = makeButton(PAUSE_TEXT, PauseButtonImage,  ScreenSIZE/2);
+        Button PauseButton = makeButton(PAUSE_TEXT, PauseButtonImage,  ScreenSIZE*5/6);
         PauseButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -422,7 +422,7 @@ public class Visualization extends Application {
             }
         });
 
-        Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, ScreenSIZE * 3 / 5);
+        Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, ScreenSIZE * 33 / 80);
         InitializeButton.setOnMouseClicked((event)->{
             if(filepath.equals("") || shapetype.equals("") || simulationNumber ==0){
                 makeAlert();
@@ -457,8 +457,8 @@ public class Visualization extends Application {
             }
         });
 
-        MenuButton numberOfSimulationsButton = selectNumSimulations(MultipleSimulationsButtonImage, ScreenSIZE / 26, ScreenSIZE*7/10);
-        MenuButton edgeTypeButton = selectEdgeTypes(BoundaryButtonImage, ScreenSIZE / 26,ScreenSIZE/6);
+        MenuButton numberOfSimulationsButton = selectNumSimulations(MultipleSimulationsButtonImage, ScreenSIZE / 26, ScreenSIZE/3);
+        MenuButton edgeTypeButton = selectEdgeTypes(BoundaryButtonImage, ScreenSIZE / 26,ScreenSIZE/4);
         root.getChildren().addAll(chooseShape, ChangeSpeedOfGame, StepButton, FileUploadButton, PlayButton, PauseButton, InitializeButton,
                  numberOfSimulationsButton, edgeTypeButton);
     }
