@@ -71,9 +71,6 @@ public abstract class Simulation { // since this doesn't have any instance varia
     }
 
     public ArrayList<Cell> getNeighbors(Cell cell){
-        System.out.println(myCurrentGrid);
-        System.out.println(myNeighborsMaker);
-
         return myNeighborsMaker.getNeighbors(cell, myCurrentGrid);
     }
 

@@ -111,7 +111,47 @@ public class NeighborsMaker {
 
         }
         return neighbors;
+    }
 
+    public ArrayList<Cell> getForwardNeighbors(Cell currentCell, Point direction, Cell[][] currentGrid){
+        ArrayList<Cell> forwardNeighbors = new ArrayList<Cell>();
+        int rowDir = (int) direction.getX();
+        int colDir = (int) direction.getY();
+
+        int row = currentCell.getRow();
+        int col = currentCell.getCol();
+        if (isSafe(row + rowDir, col + colDir, currentGrid)) {
+            forwardNeighbors.add(currentGrid[row + rowDir][col + colDir]);
+        }
+
+        if (Math.abs(rowDir) == Math.abs(colDir)){
+            if (isSafe(row, col + colDir, currentGrid)) {
+                forwardNeighbors.add(currentGrid[row][col + colDir]);
+            }
+            if (isSafe(row + rowDir, col, currentGrid)) {
+                forwardNeighbors.add(currentGrid[row + rowDir][col]);
+            }
+        }
+
+        if (rowDir == 0 || colDir == 0){
+            if (rowDir == 0) {
+                if (isSafe(row + rowDir + 1, col + colDir, currentGrid)) {
+                    forwardNeighbors.add(currentGrid[row + rowDir + 1][col + colDir]);
+                }
+                if (isSafe(row + rowDir - 1, col + colDir, currentGrid)) {
+                    forwardNeighbors.add(currentGrid[row + rowDir - 1][col + colDir]);
+                }
+            }
+            if (colDir == 0){
+                if (isSafe(row + rowDir, col + colDir + 1, currentGrid)){
+                    forwardNeighbors.add(currentGrid[row + rowDir][col + colDir + 1]);
+                }
+                if (isSafe(row + rowDir, col + colDir - 1, currentGrid)){
+                    forwardNeighbors.add(currentGrid[row + rowDir][col + colDir - 1]);
+                }
+            }
+        }
+        return forwardNeighbors;
     }
 
     private boolean isSafe(int row, int col, Cell[][] currentGrid){

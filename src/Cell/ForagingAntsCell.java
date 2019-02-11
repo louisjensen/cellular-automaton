@@ -18,12 +18,14 @@ public class ForagingAntsCell extends Cell {
 
         super(shape);
         myAntsList = new ArrayList<Ants>();
+        myHomePheromone = 0;
+        myFoodPheromone = 0;
     }
 
     public void increaseHomePheromone(){
         int HomeAnts=0;
         for(int a=0; a<myAntsList.size(); a++){
-            if(!myAntsList.get(a).gethasfoodstate()){
+            if(!myAntsList.get(a).getHasFoodState()){
                 HomeAnts +=1;
             }
         }
@@ -31,10 +33,10 @@ public class ForagingAntsCell extends Cell {
 
     }
 
-    public void increaseeFoodPheromone(){
+    public void increaseFoodPheromone(){
         int FoodAnts=0;
         for(int a=0; a<myAntsList.size(); a++){
-            if(myAntsList.get(a).gethasfoodstate()){
+            if(myAntsList.get(a).getHasFoodState()){
                 FoodAnts +=1;
             }
         }

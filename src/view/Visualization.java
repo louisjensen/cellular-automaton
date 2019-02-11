@@ -106,9 +106,9 @@ public class Visualization extends Application {
             removeAllCharts();
             UpdateAllGrids();
             checkgameendingforAllGrids();
-            moveNexttoCurrentAllGrids();
             count ++;
             DisplayAllGrids(root);
+            moveNexttoCurrentAllGrids();
             makeChartforEachGrid(allGrids);
 
         }
