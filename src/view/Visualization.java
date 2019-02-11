@@ -38,28 +38,32 @@ public class Visualization extends Application {
     private String ShapeButtonImage = "shapes.png";
     private final String COUNT_TEXT = "Rounds: ";
     private final String UPLOAD_TEXT = "UploadFile";
-    private final String STEP_TEXT = "Debug";
+    private final String STEP_TEXT = "Step";
     private final String PLAY_TEXT = "Play";
     private final String PAUSE_TEXT = "Pause";
     private final String MultipleSimulationsButtonImage = "MultipleButton.png";
     private final String INITIALIZE_TEXT = "Initialize";
     private final String DEFAULT_FONT = "Times New Roman";
     private final String BoundaryButtonImage = "boundaryButton.png";
-    private static final int fontsize2 = 50;
-    private static final int fontsize1 = 25;
-    private static final int GridDisplaySize = 500;
-    private static final int ScreenWIDTH = 1300;
-    private static final int ScreenHEIGHT = 1300;
+
+    //Change this number to scale GUI
+    private static final int ScreenSIZE = 580;
+
+    private static final int GridDisplaySize = ScreenSIZE/2;
+    private static final int ScreenWIDTH = ScreenSIZE*2;
+    private static final int ScreenHEIGHT = ScreenSIZE*5/4;
+    private static final int fontsize2 = ScreenSIZE/12;
+    private static final int fontsize1 = ScreenSIZE/20;
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    private final static int BUTTON_SIZE = 100;
-    private final static int BUTTON_POS_X = 50;
-    private final static int SimulationTitle_POS_X = 500;
-    private final static int SimulationTitle_POS_Y = 100;
-    private final static int GRID_POS_X = 300;
-    private final static int GRID_POS_Y = 150;
-    private final static int PieChartSize = 300;
-    private final static int Chart_Position_x = 250;
+    private final static int BUTTON_SIZE = ScreenSIZE / 25;
+    private final static int BUTTON_POS_X = ScreenSIZE/26;
+    private final static int SimulationTitle_POS_X = ScreenWIDTH *2/5;
+    private final static int SimulationTitle_POS_Y = ScreenSIZE/12;
+    private final static int GRID_POS_X = ScreenSIZE /4;
+    private final static int GRID_POS_Y = ScreenSIZE/8;
+    private final static int PieChartSize = ScreenSIZE/5;
+    private final static int Chart_Position_x = ScreenSIZE*19/100;
     private double AnimationSpeed;
     private Text showCount;
     private Scene myScene;
@@ -117,13 +121,15 @@ public class Visualization extends Application {
             makeChartforEachGrid(allGrids);
         }
         showCount.setText(COUNT_TEXT + count);
+        showCount.setFill(Color.WHITE);
     }
 
     private Scene setupVisualization(Stage stage) {
         root = new Group();
-        Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT);
+        Scene myScene = new Scene(root,ScreenWIDTH, ScreenHEIGHT, Color.GRAY);
         allButtons(stage);
         makeTextsLabels();
+        myScene.getStylesheets().add("default.css");
         return myScene;
     }
 
@@ -138,7 +144,7 @@ public class Visualization extends Application {
 
     private void makeChartforEachGrid(ArrayList<Grid> allGrids){
         for(int a=0; a<allGrids.size(); a++){
-            PieChart myChart = setupChart(allGrids.get(a), a+1, Chart_Position_x + 250 *a);
+            PieChart myChart = setupChart(allGrids.get(a), a+1, (Chart_Position_x) *a);
             root.getChildren().add(myChart);
             allCharts.add(myChart);
             System.out.println("aa");
@@ -269,14 +275,14 @@ public class Visualization extends Application {
             }
             myChart.getData().add(new PieChart.Data(myNewHashMap.get(state), count));
         }
-        //myChart.setLegendSide(Side.RIGHT);
         myChart.setVisible(true);
         myChart.setLayoutX(Position_X);
-        myChart.setLayoutY(ScreenHEIGHT - 225);
+        myChart.setLayoutY(ScreenHEIGHT * 31 / 40);
         System.out.println("This line ran");
         myChart.setPrefSize(PieChartSize,PieChartSize);
         myChart.setMinSize(PieChartSize, PieChartSize);
         myChart.setTitle("Grid " + Gridnumber);
+        myChart.setStyle("-fx-font-size: " + fontsize1/2 + "px;");
         return myChart;
     }
 
@@ -287,9 +293,9 @@ public class Visualization extends Application {
         mySlider.setShowTickMarks(true);
         mySlider.setMajorTickUnit(5);
         mySlider.setMinorTickCount(1);
-        mySlider.prefWidth(500);
-        mySlider.setLayoutX(50);
-        mySlider.setLayoutY(1100);
+        mySlider.prefWidth(ScreenSIZE/2);
+        mySlider.setLayoutX(ScreenSIZE / 26);
+        mySlider.setLayoutY(ScreenSIZE - (ScreenSIZE/6));
         return mySlider;
     }
 
@@ -337,8 +343,7 @@ public class Visualization extends Application {
     }
 
     private Grid setupGrid(String filepath,  Group root, String shapetype, int space_X, int space_Y){
-        Grid newGrid;// = new TriangleGrid(filepath, GridDisplaySize, GRID_POS_X, GRID_POS_Y);
-
+        Grid newGrid;
 
         if(shapetype.equals("triangle")){
            newGrid = new TriangleGrid(filepath, GridDisplaySize, GRID_POS_X + space_X,  GRID_POS_Y + space_Y, edgeType);
@@ -366,8 +371,7 @@ public class Visualization extends Application {
 
     private void allButtons(Stage stage){
         FileChooser fileChooser = new FileChooser();
-
-        Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, 50);
+        Button FileUploadButton = makeButton(UPLOAD_TEXT, FileUploadButtonImage, ScreenSIZE/3);
         BorderPane.setAlignment(FileUploadButton, Pos.TOP_LEFT);
         FileUploadButton.setOnMouseClicked(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
@@ -381,9 +385,9 @@ public class Visualization extends Application {
           //  }
         });
 
-        MenuButton chooseShape = selectCellShape(ShapeButtonImage, 50, 200);
+        MenuButton chooseShape = selectCellShape(ShapeButtonImage, ScreenSIZE/26, ScreenSIZE/12);
 
-        Button StepButton = makeButton(STEP_TEXT, StepButtonImage, 350 );
+        Button StepButton = makeButton(STEP_TEXT, StepButtonImage, ScreenSIZE/4);
         StepButton.setOnMouseClicked((event)->{
             if(filepath.equals("") || shapetype.equals("")){
                 makeAlert();
@@ -396,7 +400,7 @@ public class Visualization extends Application {
             DisplayAllGrids(root);
         });
 
-        Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  500);
+        Button PlayButton = makeButton(PLAY_TEXT, PlayButtonImage,  ScreenSIZE * 33 / 80);
         PlayButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -410,7 +414,7 @@ public class Visualization extends Application {
 
         });
 
-        Button PauseButton = makeButton(PAUSE_TEXT, PauseButtonImage,  650);
+        Button PauseButton = makeButton(PAUSE_TEXT, PauseButtonImage,  ScreenSIZE/2);
         PauseButton.setOnMouseClicked((event)->{
             if(filepath.equals("")){
                 makeAlert();
@@ -423,7 +427,7 @@ public class Visualization extends Application {
             }
         });
 
-        Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, 800);
+        Button InitializeButton = makeButton(INITIALIZE_TEXT, InitializeButtonImage, ScreenSIZE * 3 / 5);
         InitializeButton.setOnMouseClicked((event)->{
             if(filepath.equals("") || shapetype.equals("") || simulationNumber ==0){
                 makeAlert();
@@ -443,6 +447,7 @@ public class Visualization extends Application {
                 count = 0;
                 makeallGrids();
                 SimulationName = MakeText(SimulationTitle,  SimulationTitle_POS_X, SimulationTitle_POS_Y, fontsize2);
+                SimulationName.setFill(Color.WHITE);
                 root.getChildren().add(SimulationName);
                 System.out.println(allGrids.size());
                 makeChartforEachGrid(allGrids);
@@ -459,32 +464,32 @@ public class Visualization extends Application {
             }
         });
 
-        MenuButton numberOfSimulationsButton = selectNumSimulations(MultipleSimulationsButtonImage, 50, 950);
-        MenuButton edgeTypeButton = selectEdgeTypes(BoundaryButtonImage, 75,300);
-
+        MenuButton numberOfSimulationsButton = selectNumSimulations(MultipleSimulationsButtonImage, ScreenSIZE / 26, ScreenSIZE*7/10);
+        MenuButton edgeTypeButton = selectEdgeTypes(BoundaryButtonImage, ScreenSIZE / 26,ScreenSIZE/6);
         root.getChildren().addAll(chooseShape, ChangeSpeedOfGame, StepButton, FileUploadButton, PlayButton, PauseButton, InitializeButton,
                  numberOfSimulationsButton, edgeTypeButton);
     }
 
     private void makeTextsLabels(){
-        showCount = MakeText(COUNT_TEXT + count, 1100,50, fontsize1);
+        showCount = MakeText(COUNT_TEXT + count, ScreenWIDTH*5/6,ScreenSIZE/16, fontsize1);
+        showCount.setFill(Color.WHITE);
         root.getChildren().addAll(showCount);
 
     }
 
     private void makeallGrids(){
         for(int a=0; a<simulationNumber; a++) {
-            Grid newGrid = setupGrid(filepath, root, shapetype, 0, 0);
+            Grid newGrid = setupGrid(filepath, root, shapetype, ScreenSIZE/2, 0);
             if(simulationNumber == 2) {
-                newGrid = setupGrid(filepath, root, shapetype, GridDisplaySize * a,0);
+                newGrid = setupGrid(filepath, root, shapetype, GridDisplaySize * a + ScreenSIZE/2,0);
             }
             if(simulationNumber ==4) {
                 if(a<2){
-                    newGrid = setupGrid(filepath, root, shapetype, (GridDisplaySize +50)* a, 0);
+                    newGrid = setupGrid(filepath, root, shapetype, (GridDisplaySize + ScreenSIZE/26)* a + ScreenSIZE/2, 0);
                     System.out.println("aa1");
                 }
                 else{
-                    newGrid = setupGrid(filepath, root, shapetype, (GridDisplaySize +50)* (a-2), 50+ GridDisplaySize);
+                    newGrid = setupGrid(filepath, root, shapetype, (GridDisplaySize + ScreenSIZE/26)* (a-2) + ScreenSIZE/2, ScreenSIZE/26 + GridDisplaySize);
                     System.out.println();
                 }
             }
