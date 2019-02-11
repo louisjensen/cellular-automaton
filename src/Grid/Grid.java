@@ -197,7 +197,7 @@ public abstract class Grid {
         for (int i = 0; i < proportionStates.size(); i++) {
             percentage = (currentTotal + (proportionStates.get(i)).intValue());
             percentageStates.add(percentage);
-            System.out.println(percentage + "percentages");
+            //System.out.println(percentage + "percentages");
             currentTotal = percentage;
         }
 
