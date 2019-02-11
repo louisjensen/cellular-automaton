@@ -1,17 +1,13 @@
 package Simulation;
 
 import Cell.Cell;
-import Simulation.Simulation;
 import javafx.scene.paint.Color;
 import view.NeighborsMaker;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
 public class SpreadingOfFire extends Simulation {
-
 
     private double probCatch;
     private Random random = new Random();
@@ -69,6 +65,5 @@ public class SpreadingOfFire extends Simulation {
     public int getState(String stateString) {
         return stateLookupTable.get(stateString);
     }
-
 
 }

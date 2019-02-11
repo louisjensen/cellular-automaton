@@ -1,15 +1,10 @@
-
 package Grid;
 
 import javafx.scene.shape.Polygon;
-
 import java.awt.*;
-
-import javafx.scene.paint.Color;
 import Cell.Cell;
 import view.NeighborsMaker;
 import view.ShapeMaker;
-
 
 public class TriangleGrid extends Grid {
 
@@ -22,7 +17,6 @@ public class TriangleGrid extends Grid {
         int numRows = myXML.getGridX();
         int numCols = myXML.getGridY();
 
-
         myCurrentState = new Cell[numRows][numCols];// for testing
         myNextState = new Cell[numRows][numCols];
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
@@ -34,7 +28,6 @@ public class TriangleGrid extends Grid {
         calculateTriangleLength();
         System.out.println(numRows);
         System.out.println(numCols);
-
     }
 
     public void initialize(){
@@ -62,21 +55,12 @@ public class TriangleGrid extends Grid {
         }
     }
 
-    private int calculateNumCols(int numRows){
-        return numRows * 2 - 1;
-    }
-
     private void calculateTriangleLength(){
         myTriangleLength = myDisplaySize/myCurrentState.length;
     }
 
     private boolean isOdd(int n){
         return (n % 2 == 1);
-    }
-
-    private void setBlank(Polygon shape){
-        shape.setFill(Color.WHITE);
-        shape.setStroke(Color.WHITE);
     }
 
 }

@@ -1,15 +1,7 @@
 package Cell;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-
 import javafx.scene.shape.Polygon;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Cell{
 

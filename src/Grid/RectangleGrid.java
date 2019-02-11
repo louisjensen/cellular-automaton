@@ -4,9 +4,7 @@ import javafx.scene.shape.Polygon;
 import Cell.Cell;
 import view.NeighborsMaker;
 import view.ShapeMaker;
-
 import java.awt.Point;
-
 
 public class RectangleGrid extends Grid {
 
@@ -38,9 +36,7 @@ public class RectangleGrid extends Grid {
         for (int i = 0; i < myCurrentState.length; i++) {
             for (int j = 0; j < myCurrentState[0].length; j++) {
                 shape = sm.makeRectangle(new Point(pixelX, pixelY), myRectangleWidth, myRectangleHeight);
-
                 initializeCurrentNext(shape, i, j);
-
                 pixelX += myRectangleWidth;
             }
             pixelX = GridStartingPoint_X;
@@ -48,16 +44,12 @@ public class RectangleGrid extends Grid {
         }
     }
 
-
-
-
     private void calculateMyRectangleHeight(){
         myRectangleHeight = myDisplaySize/myCurrentState.length;
     }
 
     private void calculateMyRectangleWidth(){
         myRectangleWidth = myDisplaySize/myCurrentState[0].length;
-
     }
 
 }
