@@ -26,18 +26,16 @@ public class Ants {
 
 
 
-    public boolean gethasfoodstate(){
+    public boolean getHasFoodState(){
         return hasFood;
     }
 
-    public boolean dropfood(){
+    public void dropFood(){
         hasFood = false;
-        return hasFood;
     }
 
-    public boolean pickupfood(){
+    public void pickupFood(){
         hasFood = true;
-        return hasFood;
     }
 
     public Point getDirection(){
