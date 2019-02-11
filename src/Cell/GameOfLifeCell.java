@@ -9,12 +9,4 @@ public class GameOfLifeCell extends Cell {
         super(shape);
     }
 
-    /*
-    public GameOfLifeCell(Point rc, int state, Polygon shape, HashMap<String, ArrayList> attributes, int d){
-        myRow = rc.x;
-        myCol = rc.y;
-        myState = state;
-    }
-*/
-
 }

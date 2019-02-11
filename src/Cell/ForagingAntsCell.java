@@ -1,8 +1,6 @@
 package Cell;
 
 import javafx.scene.shape.Polygon;
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public class ForagingAntsCell extends Cell {
@@ -12,7 +10,6 @@ public class ForagingAntsCell extends Cell {
     double myFoodPheromone;
     final static int howmuchpheromone = 2;
     final static double evaporationrate = 0.05;
-
 
     public ForagingAntsCell(Polygon shape){
 
@@ -65,8 +62,6 @@ public class ForagingAntsCell extends Cell {
     public void setFoodPheromone(double p){
         myFoodPheromone = p;
     }
-
-
 
     public void addAnt(Ants myAnt){
         myAntsList.add(myAnt);
