@@ -1,4 +1,3 @@
-
 package Grid;
 
 import javafx.scene.shape.Polygon;
@@ -22,7 +21,6 @@ public class TriangleGrid extends Grid {
         int numRows = myXML.getGridX();
         int numCols = myXML.getGridY();
 
-
         myCurrentState = new Cell[numRows][numCols];// for testing
         myNextState = new Cell[numRows][numCols];
         mySimulation = getSimulation(myXML.getSimulationType(), myXML.getRandomInfo());
@@ -34,7 +32,6 @@ public class TriangleGrid extends Grid {
         calculateTriangleLength();
         System.out.println(numRows);
         System.out.println(numCols);
-
     }
 
     public void initialize(){
