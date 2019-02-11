@@ -6,31 +6,53 @@ import java.awt.*;
 
 public class Ants {
 
-    boolean hasfood;
-    Point myDirection;
+    private boolean hasFood;
+    private Point myDirection;
+    private int myLives;
 
 
-    public Ants(Point point){
+
+    public Ants(Point point, int startingLives){
         myDirection = point;
+        myLives = startingLives;
+        hasFood = false;
     }
 
+    public Ants(Ants ant){
+        myDirection = ant.myDirection;
+        myLives = ant.myLives;
+        hasFood = ant.hasFood;
+    }
+
+
+
     public boolean gethasfoodstate(){
-        return hasfood;
+        return hasFood;
     }
 
     public boolean dropfood(){
-        hasfood = false;
-        return hasfood;
+        hasFood = false;
+        return hasFood;
     }
 
     public boolean pickupfood(){
-        hasfood = true;
-        return hasfood;
+        hasFood = true;
+        return hasFood;
     }
 
     public Point getDirection(){
         return myDirection;
     }
 
+    public void loseLife(){
+        myLives --;
+    }
 
+    public boolean isDead(){
+        return (myLives == 0);
+    }
+
+    public void setDirection(Point point){
+        myDirection = point;
+    }
 }

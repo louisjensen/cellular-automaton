@@ -102,12 +102,7 @@ public abstract class Grid {
 
 
     public void moveNexttoCurrent() {
-        for (int i = 0; i < myCurrentState.length; i++) {
-            for (int j = 0; j < myCurrentState[0].length; j++) {
-                myCurrentState[i][j].setState(myNextState[i][j].getState());
-                myNextState[i][j].setState(-1);
-            }
-        }
+        mySimulation.moveNextToCurrent();
     }
 
     public boolean checkGameEnding() {

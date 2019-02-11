@@ -8,15 +8,16 @@ import java.util.ArrayList;
 public class ForagingAntsCell extends Cell {
 
     ArrayList<Ants> myAntsList;
-    double HomePheromone;
-    double FoodPheromone;
-    final static int howmuchpheromone =2;
+    double myHomePheromone;
+    double myFoodPheromone;
+    final static int howmuchpheromone = 2;
     final static double evaporationrate = 0.05;
-    Point myLocation;
 
 
     public ForagingAntsCell(Polygon shape){
+
         super(shape);
+        myAntsList = new ArrayList<Ants>();
     }
 
     public void increaseHomePheromone(){
@@ -26,7 +27,7 @@ public class ForagingAntsCell extends Cell {
                 HomeAnts +=1;
             }
         }
-        HomePheromone += howmuchpheromone * HomeAnts;
+        myHomePheromone += howmuchpheromone * HomeAnts;
 
     }
 
@@ -37,16 +38,12 @@ public class ForagingAntsCell extends Cell {
                 FoodAnts +=1;
             }
         }
-        FoodPheromone += howmuchpheromone * FoodAnts;
+        myFoodPheromone += howmuchpheromone * FoodAnts;
     }
 
     public void evaporate(){
-        HomePheromone = HomePheromone * (1-evaporationrate);
-        FoodPheromone = FoodPheromone * (1-evaporationrate);
-    }
-
-    public Integer getNumberofAnts(){
-        return myAntsList.size();
+        myHomePheromone = myHomePheromone * (1 - evaporationrate);
+        myFoodPheromone = myFoodPheromone * (1-evaporationrate);
     }
 
     public ArrayList<Ants> getMyAntsList() {
@@ -54,22 +51,26 @@ public class ForagingAntsCell extends Cell {
     }
 
     public double getHomePheromone(){
-        return HomePheromone;
+        return myHomePheromone;
+    }
+    public void setHomePheromone(double p){
+        myHomePheromone = p;
     }
 
     public double getFoodPheromone(){
-        return FoodPheromone;
+        return myFoodPheromone;
     }
+    public void setFoodPheromone(double p){
+        myFoodPheromone = p;
+    }
+
+
 
     public void addAnt(Ants myAnt){
         myAntsList.add(myAnt);
     }
     public  void removeAnt(Ants myAnt){
         myAntsList.remove(myAnt);
-    }
-
-    public Point getMyLocation(){
-        return myLocation;
     }
 
 }

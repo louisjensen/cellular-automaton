@@ -89,6 +89,15 @@ public abstract class Simulation { // since this doesn't have any instance varia
         }
     }
 
+    public void moveNextToCurrent(){
+        for (int i = 0; i < myCurrentGrid.length; i++) {
+            for (int j = 0; j < myCurrentGrid[0].length; j++) {
+                myCurrentGrid[i][j].setState(myNextGrid[i][j].getState());
+                myNextGrid[i][j].setState(-1);
+            }
+        }
+    }
+
 
 
 
