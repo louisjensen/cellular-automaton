@@ -3,8 +3,6 @@ package Simulation;
 import Cell.Cell;
 import javafx.scene.paint.Color;
 import view.NeighborsMaker;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -38,12 +36,12 @@ public class Percolation extends Simulation {
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         int nextState;
 
-        if (cell.getState() == 0) // if closed, then always closed
+        if (cell.getState() == 0) {// if closed, then always closed
             nextState = 0; //cell is born
-
-        else if (cell.getState() == 2) // if filled, then always filled
+        }
+        else if (cell.getState() == 2) {// if filled, then always filled
             nextState = 2; //cell is born
-
+        }
         else { // if open, check if any neighbors are filled, if (cell.getState() == 1)
             int state = 1;
             for(Cell neighbor: neighbors) {
@@ -56,6 +54,5 @@ public class Percolation extends Simulation {
         }
         return nextState;
     }
-
 
 }
