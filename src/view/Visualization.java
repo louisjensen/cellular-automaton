@@ -4,7 +4,6 @@ package view;
 import Grid.*;
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.Group;
 import javafx.scene.text.Font;
@@ -25,7 +24,6 @@ import javafx.util.Duration;
 import javafx.scene.chart.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-//import java.util.ResourceBundle;
 
 public class Visualization extends Application {
     private String Title = "Cell Automaton";
@@ -82,7 +80,7 @@ public class Visualization extends Application {
     private PieChart myChart;
     private ArrayList<Grid> allGrids;
     private ArrayList<PieChart> allCharts;
-    //private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
+    //private ResourceBundle myResources = ResourceBundle.getBundle("textForGui.properties");
 
     public void start (Stage stage) {
         myScene = setupVisualization(stage);
@@ -492,7 +490,4 @@ public class Visualization extends Application {
         }
     }
 
-    public static void main (String[] args) {
-        launch(args);
-    }
 }
