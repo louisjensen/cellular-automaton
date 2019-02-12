@@ -51,7 +51,7 @@ Known Bugs:
 1. We did implement Resource bundle, but for some unknown reason, resourcebundle creates error in Mac and Linux. On windows, it works fine. 
 Thus, we have commented out resourcebundle in this version but users can run it just by uncommenting one line(reading resourcebundle) in the visualization method.
 
-2. Grid size may vary slightly depending on the shape type due to the way, we construct different methods. 
+2. Grid size may vary slightly depending on the shape type due to the way, we construct different grid types. 
 
 3. Screen size may have to be adjusted based on the pixel size of users screen. (User only has to change one line. We have placed other GUI components all based on the screesize)
 
