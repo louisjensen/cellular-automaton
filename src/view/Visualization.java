@@ -1,6 +1,7 @@
 package view;
 
 import Grid.*;
+import java.util.ResourceBundle;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.Group;
@@ -18,6 +19,7 @@ import javafx.util.Duration;
 import javafx.scene.chart.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+
 
 public class Visualization{
     private String Title = "Cell Automaton";
@@ -37,8 +39,9 @@ public class Visualization{
     private final String PAUSE_TEXT = "Pause";
     private final String INITIALIZE_TEXT = "Initialize";
 
-    //Change this number to scale GUI
+    //Change value of ScreenSIZE to scale GUI
     private static final int ScreenSIZE = 580;
+
     private static final int GridDisplaySize = ScreenSIZE/2;
     private static final int ScreenWIDTH = ScreenSIZE*2;
     private static final int ScreenHEIGHT = ScreenSIZE*5/4;
@@ -60,7 +63,6 @@ public class Visualization{
     private int count;
     private ArrayList<Grid> allGrids;
     private ArrayList<PieChart> allCharts;
-    //private ResourceBundle myResources = ResourceBundle.getBundle("textForGui.properties");
     private MakeButton buttonmaker = new MakeButton();
     private MakeSlider slidermaker = new MakeSlider();
     private Slider ChangeSpeedOfGame = slidermaker.makeSlider();
@@ -68,6 +70,16 @@ public class Visualization{
     private MakeText textmaker = new MakeText();
     private MakeAlert alertmaker = new MakeAlert();
     private ChooseGrid chooseGrid = new ChooseGrid();
+
+    /** Load Strings from resource bundle, not working on Mac and Linux
+    private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
+    private final String COUNT_TEXT = myResources.getString("COUNT_TEXT");
+    private final String UPLOAD_TEXT = myResources.getString("UPLOAD_TEXT");
+    private final String STEP_TEXT = myResources.getString("STEP_TEXT");
+    private final String PLAY_TEXT = myResources.getString("PLAY_TEXT");
+    private final String PAUSE_TEXT = myResources.getString("PAUSE_TEXT");
+    private final String INITIALIZE_TEXT = myResources.getString("INITIALIZE_TEXT");
+    */
 
     public void start (Stage stage) {
         myScene = setupVisualization(stage);

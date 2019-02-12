@@ -5,8 +5,17 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import java.util.ResourceBundle;
 
 public class MakeButton {
+
+    /** Load Strings from resource bundle, not working on Mac and Linux
+     private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
+     private final String BOUNDARY_TEXT = myResources.getString("BOUNDARY_TEXT");
+     private final String SHAPE_TEXT = myResources.getString("SHAPE_TEXT");;
+     private final String NUMBEROFSIMULATION_TEXT = myResources.getString("NUMBEROFSIMULATION_TEXT");;
+     */
+
     private final static int ScreenSIZE = 580;
     private final static int BUTTON_SIZE = ScreenSIZE / 25;
     private final static int BUTTON_POS_X = ScreenSIZE/26;
@@ -104,7 +113,5 @@ public class MakeButton {
         return menuButton;
 
     }
-
-
 
 }
