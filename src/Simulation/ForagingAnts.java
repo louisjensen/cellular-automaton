@@ -115,11 +115,8 @@ public class ForagingAnts extends Simulation {
                         if (forwardNeighbors.size() == 0){
                             forwardNeighbors = myNeighborsMaker.getNeighbors((Cell) currentCell, myNextGrid);
                         }
-                        //for (Cell cell: forwardNeighbors){
-                        //    System.out.println(cell.getRow() + " " + cell.getCol());
-                        //}
-                        //System.out.println("Forward: " + forwardNeighbors.size());
-                        // has food so going back home
+
+
                         if (myAnt.getHasFoodState()) {
                             ForagingAntsCell temp;
                             nextCell = (ForagingAntsCell) forwardNeighbors.get(0);

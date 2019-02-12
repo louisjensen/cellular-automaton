@@ -102,13 +102,7 @@ public class NeighborsMaker {
         for (Point rc: myPossibleNeighbors){
             cellNeighborRow = cellRow + (int) rc.getX();
             cellNeighborCol = cellCol + (int) rc.getY();
-            if (isSafe(cellNeighborRow, cellNeighborCol, currentGrid)) {
-                neighbors.add((Cell) currentGrid[cellNeighborRow][cellNeighborCol]);
-            }
-            if (!isSafe(cellNeighborRow, cellNeighborCol, currentGrid) && isToroid()){
-                neighbors.add((Cell) getToroidNeighbor(cellNeighborRow, cellNeighborCol, currentGrid));
-            }
-
+            addCellToList(cellNeighborRow, cellNeighborCol, currentGrid, neighbors);
         }
         return neighbors;
     }
@@ -120,38 +114,34 @@ public class NeighborsMaker {
 
         int row = currentCell.getRow();
         int col = currentCell.getCol();
-        if (isSafe(row + rowDir, col + colDir, currentGrid)) {
-            forwardNeighbors.add(currentGrid[row + rowDir][col + colDir]);
-        }
+
+        addCellToList(row + rowDir, col + colDir, currentGrid, forwardNeighbors);
 
         if (Math.abs(rowDir) == Math.abs(colDir)){
-            if (isSafe(row, col + colDir, currentGrid)) {
-                forwardNeighbors.add(currentGrid[row][col + colDir]);
-            }
-            if (isSafe(row + rowDir, col, currentGrid)) {
-                forwardNeighbors.add(currentGrid[row + rowDir][col]);
-            }
+            addCellToList(row, col + colDir, currentGrid, forwardNeighbors);
+            addCellToList(row + rowDir, col, currentGrid, forwardNeighbors);
         }
 
         if (rowDir == 0 || colDir == 0){
             if (rowDir == 0) {
-                if (isSafe(row + rowDir + 1, col + colDir, currentGrid)) {
-                    forwardNeighbors.add(currentGrid[row + rowDir + 1][col + colDir]);
-                }
-                if (isSafe(row + rowDir - 1, col + colDir, currentGrid)) {
-                    forwardNeighbors.add(currentGrid[row + rowDir - 1][col + colDir]);
-                }
+                addCellToList(row + rowDir + 1, col + colDir, currentGrid, forwardNeighbors);
+                addCellToList(row + rowDir - 1, col + colDir, currentGrid, forwardNeighbors);
             }
             if (colDir == 0){
-                if (isSafe(row + rowDir, col + colDir + 1, currentGrid)){
-                    forwardNeighbors.add(currentGrid[row + rowDir][col + colDir + 1]);
-                }
-                if (isSafe(row + rowDir, col + colDir - 1, currentGrid)){
-                    forwardNeighbors.add(currentGrid[row + rowDir][col + colDir - 1]);
-                }
+                addCellToList(row + rowDir, col + colDir + 1, currentGrid, forwardNeighbors);
+                addCellToList(row + rowDir, col + colDir - 1, currentGrid, forwardNeighbors);
             }
         }
         return forwardNeighbors;
+    }
+
+    private void addCellToList(int row, int col, Cell[][] currentGrid, ArrayList<Cell> cells){
+        if (isSafe(row, col, currentGrid)) {
+            cells.add(currentGrid[row][col]);
+        }
+        else if (!isSafe(row, col, currentGrid) && isToroid()){
+            cells.add(getToroidNeighbor(row, col, currentGrid));
+        }
     }
 
     private boolean isSafe(int row, int col, Cell[][] currentGrid){

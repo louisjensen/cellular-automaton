@@ -9,6 +9,8 @@ import java.util.Random;
 import java.util.HashMap;
 import javafx.scene.Group;
 import view.*;
+import java.util.Collections;
+
 
 import java.util.List;
 
@@ -185,7 +187,6 @@ public abstract class Grid {
         HashMap<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
 
         Random rand = new Random();
-        Cell current;
         int randInt;
         int currentTotal = 0;
         int percentage;
@@ -201,26 +202,34 @@ public abstract class Grid {
             currentTotal = percentage;
         }
 
-        for (int i = 0; i < myCurrentState.length; i++) {
-            for (int j = 0; j < myCurrentState[0].length; j++) {
-                if (myCurrentState[i][j].getState() != -2) {
-                    current = myCurrentState[i][j];
-                    while(current.getState()<0) {
-                        randInt = rand.nextInt(currentTotal) + 1;
-                        for (int k = 0; k < percentageStates.size(); k++) {
-                            if (randInt <= percentageStates.get(k) && proportionStates.get(k) > 0) {
-                                current.setState(stateLookupTable.get(states.get(k)));
-                                current.setColor(stateToColorMap.get(current.getState()));
-                                proportionStates.set(k, proportionStates.get(k) - 1);
-                                break;
-                            }
+        ArrayList<Cell> allCells = getAllCells();
+        for (Cell current: allCells) {
+            if (current.getState() != -2) {
+                while (current.getState() < 0) {
+                    randInt = rand.nextInt(currentTotal) + 1;
+                    for (int k = 0; k < percentageStates.size(); k++) {
+                        if (randInt <= percentageStates.get(k) && proportionStates.get(k) > 0) {
+                            current.setState(stateLookupTable.get(states.get(k)));
+                            current.setColor(stateToColorMap.get(current.getState()));
+                            proportionStates.set(k, proportionStates.get(k) - 1);
+                            break;
                         }
                     }
                 }
             }
         }
+
     }
 
-
+    private ArrayList<Cell> getAllCells() {
+        ArrayList<Cell> cells = new ArrayList<Cell>();
+        for (int row = 0; row < myCurrentState.length; row++) {
+            for (int col = 0; col < myCurrentState[0].length; col++) {
+                cells.add(myCurrentState[row][col]);
+            }
+        }
+        Collections.shuffle(cells);
+        return cells;
+    }
 
 }
