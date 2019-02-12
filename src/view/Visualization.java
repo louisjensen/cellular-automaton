@@ -216,6 +216,19 @@ public class Visualization{
             File selectedFile = fileChooser.showOpenDialog(stage);
             if (selectedFile != null) {
                 filepath = selectedFile.toString();
+                XMLParser parser = new XMLParser(filepath);
+                if (!filepath.endsWith("XML")){
+                    alertmaker.makeInvalidFileError();
+                }
+                else if (!parser.getSimulationType().equals("SpreadingOfFire") &&
+                    !parser.getSimulationType().equals("ForagingAnts") &&
+                    !parser.getSimulationType().equals("GameOfLife") &&
+                    !parser.getSimulationType().equals("Percolation") &&
+                    !parser.getSimulationType().equals("PredatorPrey") &&
+                    !parser.getSimulationType().equals("RPS") &&
+                    !parser.getSimulationType().equals("Segregation")){
+                    alertmaker.makeInvalidFileError();
+                }
             }
         });
 

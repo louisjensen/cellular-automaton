@@ -43,12 +43,16 @@ Features implemented:
 5. Cell Boundaries: Regular, Toroidal
 6. GUI special features: Pie charts representing the state of the grids. Can run multiple grids(1,2,4) at once. 
 
-
 Assumptions or Simplifications: 
 
 When the program is run the user must upload a file, select a shape, 
 select an edge type, select the number of simulations, and
 then press initialize for the grid to appear on the screen.
+If these are not done an alert will appear on the screen.
+If the user uploads a file that is not an XML file, or
+an XML that is not a valid simulation an alert will appear
+on the screen. It is assumed that the information in
+valid XML files is the correct information.
 
 We are using Point object to represent relative place of Cells on the grid. Since the Point Object only accepts 
 integer values, it is ideal to have number of rows that divide the grid size without any remainders. 
