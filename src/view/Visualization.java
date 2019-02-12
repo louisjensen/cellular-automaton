@@ -36,10 +36,6 @@ public class Visualization{
     private final String PLAY_TEXT = "Play";
     private final String PAUSE_TEXT = "Pause";
     private final String INITIALIZE_TEXT = "Initialize";
-    private final String BOUNDARY_TEXT = "Choose Boundary Type";
-    private final String SHAPE_TEXT = "Choose Shape";
-    private final String NUMBEROFSIMULATION_TEXT ="# of Simulations";
-
 
     //Change this number to scale GUI
     private static final int ScreenSIZE = 580;
@@ -62,13 +58,9 @@ public class Visualization{
     private Group root;
     private Timeline animation;
     private int count;
-    private int simulationNumber;
-    private String shapetype = "";
-    private String edgeType = "";
     private ArrayList<Grid> allGrids;
     private ArrayList<PieChart> allCharts;
     //private ResourceBundle myResources = ResourceBundle.getBundle("textForGui.properties");
-
     private MakeButton buttonmaker = new MakeButton();
     private MakeSlider slidermaker = new MakeSlider();
     private Slider ChangeSpeedOfGame = slidermaker.makeSlider();
@@ -156,77 +148,20 @@ public class Visualization{
         }
     }
 
-    private MenuButton selectEdgeTypes(String file, int x, int y){
-        MenuButton menuButton = new MenuButton(BOUNDARY_TEXT);
-        buttonmaker.menubuttonimagaereader(file, menuButton, x, y);
-        MenuItem regular = new MenuItem("regular");
-        regular.setOnAction(event -> {
-            edgeType = "regular";
-        });
-        MenuItem toroidal = new MenuItem("toroid");
-        toroidal.setOnAction(event -> {
-            edgeType = "toroid";
-        });
-        menuButton.getItems().addAll(regular, toroidal);
-        return menuButton;
-    }
-
-    private MenuButton selectCellShape(String file, int x, int y){
-        MenuButton menuButton = new MenuButton(SHAPE_TEXT);
-        buttonmaker.menubuttonimagaereader(file, menuButton, x, y);
-        MenuItem triangle = new MenuItem("triangle");
-        triangle.setOnAction(event -> {
-           shapetype = "triangle";
-        });
-        MenuItem rectangle = new MenuItem("rectangle");
-        rectangle.setOnAction(event -> {
-            shapetype = "rectangle";
-        });
-        MenuItem hexagon = new MenuItem("hexagon");
-        hexagon.setOnAction(event -> {
-           shapetype = "hexagon";
-        });
-
-
-        menuButton.getItems().addAll(triangle, rectangle, hexagon);
-        return menuButton;
-    }
-
-    private MenuButton selectNumSimulations(String file, int x, int y){
-        MenuButton menuButton = new MenuButton(NUMBEROFSIMULATION_TEXT);
-        buttonmaker.menubuttonimagaereader(file, menuButton, x, y);
-        MenuItem onesimulation = new MenuItem("1");
-        onesimulation.setOnAction(event -> {
-            simulationNumber = 1;
-        });
-        MenuItem twosimulations = new MenuItem("2");
-        twosimulations.setOnAction(event -> {
-            simulationNumber = 2;
-        });
-        MenuItem foursimulations = new MenuItem("4");
-        foursimulations.setOnAction(event -> {
-            simulationNumber = 4;
-        });
-
-        menuButton.getItems().addAll(onesimulation, twosimulations, foursimulations);
-        allGrids = new ArrayList<Grid>(simulationNumber);
-        allCharts = new ArrayList<>(simulationNumber);
-        return menuButton;
-
-    }
-
     private void makeAllGrids(){
+        int simulationNumber = buttonmaker.getSimulationNumber();
+        String shapetype = buttonmaker.getSHAPE_TEXT();
         for(int a=0; a<simulationNumber; a++) {
-            Grid newGrid = chooseGrid.setupGrid(filepath, shapetype, ScreenSIZE/2, 0, edgeType);
+            Grid newGrid = chooseGrid.setupGrid(filepath, shapetype, ScreenSIZE/2, 0, buttonmaker.getEdgeType());
             if(simulationNumber == 2) {
-                newGrid = chooseGrid.setupGrid(filepath,  shapetype, GridDisplaySize * a + ScreenSIZE/2,0,  edgeType);
+                newGrid = chooseGrid.setupGrid(filepath,  shapetype, GridDisplaySize * a + ScreenSIZE/2,0,  buttonmaker.getEdgeType());
             }
             if(simulationNumber ==4) {
                 if(a<2){
-                    newGrid = chooseGrid.setupGrid(filepath,shapetype, (GridDisplaySize + ScreenSIZE/26)* a + ScreenSIZE/2, 0,  edgeType);
+                    newGrid = chooseGrid.setupGrid(filepath,shapetype, (GridDisplaySize + ScreenSIZE/26)* a + ScreenSIZE/2, 0,  buttonmaker.getEdgeType());
                 }
                 else{
-                    newGrid = chooseGrid.setupGrid(filepath,shapetype, (GridDisplaySize + ScreenSIZE/26)* (a-2) + ScreenSIZE/2, ScreenSIZE/26 + GridDisplaySize,  edgeType);
+                    newGrid = chooseGrid.setupGrid(filepath,shapetype, (GridDisplaySize + ScreenSIZE/26)* (a-2) + ScreenSIZE/2, ScreenSIZE/26 + GridDisplaySize, buttonmaker.getEdgeType());
                 }
             }
             SimulationTitle = newGrid.getSimulationName();
@@ -272,11 +207,11 @@ public class Visualization{
             }
         });
 
-        MenuButton chooseShape = selectCellShape(ShapeButtonImage, ScreenSIZE/26, ScreenSIZE/6);
+        MenuButton chooseShape = buttonmaker.selectCellShape(ShapeButtonImage, ScreenSIZE/26, ScreenSIZE/6);
 
         Button StepButton = buttonmaker.makeButton(STEP_TEXT, StepButtonImage, ScreenSIZE/2);
         StepButton.setOnMouseClicked((event)->{
-            if(filepath.equals("") || shapetype.equals("")){
+            if(filepath.equals("")){
                 alertmaker.makeAlert();
             }
             unDisplayAllGrids();
@@ -316,7 +251,7 @@ public class Visualization{
 
         Button InitializeButton = buttonmaker.makeButton(INITIALIZE_TEXT, InitializeButtonImage, ScreenSIZE * 33 / 80);
         InitializeButton.setOnMouseClicked((event)->{
-            if(filepath.equals("") || shapetype.equals("") || simulationNumber ==0){
+            if(filepath.equals("")){
                 alertmaker.makeAlert();
             }
             else {
@@ -327,7 +262,7 @@ public class Visualization{
                 animation.pause();
                 if(allGrids.size() !=0){
                     unDisplayAllGrids();
-                    allGrids = new ArrayList<Grid>(simulationNumber);
+                    allGrids = new ArrayList<Grid>(buttonmaker.getSimulationNumber());
                 }
                 AnimationSpeed = 1;
                 animation.setRate(AnimationSpeed);
@@ -348,8 +283,10 @@ public class Visualization{
             }
         });
 
-        MenuButton numberOfSimulationsButton = selectNumSimulations(MultipleSimulationsButtonImage, ScreenSIZE / 26, ScreenSIZE/3);
-        MenuButton edgeTypeButton = selectEdgeTypes(BoundaryButtonImage, ScreenSIZE / 26,ScreenSIZE/4);
+        MenuButton numberOfSimulationsButton = buttonmaker.selectNumSimulations(MultipleSimulationsButtonImage, ScreenSIZE / 26, ScreenSIZE/3);
+        allGrids = new ArrayList<Grid>(buttonmaker.getSimulationNumber());
+        allCharts = new ArrayList<>(buttonmaker.getSimulationNumber());
+        MenuButton edgeTypeButton = buttonmaker.selectEdgeTypes(BoundaryButtonImage, ScreenSIZE / 26,ScreenSIZE/4);
         root.getChildren().addAll(chooseShape, ChangeSpeedOfGame, StepButton, FileUploadButton, PlayButton, PauseButton, InitializeButton,
                  numberOfSimulationsButton, edgeTypeButton);
     }
