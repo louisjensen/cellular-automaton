@@ -16,7 +16,7 @@
     <moreInfo>
         <info>maxAnts 500</info>
         <info>maxAntsPerLocation 5</info>
-        <info>antLifetime 500</info>
+        <info>antLifetime 400</info>
         <info>initAntsAtNest 2</info>
         <info>antsBornPerStep 2</info>
         <info>maxPheromones 100</info>

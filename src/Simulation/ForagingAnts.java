@@ -49,11 +49,11 @@ public class ForagingAnts extends Simulation {
         myCurrentGrid = current;
         myNextGrid = next;
 
-        myMaxAnts = 500;
         myTotalAnts = 0;
-        myAntsPerTick = 2;
-        myAntsMaxLives = 400;
-        myMaxAntsPerCell = 5;
+        myMaxAnts = myMoreInfoLookupTable.get("maxAnts").intValue();
+        myAntsPerTick = myMoreInfoLookupTable.get("antsBornPerStep").intValue();
+        myAntsMaxLives = myMoreInfoLookupTable.get("antLifetime").intValue();
+        myMaxAntsPerCell = myMoreInfoLookupTable.get("maxAntsPerLocation").intValue();
     }
 
     public int getState(String stateString) {
