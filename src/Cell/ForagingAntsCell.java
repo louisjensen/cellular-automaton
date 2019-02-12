@@ -9,7 +9,7 @@ public class ForagingAntsCell extends Cell {
     double myHomePheromone;
     double myFoodPheromone;
     final static int howmuchpheromone = 2;
-    final static double evaporationrate = 0.05;
+    final static double evaporationrate = 0.03;
 
     public ForagingAntsCell(Polygon shape){
 
@@ -41,7 +41,7 @@ public class ForagingAntsCell extends Cell {
     }
 
     public void evaporate(){
-        myHomePheromone = myHomePheromone * (1 - evaporationrate);
+        myHomePheromone = myHomePheromone * (1-evaporationrate);
         myFoodPheromone = myFoodPheromone * (1-evaporationrate);
     }
 

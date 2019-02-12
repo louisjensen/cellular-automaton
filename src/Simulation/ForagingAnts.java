@@ -39,6 +39,7 @@ public class ForagingAnts extends Simulation {
     private int myTotalAnts;
     private int myAntsPerTick;
     private int myAntsMaxLives;
+    private int myMaxAntsPerCell;
 
     public ForagingAnts(HashMap<String, Double> moreInfoLookupTable, Cell[][] current, Cell[][] next, NeighborsMaker nm) {
         myMoreInfoLookupTable = moreInfoLookupTable;
@@ -51,7 +52,8 @@ public class ForagingAnts extends Simulation {
         myMaxAnts = 500;
         myTotalAnts = 0;
         myAntsPerTick = 2;
-        myAntsMaxLives = 100;
+        myAntsMaxLives = 400;
+        myMaxAntsPerCell = 5;
     }
 
     public int getState(String stateString) {
@@ -73,7 +75,6 @@ public class ForagingAnts extends Simulation {
         ArrayList<Cell> forwardNeighbors;
         ArrayList<Ants> antsArrayList;
         Random random = new Random();
-        //printCurrentStates();
         if (myFoodCell == null || myNestCell == null){
             findNestAndFood();
         }
@@ -90,21 +91,21 @@ public class ForagingAnts extends Simulation {
                 currentCell = (ForagingAntsCell) myCurrentGrid[row][col];
                 antsArrayList = currentCell.getMyAntsList();
                 Ants myAnt;
-
+                ArrayList<Ants> antsToRemove = new ArrayList<Ants>();
                 for (int a = 0; a < antsArrayList.size(); a++) {
                     nextCell = (ForagingAntsCell) myNextGrid[row][col];
                     //System.out.println(currentCell.getRow() + " " + currentCell.getCol()  + " has " + currentCell.getMyAntsList().size() + " ants");
                     myAnt = antsArrayList.get(a);
                     if (!myAnt.isDead()) {
                         //just got to food source
-                        if (currentCell.getState() == 2) {
+                        if (currentCell.getRow() == myFoodCell.getRow() && currentCell.getCol() == myFoodCell.getCol()) {
                             myAnt.pickupFood();
-                            nextCell.setState(2);
+                            //nextCell.setState(2);
                         }
                         //just got to the nest
-                        if (currentCell.getState() == 1) {
+                        if (currentCell.getRow() == myNestCell.getRow() && currentCell.getCol() == myNestCell.getCol()) {
                             myAnt.dropFood();
-                            nextCell.setState(1);
+                            //nextCell.setState(1);
 
                         }
 
@@ -112,7 +113,7 @@ public class ForagingAnts extends Simulation {
                         //System.out.println("direction: " + direction.getX() + " " + direction.getY());
                         forwardNeighbors = myNeighborsMaker.getForwardNeighbors((Cell) nextCell, direction, myNextGrid);
                         if (forwardNeighbors.size() == 0){
-                            forwardNeighbors = myNeighborsMaker.getNeighbors((Cell) currentCell, myCurrentGrid);
+                            forwardNeighbors = myNeighborsMaker.getNeighbors((Cell) currentCell, myNextGrid);
                         }
                         //for (Cell cell: forwardNeighbors){
                         //    System.out.println(cell.getRow() + " " + cell.getCol());
@@ -120,14 +121,14 @@ public class ForagingAnts extends Simulation {
                         //System.out.println("Forward: " + forwardNeighbors.size());
                         // has food so going back home
                         if (myAnt.getHasFoodState()) {
-                            //System.out.println("Ant " + a + ": " + myAnt + " is going home");
-
-                            double max = 0;
+                            ForagingAntsCell temp;
+                            nextCell = (ForagingAntsCell) forwardNeighbors.get(0);
+                            double max = nextCell.getHomePheromone();
                             for (int b = 0; b < forwardNeighbors.size(); b++) {
-                                nextCell = (ForagingAntsCell) forwardNeighbors.get(b);
-                                if (max > nextCell.getHomePheromone()) {
-                                    max = nextCell.getHomePheromone();
-                                    nextCell = (ForagingAntsCell) forwardNeighbors.get(b);
+                                temp = (ForagingAntsCell) forwardNeighbors.get(b);
+                                if (max < temp.getHomePheromone() && temp.getMyAntsList().size() < myMaxAntsPerCell) {
+                                    max = temp.getHomePheromone();
+                                    nextCell = temp;
                                 }
                             }
                             if (max == 0){
@@ -138,13 +139,14 @@ public class ForagingAnts extends Simulation {
                         //does not have food, so looking for food source
                         else {
                             //System.out.println("Ant " + a + ": " + myAnt + " is looking for food");
-
-                            double max = 0;
+                            ForagingAntsCell temp;
+                            nextCell = (ForagingAntsCell) forwardNeighbors.get(0);
+                            double max = nextCell.getFoodPheromone();
                             for (int b = 0; b < forwardNeighbors.size(); b++) {
-                                nextCell = (ForagingAntsCell) forwardNeighbors.get(b);
-                                if (max > nextCell.getFoodPheromone()) {
-                                    max = nextCell.getFoodPheromone();
-                                    nextCell = (ForagingAntsCell) forwardNeighbors.get(b);
+                                temp = (ForagingAntsCell) forwardNeighbors.get(b);
+                                if (max < temp.getFoodPheromone() && temp.getMyAntsList().size() < myMaxAntsPerCell) {
+                                    max = temp.getFoodPheromone();
+                                    nextCell = temp;
                                 }
                             }
                             if (max == 0) {
@@ -154,30 +156,47 @@ public class ForagingAnts extends Simulation {
 
 
                         }
-                        nextCell.addAnt(myAnt);
+                        boolean canMove = false;
+                        for (Cell cell: forwardNeighbors){
+                            if (((ForagingAntsCell) cell).getMyAntsList().size() < myMaxAntsPerCell){
+                                canMove = true;
+                                break;
+                            }
+                        }
+                        if (canMove) {
+                            nextCell.addAnt(myAnt);
+                        }
                         myAnt.loseLife();
+
                         //currentCell.removeAnt(myAnt);
 
                         direction = new Point (nextCell.getRow() - currentCell.getRow(),nextCell.getCol() - currentCell.getCol());
                         myAnt.setDirection(direction);
                     }
                     else { // ant is dead
-                        currentCell.removeAnt(myAnt);
-                        myTotalAnts --;
+                        antsToRemove.add(myAnt);
+                        //currentCell.removeAnt(myAnt);
+                        //myTotalAnts --;
                     }
                 }
+                removeAntsFromCell(currentCell, antsToRemove);
                 //antsArrayList.clear();
             }
         }
-        System.out.println("\nbefore: ");
-        System.out.println("Nest: " + myNestCell.getRow() + " " + myNestCell.getCol() + " " + myNestCell.getState());
-        System.out.println("Food: " + myFoodCell.getRow() + " " + myFoodCell.getCol() + " " + myFoodCell.getState());
-        updateStatesAndEvaporate();
-        updateColor();
-        System.out.println("after: ");
-        System.out.println("Nest: " + myNestCell.getRow() + " " + myNestCell.getCol() + " " + myNestCell.getState());
-        System.out.println("Food: " + myFoodCell.getRow() + " " + myFoodCell.getCol() + " " + myFoodCell.getState());
 
+        updateStatesAndEvaporate();
+
+        updateColor();
+        updateTotalNumAnts();
+
+    }
+
+    private void removeAntsFromCell(ForagingAntsCell cell, ArrayList<Ants> antsToRemove){
+        for (Ants ant: antsToRemove){
+            cell.removeAnt(ant);
+            myTotalAnts--;
+        }
+        antsToRemove.clear();
     }
 
     private void printNextStates(){
@@ -214,7 +233,7 @@ public class ForagingAnts extends Simulation {
                 current.setHomePheromone(next.getHomePheromone());
                 copyAnts(current.getMyAntsList(), next.getMyAntsList());
                 current.setState(next.getState());
-                //next.setState(-1);
+                next.setState(-1);
 
             }
         }
@@ -222,6 +241,7 @@ public class ForagingAnts extends Simulation {
     }
 
     private void copyAnts(ArrayList<Ants> current, ArrayList<Ants> next){
+
         current.clear();
         for (Ants ant: next) {
             current.add(ant);
@@ -240,11 +260,10 @@ public class ForagingAnts extends Simulation {
                 next.increaseHomePheromone();
                 next.increaseFoodPheromone();
                 next.evaporate();
-                updateState(next, current);
+                updateState(current, next);
 
             }
         }
-        System.out.println("done");
     }
 
     private void updateState(ForagingAntsCell current, ForagingAntsCell next){
@@ -287,51 +306,34 @@ public class ForagingAnts extends Simulation {
             else
                 next.setState(5);
         }
-        System.out.println("row: " + current.getRow()  + " col: " + current.getCol() + " state: "+ current.getState() + " numAnts: " + current.getMyAntsList().size());
-        System.out.println("row: " + next.getRow()     + " col: " + next.getCol()    + " state: "+ next.getState() +    " numAnts: " + next.getMyAntsList().size() + "\n");
 
-        /*
-        //System.out.println(next.getRow() + " " + next.getCol() + " " +next.getMyAntsList().size());
-        if (current.getState() == 3 || current.getState() == 0) {
-            //System.out.println(next.getRow() + " " + next.getCol() + " " +next.getMyAntsList().size());
-            //System.out.println(next.getMyAntsList().size());
-            if (next.getMyAntsList().size() == 0) { // does not contain ants
-                next.setState(0);
 
-                //current.setState(0);
-            } else {
-                next.setState(3); // does contain ants
-                //current.setState(3);
+    }
+
+    private void updateTotalNumAnts() {
+        int total = 0;
+        ForagingAntsCell current;
+        for (int row = 0; row < myNextGrid.length; row++) {
+            for (int col = 0; col < myNextGrid[0].length; col++) {
+                current = (ForagingAntsCell) myNextGrid[row][col];
+                total += current.getMyAntsList().size();
             }
         }
-        else {
-            if (current.getState() == 1  || current.getState() == 4 && current.getMyAntsList().size() > 0){ // nest with ants
-                next.setState(4);
-            }
-            else if (current.getState() == 1 || current.getState() == 4 && current.getMyAntsList().size() == 0) {
-                next.setState(1);
-            }
-            else if (current.getState() == 2 || current.getState() == 5 && current.getMyAntsList().size() > 0){ // food with ants
-                next.setState(5);
-            }
-            else if (current.getState() == 2 || current.getState() == 5 && current.getMyAntsList().size() == 0){
-                next.setState(2);
-            }
-        }
-        */
+        myTotalAnts = total;
+        System.out.println("Actual tot: " + total);
     }
 
     private void generateAntsAtNest(){
         ArrayList<Cell> neighbors;
-        Cell randomCell;
+        ForagingAntsCell randomCell;
         Random random = new Random();
         for (int i = 0; i < myAntsPerTick; i ++){
-            if (myMaxAnts > myTotalAnts) {
-                neighbors = getNeighbors(myNestCell);
-                randomCell = neighbors.get(random.nextInt(neighbors.size()));
+            neighbors = getNeighbors(myNestCell);
+            randomCell = (ForagingAntsCell) neighbors.get(random.nextInt(neighbors.size()));
+            if (myMaxAnts > myTotalAnts && randomCell.getMyAntsList().size() < myMaxAntsPerCell) {
                 Ants ant = new Ants(new Point(randomCell.getRow() - myNestCell.getRow(), randomCell.getCol() - myNestCell.getCol()), myAntsMaxLives);
                 myNestCell.addAnt(ant);
-                myTotalAnts ++;
+                //myTotalAnts ++;
             }
         }
     }

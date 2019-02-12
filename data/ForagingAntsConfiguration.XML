@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>ForagingAnts</type>
-    <horizontalSize>20</horizontalSize>
-    <verticalSize>20</verticalSize>
+    <horizontalSize>50</horizontalSize>
+    <verticalSize>50</verticalSize>
     <basedOnStates>No</basedOnStates>
     <specifics>
-        <property>empty 398</property>
+        <property>empty 2498</property>
         <property>nest 1</property>
         <property>food 1</property>
         <property>hasAnts 0</property>
@@ -14,9 +14,9 @@
 
     </specifics>
     <moreInfo>
-        <info>maxAnts 150</info>
+        <info>maxAnts 500</info>
         <info>maxAntsPerLocation 5</info>
-        <info>antLifetime 200</info>
+        <info>antLifetime 500</info>
         <info>initAntsAtNest 2</info>
         <info>antsBornPerStep 2</info>
         <info>maxPheromones 100</info>
