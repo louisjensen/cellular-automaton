@@ -5,7 +5,6 @@ import javafx.scene.paint.Color;
 import view.NeighborsMaker;
 import Cell.Ants;
 import Cell.ForagingAntsCell;
-import javax.security.auth.login.AccountNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -20,8 +19,6 @@ public class ForagingAnts extends Simulation {
         put("hasAnts", 3);
         put("nestWAnts", 4);
         put("foodWAnts", 5);
-
-
     }};
 
     final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>() {{
@@ -63,13 +60,10 @@ public class ForagingAnts extends Simulation {
     @Override
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         return 1;
-
     }
-
 
     @Override
     public void update() {
-
         ForagingAntsCell currentCell;
         ForagingAntsCell nextCell;
         ArrayList<Cell> forwardNeighbors;
@@ -80,11 +74,6 @@ public class ForagingAnts extends Simulation {
         }
 
         generateAntsAtNest();
-
-
-        //System.out.println(myNestCell.getRow() + " " + myNestCell.getCol() + " " + myNestCell.getMyAntsList().size());
-        System.out.println("Total ants: " + myTotalAnts);
-
 
         for (int row = 0; row < myCurrentGrid.length; row++) {
             for (int col = 0; col < myCurrentGrid[0].length; col++) {
@@ -238,14 +227,12 @@ public class ForagingAnts extends Simulation {
     }
 
     private void copyAnts(ArrayList<Ants> current, ArrayList<Ants> next){
-
         current.clear();
         for (Ants ant: next) {
             current.add(ant);
         }
         next.clear();
     }
-
 
     private void updateStatesAndEvaporate(){
         ForagingAntsCell next;
@@ -303,7 +290,6 @@ public class ForagingAnts extends Simulation {
             else
                 next.setState(5);
         }
-
 
     }
 
