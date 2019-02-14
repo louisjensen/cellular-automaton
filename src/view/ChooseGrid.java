@@ -20,7 +20,7 @@ public class ChooseGrid {
      * @param space_X
      * @param space_Y
      * @param edgeType
-     * @return
+     * @return a new grid with specific shapetype and edgetype
      */
     public Grid setupGrid(String filepath, String shapetype, int space_X, int space_Y, String edgeType){
         Grid newGrid;

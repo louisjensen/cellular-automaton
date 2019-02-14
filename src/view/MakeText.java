@@ -24,7 +24,7 @@ public class MakeText {
      * @param x
      * @param y
      * @param FontSize
-     * @return
+     * @return text object
      */
     public Text MakeText(String message, int x, int y, int FontSize) {
         Text text = new Text();

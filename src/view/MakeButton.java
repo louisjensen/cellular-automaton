@@ -31,7 +31,7 @@ public class MakeButton {
 
     /**
      * returns number of simulations
-     * @return
+     * @return simulationNumber
      */
     public int getSimulationNumber(){
         return simulationNumber;
@@ -39,7 +39,7 @@ public class MakeButton {
 
     /**
      * returns shape type as a string
-     * @return
+     * @return shapetype
      */
     public String getSHAPE_TEXT(){
         return shapetype;
@@ -47,7 +47,7 @@ public class MakeButton {
 
     /**
      * returns edgetype as a string
-     * @return
+     * @return edgetype
      */
     public String getEdgeType(){
         return edgeType;
@@ -58,7 +58,7 @@ public class MakeButton {
      * @param text to display
      * @param file
      * @param y
-     * @return
+     * @return new Button object
      */
     public Button makeButton(String text, String file, int y) {
         Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
@@ -93,7 +93,7 @@ public class MakeButton {
      * @param file
      * @param x
      * @param y
-     * @return
+     * @return EdgeType menubutton object
      */
     public MenuButton selectEdgeTypes(String file, int x, int y){
         MenuButton menuButton = new MenuButton(BOUNDARY_TEXT);
@@ -115,7 +115,7 @@ public class MakeButton {
      * @param file
      * @param x
      * @param y
-     * @return
+     * @return Cellshape menubutton object
      */
     public MenuButton selectCellShape(String file, int x, int y){
         MenuButton menuButton = new MenuButton(SHAPE_TEXT);
@@ -141,7 +141,7 @@ public class MakeButton {
      * @param file
      * @param x
      * @param y
-     * @return
+     * @return NumberofSimulations menubutton
      */
     public MenuButton selectNumSimulations(String file, int x, int y){
         MenuButton menuButton = new MenuButton(NUMBEROFSIMULATION_TEXT);
