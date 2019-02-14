@@ -2,10 +2,11 @@ package Cell;
 
 import javafx.scene.shape.Polygon;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ForagingAntsCell extends Cell {
 
-    ArrayList<Ants> myAntsList;
+    List<Ants> myAntsList;
     double myHomePheromone;
     double myFoodPheromone;
     final static int howmuchpheromone = 2;
@@ -61,7 +62,7 @@ public class ForagingAntsCell extends Cell {
      * return list of ants in the cell
      * @return
      */
-    public ArrayList<Ants> getMyAntsList() {
+    public List<Ants> getMyAntsList() {
         return myAntsList;
     }
 

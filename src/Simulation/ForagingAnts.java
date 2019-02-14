@@ -78,8 +78,8 @@ public class ForagingAnts extends Simulation {
     public void update() {
         ForagingAntsCell currentCell;
         ForagingAntsCell nextCell;
-        ArrayList<Cell> forwardNeighbors;
-        ArrayList<Ants> antsArrayList;
+        List<Cell> forwardNeighbors;
+        List<Ants> antsArrayList;
         Random random = new Random();
         if (myFoodCell == null || myNestCell == null){
             findNestAndFood();
@@ -214,7 +214,7 @@ public class ForagingAnts extends Simulation {
 
     }
 
-    private void copyAnts(ArrayList<Ants> current, ArrayList<Ants> next){
+    private void copyAnts(List<Ants> current, List<Ants> next){
         current.clear();
         for (Ants ant: next) {
             current.add(ant);

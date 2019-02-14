@@ -258,7 +258,7 @@ public abstract class Grid {
             currentTotal = percentage;
         }
 
-        ArrayList<Cell> allCells = getAllCells();
+        List<Cell> allCells = getAllCells();
         for (Cell current: allCells) {
             if (current.getState() != -2) {
                 while (current.getState() < 0) {
@@ -277,8 +277,8 @@ public abstract class Grid {
 
     }
 
-    private ArrayList<Cell> getAllCells() {
-        ArrayList<Cell> cells = new ArrayList<Cell>();
+    private List<Cell> getAllCells() {
+        List<Cell> cells = new ArrayList<Cell>();
         for (int row = 0; row < myCurrentState.length; row++) {
             for (int col = 0; col < myCurrentState[0].length; col++) {
                 cells.add(myCurrentState[row][col]);
