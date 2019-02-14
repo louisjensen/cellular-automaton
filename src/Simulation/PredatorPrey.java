@@ -6,6 +6,8 @@ import view.NeighborsMaker;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Map;
+import java.util.List;
 
 /**
  * @author:  Justin Kim, Louis Jensen, Louis Lee
@@ -13,13 +15,13 @@ import java.util.Random;
 
 public class PredatorPrey extends Simulation {
 
-    private HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
+    private Map<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("water",  0);
         put("fish",   1);
         put("shark", 10);
     }};
 
-    final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
+    final Map<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
         put(0, Color.BLUE);
         put(1, Color.YELLOW);
         for (int i=2; i<100; i+=2){
@@ -32,7 +34,7 @@ public class PredatorPrey extends Simulation {
     // special state: unoccupied = -2. Where a shark died and no one can move into that space until the next turn. Turns into water after all fish and shark are done updating
     private int myRoundsPassed;
 
-    public PredatorPrey(HashMap<String, Double> moreInfoLookupTable,  Cell[][] current, Cell[][] next, NeighborsMaker nm){
+    public PredatorPrey(Map<String, Double> moreInfoLookupTable,  Cell[][] current, Cell[][] next, NeighborsMaker nm){
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
         myMoreInfoLookupTable = moreInfoLookupTable;
@@ -52,7 +54,7 @@ public class PredatorPrey extends Simulation {
     /**
      * No need to inherit this method
      */
-    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
+    public int getNextStateOfCell(Cell cell, List<Cell> neighbors) {
         return 1;
     }
 

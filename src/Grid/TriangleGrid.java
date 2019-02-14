@@ -30,6 +30,9 @@ public class TriangleGrid extends Grid {
         System.out.println(numCols);
     }
 
+    /**
+     * initializes a set of triangles on a grid
+     */
     public void initialize(){
         int pixelX = GridStartingPoint_X;
         int pixelY = GridStartingPoint_Y;

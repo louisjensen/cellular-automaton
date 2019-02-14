@@ -5,18 +5,20 @@ import javafx.scene.paint.Color;
 import view.NeighborsMaker;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
 /**
  * @author:  Justin Kim
  */
 public class Percolation extends Simulation {
 
-    final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
+    final Map<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("opened", 1);
         put("closed", 0);
         put("filled", 2);
     }};
 
-    final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
+    final Map<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
         put(0, Color.BLACK);
         put(1, Color.WHITE);
         put(2, Color.BLUE);
@@ -38,7 +40,7 @@ public class Percolation extends Simulation {
     /**
      * Rules for updating the grid
      */
-    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
+    public int getNextStateOfCell(Cell cell, List<Cell> neighbors) {
         int nextState;
 
         if (cell.getState() == 0) {// if closed, then always closed

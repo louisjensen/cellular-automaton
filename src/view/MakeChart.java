@@ -4,6 +4,7 @@ import Grid.Grid;
 import javafx.scene.chart.PieChart;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author:  Louis Lee
@@ -20,10 +21,10 @@ public class MakeChart {
      */
     public PieChart setupChart(Grid myGrid, int Gridnumber, int Position_X) {
         PieChart myChart = new PieChart();
-        HashMap<String, Integer> SimulationStateMap;
-        SimulationStateMap = myGrid.getSimulationMap();
+        Map<String, Integer> simulationStateMap;
+        simulationStateMap = myGrid.getSimulationMap();
         HashMap<Integer, String> myNewHashMap = new HashMap<>();
-        for (HashMap.Entry<String, Integer> entry : SimulationStateMap.entrySet()) {
+        for (HashMap.Entry<String, Integer> entry : simulationStateMap.entrySet()) {
             myNewHashMap.put(entry.getValue(), entry.getKey());
         }
 
