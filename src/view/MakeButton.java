@@ -7,6 +7,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.util.ResourceBundle;
 
+/**
+ * @author:  Louis Lee, Louis Jensen
+ */
 public class MakeButton {
 
     /** Load Strings from resource bundle, not working on Mac and Linux
@@ -26,18 +29,30 @@ public class MakeButton {
     private String shapetype = "";
     private String edgeType = "";
 
-
+    /*
+    returns number of simulations
+     */
     public int getSimulationNumber(){
         return simulationNumber;
     }
 
+    /*
+    returns shape type as a string
+     */
     public String getSHAPE_TEXT(){
         return shapetype;
     }
+
+    /*
+    returns edgetype as a string
+     */
     public String getEdgeType(){
         return edgeType;
     }
 
+    /*
+    Creates a button based on image and text
+     */
     public Button makeButton(String text, String file, int y) {
         Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
         ImageView imageview = new ImageView(image);
@@ -49,6 +64,10 @@ public class MakeButton {
         return button;
     }
 
+    /*
+    creates imagaview for the menubutton
+     */
+
     public void menubuttonimagaereader(String file, MenuButton menuButton, int x, int y){
         Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
         ImageView iv = new ImageView(image);
@@ -59,6 +78,9 @@ public class MakeButton {
         menuButton.setLayoutY(y);
     }
 
+    /*
+    dropdown menubutton for selecting edge type
+     */
     public MenuButton selectEdgeTypes(String file, int x, int y){
         MenuButton menuButton = new MenuButton(BOUNDARY_TEXT);
         menubuttonimagaereader(file, menuButton, x, y);
@@ -73,6 +95,10 @@ public class MakeButton {
         menuButton.getItems().addAll(regular, toroidal);
         return menuButton;
     }
+
+    /*
+        dropdown menubutton for selecting cell shape
+    */
 
     public MenuButton selectCellShape(String file, int x, int y){
         MenuButton menuButton = new MenuButton(SHAPE_TEXT);
@@ -93,6 +119,9 @@ public class MakeButton {
         return menuButton;
     }
 
+    /*
+    dropdown menubutton for selecting number of simulations
+     */
     public MenuButton selectNumSimulations(String file, int x, int y){
         MenuButton menuButton = new MenuButton(NUMBEROFSIMULATION_TEXT);
         menubuttonimagaereader(file, menuButton, x, y);

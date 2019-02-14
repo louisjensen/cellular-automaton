@@ -9,6 +9,10 @@ import java.io.File;
 import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.ArrayList;
+/**
+ * @author:  Louis Jensen
+ * This class reads in all the xml configuration files and stores the info in the map
+ */
 
 public class XMLParser {
 

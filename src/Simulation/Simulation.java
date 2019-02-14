@@ -6,6 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import view.NeighborsMaker;
 
+/**
+ * @author:  Justin Kim, Louis Jensen, Louis Lee
+ * This class is an abstract class for all simulation classes.
+ * Other classes extend this class, so this class holds all algorithm methods
+ * essential in running the game.
+ */
+
+
 public abstract class Simulation { // since this doesn't have any instance variables, perhaps make this an enum class
     public HashMap<Integer, Color> myColorLookupTable;
     public HashMap<String, Integer> myStateLookupTable;
@@ -66,10 +74,18 @@ public abstract class Simulation { // since this doesn't have any instance varia
         updateColor();
     }
 
+    /**
+     * Returns possible neighbors
+     * @param cell
+     * @return list of possible points(neighbors)
+     */
     public ArrayList<Cell> getNeighbors(Cell cell){
         return myNeighborsMaker.getNeighbors(cell, myCurrentGrid);
     }
 
+    /**
+     * update the color in the actual grid based on the state of each cells
+     */
     public void updateColor(){
         Cell cellToUpdate;
         Cell currentCell;
@@ -82,6 +98,9 @@ public abstract class Simulation { // since this doesn't have any instance varia
         }
     }
 
+    /**
+     * move next grid to currrent after updating
+     */
     public void moveNextToCurrent(){
         for (int i = 0; i < myCurrentGrid.length; i++) {
             for (int j = 0; j < myCurrentGrid[0].length; j++) {

@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * @author:  Justin Kim, Louis Jensen, Louis Lee
+ */
 public class SpreadingOfFire extends Simulation {
 
     private double probCatch;
@@ -35,6 +38,9 @@ public class SpreadingOfFire extends Simulation {
     }
 
     @Override
+    /**
+     * Algorithm for updating the grid
+     */
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         int numFire = 0;
         int nextState;

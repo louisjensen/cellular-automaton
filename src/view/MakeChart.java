@@ -5,12 +5,19 @@ import javafx.scene.chart.PieChart;
 
 import java.util.HashMap;
 
+/**
+ * @author:  Louis Lee
+ */
+
 public class MakeChart {
     private final int ScreenSIZE = 580;
     private final int ScreenHEIGHT = ScreenSIZE*5/4;
     private final int fontsize1 = ScreenSIZE/20;
     private final int PieChartSize = ScreenSIZE/5;
 
+    /*
+    Creates chart based on the grid
+     */
     public PieChart setupChart(Grid myGrid, int Gridnumber, int Position_X) {
         PieChart myChart = new PieChart();
         HashMap<String, Integer> SimulationStateMap;

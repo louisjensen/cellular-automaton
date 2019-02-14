@@ -5,6 +5,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import Cell.*;
 
+/**
+ * @author:  Justin Kim, Louis Lee
+ */
+
 public class NeighborsMaker {
 
     private String myGridType;
@@ -90,6 +94,9 @@ public class NeighborsMaker {
         myBoundaryType = boundaryType;
     }
 
+    /*
+    returns arraylist of possible neighbor cells
+     */
     public ArrayList<Cell> getNeighbors(Cell cell, Cell[][] currentGrid) {
         getPossibleNeighbors(cell);
         ArrayList<Cell> neighbors = new ArrayList<Cell>();
@@ -107,6 +114,9 @@ public class NeighborsMaker {
         return neighbors;
     }
 
+    /*
+    returns arraylist of possible neighbor cells based on the direction(used in ForaginaAnt)
+     */
     public ArrayList<Cell> getForwardNeighbors(Cell currentCell, Point direction, Cell[][] currentGrid){
         ArrayList<Cell> forwardNeighbors = new ArrayList<Cell>();
         int rowDir = (int) direction.getX();

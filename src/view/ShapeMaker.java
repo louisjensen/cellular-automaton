@@ -9,6 +9,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import java.util.Map;
 
+/**
+ * @author:  Louis Lee, Justin Kim
+ */
+
 public class ShapeMaker {
     private String RectangleAttributes[] ={"row", "col", "pixel_x", "pixel_y", "size_x", "size_y", "state"};
     private String TriangleAttributes[] = {"row", "col", "pixel_x", "pixel_y", "sidelength", "isPointed", "state"};
@@ -18,7 +22,9 @@ public class ShapeMaker {
     public ShapeMaker(){
     }
 
-
+    /*
+    Make Triangle shape
+     */
     public Polygon makeTriangle(Point point, int d, boolean isPointed){
         double x = point.x;
         double y = point.y;
@@ -40,7 +46,9 @@ public class ShapeMaker {
 
         return triangle;
     }
-
+    /*
+    Make Rectangle shape
+     */
     public Polygon makeRectangle(Point point, int width, int height){
         double row = point.x;
         double col = point.y;
@@ -55,7 +63,9 @@ public class ShapeMaker {
         initialize(rectangle);
         return rectangle;
     }
-
+    /*
+    Make Hexagon shape
+     */
     public Polygon makeHexagon(Point point, double d){
 
         double row = point.x;

@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * @author:  Justin Kim
+ */
+
 public class RPS extends Simulation {
 
     private double myThreshold;
@@ -39,6 +43,9 @@ public class RPS extends Simulation {
     }
 
     @Override
+    /**
+     * Differnt rule for updating the cell.
+     */
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         int opponentState = getOpponent(cell.getState());
         int numOpponents = countOpponents(cell, neighbors);

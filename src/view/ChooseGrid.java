@@ -4,10 +4,18 @@ import Grid.*;
 
 public class ChooseGrid {
 
+    /**
+     * @author:  Louis Lee
+     */
+
     private static final int ScreenSIZE = 580;
     private static final int GridDisplaySize = ScreenSIZE/2;
     private final static int GRID_POS_X = ScreenSIZE /4;
     private final static int GRID_POS_Y = ScreenSIZE/8;
+
+    /*
+        Sets up new Grid based on the shapetype and edgetype
+     */
 
     public Grid setupGrid(String filepath, String shapetype, int space_X, int space_Y, String edgeType){
         Grid newGrid;

@@ -6,6 +6,10 @@ import view.NeighborsMaker;
 import Cell.Cell;
 import javafx.scene.paint.Color;
 
+/**
+ * @author:  Justin Kim, Louis Jensen, Louis Lee
+ */
+
 public class GameOfLife extends Simulation{
 
     final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
@@ -31,6 +35,9 @@ public class GameOfLife extends Simulation{
     }
 
     @Override
+    /**
+     * Rules for updating the grid
+     */
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         int numAlive = 0;
         int nextState;

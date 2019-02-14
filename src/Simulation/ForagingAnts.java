@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.Random;
 import java.awt.*;
 
+/**
+ * @author:  Justin Kim, Louis Lee
+ */
+
 public class ForagingAnts extends Simulation {
 
     final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>() {{
@@ -58,10 +62,16 @@ public class ForagingAnts extends Simulation {
     }
 
     @Override
+    /**
+     * No need to inherit this.
+     */
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         return 1;
     }
 
+    /**
+     * Algorithm for updating ForaginAnts
+     */
     @Override
     public void update() {
         ForagingAntsCell currentCell;
@@ -207,6 +217,9 @@ public class ForagingAnts extends Simulation {
     }
 
     @Override
+    /**
+     * Move the info in the nextgrid to the currentgrid including the list of ants
+     */
     public void moveNextToCurrent(){
         ForagingAntsCell current;
         ForagingAntsCell next;

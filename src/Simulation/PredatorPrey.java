@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * @author:  Justin Kim, Louis Jensen, Louis Lee
+ */
+
 public class PredatorPrey extends Simulation {
 
     private HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
@@ -45,11 +49,17 @@ public class PredatorPrey extends Simulation {
 
 
     @Override
+    /**
+     * No need to inherit this method
+     */
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         return 1;
     }
 
     @Override
+    /**
+     * All algorithm for updating the grid
+     */
     public void update(){
         Cell current;
         Cell next;

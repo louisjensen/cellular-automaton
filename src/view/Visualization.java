@@ -20,6 +20,10 @@ import javafx.scene.chart.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
+/**
+ * @author:  Louis Lee, Louis Jensen
+ * This class holds everything needed for the GUI
+ */
 
 public class Visualization{
     private String Title = "Cell Automaton";

@@ -2,9 +2,16 @@ package view;
 
 import javafx.scene.control.Slider;
 
+/**
+ * @author:  Louis Lee
+ */
+
 public class MakeSlider {
     private final int ScreenSIZE = 580;
 
+    /*
+    makes a slider 
+     */
     public Slider makeSlider(){
         Slider mySlider = new Slider(0,20,1);
         mySlider.setShowTickLabels(true);

@@ -5,7 +5,9 @@ import javafx.scene.paint.Color;
 import view.NeighborsMaker;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * @author:  Justin Kim
+ */
 public class Percolation extends Simulation {
 
     final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
@@ -33,6 +35,9 @@ public class Percolation extends Simulation {
     }
 
     @Override
+    /**
+     * Rules for updating the grid
+     */
     public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
         int nextState;
 

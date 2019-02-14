@@ -3,6 +3,11 @@ package view;
 import javafx.scene.control.Alert;
 import java.util.ResourceBundle;
 
+/**
+ * @author:  Louis Lee, Louis Jensen
+ * This class handles all the alert messages
+ */
+
 public class MakeAlert {
 
     /** Load Strings from resource bundle, not working on Mac and Linux
@@ -42,6 +47,9 @@ public class MakeAlert {
         alert.show();
     }
 
+    /*s
+    Below methods all alert messages based on the type of errors
+     */
     public void makeAlert(){
         makeAnAlert(INPUT_ERROR_TITLE, INPUT_ERROR_HEADER, INPUT_ERROR_CONTENT);
     }

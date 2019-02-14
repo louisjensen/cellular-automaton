@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.Random;
 import view.NeighborsMaker;
 
+/**
+ * @author:  Justin Kim, Louis Jensen, Louis Lee
+ */
+
 public class Segregation extends Simulation {
 
     Cell cellEmpty;
@@ -47,7 +51,7 @@ public class Segregation extends Simulation {
         return stateLookupTable.get(stateString);
     }
 
-    public boolean checkIfSatisfied(Cell cell,  ArrayList<Cell> neighbors){
+    private boolean checkIfSatisfied(Cell cell,  ArrayList<Cell> neighbors){
         int myState = cell.getState(); // get red or blue
         int numMyState = 0; // if red, count how many red neighbors.
         int numOtherState = 0;
@@ -76,6 +80,9 @@ public class Segregation extends Simulation {
     }
 
     @Override
+    /**
+     * Holds all algorithm for updating the grid
+     */
     public void update(){
         copyCurrentToNext();
         ArrayList<Cell> dissatisfiedCells = new ArrayList<Cell>();
