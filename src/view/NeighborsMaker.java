@@ -4,6 +4,7 @@ package view;
 import java.awt.*;
 import java.util.ArrayList;
 import Cell.*;
+import java.util.List;
 
 /**
  * @author:  Justin Kim, Louis Lee
@@ -15,7 +16,7 @@ public class NeighborsMaker {
     private String mySimulationType;
     private String myBoundaryType;
 
-    final ArrayList<Point> rectangleTouch = new ArrayList<Point>(){{
+    final List<Point> rectangleTouch = new ArrayList<Point>(){{
         add(new Point( 0, 1));
         add(new Point( 0,-1));
         add(new Point( 1, 0));
@@ -26,14 +27,14 @@ public class NeighborsMaker {
         add(new Point(-1,-1));
     }};
 
-    final ArrayList<Point> rectangleSide = new ArrayList<Point>(){{
+    final List<Point> rectangleSide = new ArrayList<Point>(){{
         add(new Point( 0, 1));
         add(new Point( 0,-1));
         add(new Point( 1, 0));
         add(new Point(-1, 0));
     }};
 
-    final ArrayList<Point> triangleTouchPointy = new ArrayList<Point>(){{
+    final List<Point> triangleTouchPointy = new ArrayList<Point>(){{
         add(new Point( 1, 0));
         add(new Point( 2, 0));
         add(new Point( 2, 1));
@@ -49,7 +50,7 @@ public class NeighborsMaker {
         add(new Point( 1, -1));
     }};
 
-    final ArrayList<Point> triangleTouchFlat = new ArrayList<Point>(){{
+    final List<Point> triangleTouchFlat = new ArrayList<Point>(){{
         add(new Point( -1, 0));
         add(new Point( -1, 1));
         add(new Point( -1, 2));
@@ -64,13 +65,13 @@ public class NeighborsMaker {
         add(new Point( -1, -1));
     }};
 
-    final ArrayList<Point> triangleSideFlat = new ArrayList<Point>(){{
+    final List<Point> triangleSideFlat = new ArrayList<Point>(){{
         add(new Point( 0, 1));
         add(new Point( 0, -1));
         add(new Point( -1, 0));
     }};
 
-    final ArrayList<Point> hexagon = new ArrayList<Point>(){{
+    final List<Point> hexagon = new ArrayList<Point>(){{
         add(new Point(-1, -1));
         add(new Point(-1, 0));
         add(new Point(-1, 1));
@@ -79,14 +80,14 @@ public class NeighborsMaker {
         add(new Point(0,1));
     }};
 
-    final ArrayList<Point> triangleSidePointy = new ArrayList<Point>(){{
+    final List<Point> triangleSidePointy = new ArrayList<Point>(){{
         add(new Point(0, -1));
         add(new Point(0, 1));
         add(new Point(1, 0));
     }};
     
 
-    private ArrayList<Point> myPossibleNeighbors;
+    private List<Point> myPossibleNeighbors;
 
     public NeighborsMaker(String gridType, String simulationType, String boundaryType){
         myGridType = gridType;
@@ -94,12 +95,16 @@ public class NeighborsMaker {
         myBoundaryType = boundaryType;
     }
 
-    /*
-    returns arraylist of possible neighbor cells
+    /**
+     * gets neighbors based of cell in the currentGrid
+     * @param cell
+     * @param currentGrid
+     * @return
      */
-    public ArrayList<Cell> getNeighbors(Cell cell, Cell[][] currentGrid) {
+
+    public List<Cell> getNeighbors(Cell cell, Cell[][] currentGrid) {
         getPossibleNeighbors(cell);
-        ArrayList<Cell> neighbors = new ArrayList<Cell>();
+        List<Cell> neighbors = new ArrayList<Cell>();
         int cellRow = cell.getRow();
         int cellCol = cell.getCol();
 
@@ -114,11 +119,15 @@ public class NeighborsMaker {
         return neighbors;
     }
 
-    /*
-    returns arraylist of possible neighbor cells based on the direction(used in ForaginaAnt)
+    /**
+     * returns List of possible neighbor cells based on the direction(used in ForagingAnts)
+     * @param currentCell
+     * @param direction
+     * @param currentGrid
+     * @return
      */
-    public ArrayList<Cell> getForwardNeighbors(Cell currentCell, Point direction, Cell[][] currentGrid){
-        ArrayList<Cell> forwardNeighbors = new ArrayList<Cell>();
+    public List<Cell> getForwardNeighbors(Cell currentCell, Point direction, Cell[][] currentGrid){
+        List<Cell> forwardNeighbors = new ArrayList<Cell>();
         int rowDir = (int) direction.getX();
         int colDir = (int) direction.getY();
 
@@ -145,7 +154,7 @@ public class NeighborsMaker {
         return forwardNeighbors;
     }
 
-    private void addCellToList(int row, int col, Cell[][] currentGrid, ArrayList<Cell> cells){
+    private void addCellToList(int row, int col, Cell[][] currentGrid, List<Cell> cells){
         if (isSafe(row, col, currentGrid)) {
             cells.add(currentGrid[row][col]);
         }

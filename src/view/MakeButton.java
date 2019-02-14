@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
  */
 public class MakeButton {
 
-    /** Load Strings from resource bundle, not working on Mac and Linux
+    /* Load Strings from resource bundle, not working on Mac and Linux
      private ResourceBundle myResources = ResourceBundle.getBundle("textForGui");
      private final String BOUNDARY_TEXT = myResources.getString("BOUNDARY_TEXT");
      private final String SHAPE_TEXT = myResources.getString("SHAPE_TEXT");;
@@ -29,29 +29,36 @@ public class MakeButton {
     private String shapetype = "";
     private String edgeType = "";
 
-    /*
-    returns number of simulations
+    /**
+     * returns number of simulations
+     * @return
      */
     public int getSimulationNumber(){
         return simulationNumber;
     }
 
-    /*
-    returns shape type as a string
+    /**
+     * returns shape type as a string
+     * @return
      */
     public String getSHAPE_TEXT(){
         return shapetype;
     }
 
-    /*
-    returns edgetype as a string
+    /**
+     * returns edgetype as a string
+     * @return
      */
     public String getEdgeType(){
         return edgeType;
     }
 
-    /*
-    Creates a button based on image and text
+    /**
+     * Creates a button based on image and text
+     * @param text to display
+     * @param file
+     * @param y
+     * @return
      */
     public Button makeButton(String text, String file, int y) {
         Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
@@ -64,10 +71,13 @@ public class MakeButton {
         return button;
     }
 
-    /*
-    creates imagaview for the menubutton
+    /**
+     * creates imageview for the menubutton
+     * @param file
+     * @param menuButton
+     * @param x
+     * @param y
      */
-
     public void menubuttonimagaereader(String file, MenuButton menuButton, int x, int y){
         Image image = new Image(getClass().getClassLoader().getResourceAsStream(file));
         ImageView iv = new ImageView(image);
@@ -78,8 +88,12 @@ public class MakeButton {
         menuButton.setLayoutY(y);
     }
 
-    /*
-    dropdown menubutton for selecting edge type
+    /**
+     * creates dropdown menubutton for selecting edge type
+     * @param file
+     * @param x
+     * @param y
+     * @return
      */
     public MenuButton selectEdgeTypes(String file, int x, int y){
         MenuButton menuButton = new MenuButton(BOUNDARY_TEXT);
@@ -96,10 +110,13 @@ public class MakeButton {
         return menuButton;
     }
 
-    /*
-        dropdown menubutton for selecting cell shape
-    */
-
+    /**
+     * creates dropdown menubutton for selecting cell shape
+     * @param file
+     * @param x
+     * @param y
+     * @return
+     */
     public MenuButton selectCellShape(String file, int x, int y){
         MenuButton menuButton = new MenuButton(SHAPE_TEXT);
        menubuttonimagaereader(file, menuButton, x, y);
@@ -119,8 +136,12 @@ public class MakeButton {
         return menuButton;
     }
 
-    /*
-    dropdown menubutton for selecting number of simulations
+    /**
+     * creates dropdown menubutton for selecting number of simulations
+     * @param file
+     * @param x
+     * @param y
+     * @return
      */
     public MenuButton selectNumSimulations(String file, int x, int y){
         MenuButton menuButton = new MenuButton(NUMBEROFSIMULATION_TEXT);

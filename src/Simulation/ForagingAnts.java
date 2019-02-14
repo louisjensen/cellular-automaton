@@ -182,7 +182,7 @@ public class ForagingAnts extends Simulation {
 
     }
 
-    private void removeAntsFromCell(ForagingAntsCell cell, ArrayList<Ants> antsToRemove){
+    private void removeAntsFromCell(ForagingAntsCell cell, List<Ants> antsToRemove){
         for (Ants ant: antsToRemove){
             cell.removeAnt(ant);
             myTotalAnts--;
