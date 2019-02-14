@@ -99,7 +99,7 @@ public class NeighborsMaker {
      * gets neighbors based of cell in the currentGrid
      * @param cell
      * @param currentGrid
-     * @return
+     * @return arraylist of neighbors
      */
 
     public List<Cell> getNeighbors(Cell cell, Cell[][] currentGrid) {
@@ -120,11 +120,10 @@ public class NeighborsMaker {
     }
 
     /**
-     * returns List of possible neighbor cells based on the direction(used in ForagingAnts)
      * @param currentCell
      * @param direction
      * @param currentGrid
-     * @return
+     * @return List of possible neighbor cells based on the direction(used in ForagingAnts)
      */
     public List<Cell> getForwardNeighbors(Cell currentCell, Point direction, Cell[][] currentGrid){
         List<Cell> forwardNeighbors = new ArrayList<Cell>();

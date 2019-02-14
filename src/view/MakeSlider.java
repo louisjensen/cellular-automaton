@@ -11,7 +11,7 @@ public class MakeSlider {
 
     /**
      * makes a slider
-     * @return
+     * @return a slider object
      */
     public Slider makeSlider(){
         Slider mySlider = new Slider(0,20,1);

@@ -22,7 +22,7 @@ public class MakeChart {
      * @param myGrid
      * @param Gridnumber
      * @param Position_X
-     * @return
+     * @return chart that reflects variables of the grid
      */
     public PieChart setupChart(Grid myGrid, int Gridnumber, int Position_X) {
         PieChart myChart = new PieChart();
