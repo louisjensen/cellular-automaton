@@ -89,7 +89,7 @@ public class Segregation extends Simulation {
     }
 
     private void getDissatisfiedAndEmpty(List<Cell> dissatisfiedCells, List<Cell> emptyCells){
-        ArrayList<Cell> neighbors;
+        List<Cell> neighbors;
         Cell current;
         for(int i=0 ; i<myCurrentGrid.length ; i ++){
             for(int j=0; j<myCurrentGrid[0].length; j++){

@@ -66,7 +66,7 @@ public class PredatorPrey extends Simulation {
         Cell current;
         Cell next;
         Cell randomCell;
-        ArrayList<Cell> neighbors;
+        List<Cell> neighbors;
         Random random = new Random();
         int randomIntMoving;
 
@@ -160,7 +160,7 @@ public class PredatorPrey extends Simulation {
         return (n % 2 == 0);
     }
 
-    private void removeOccupiedCells(ArrayList<Cell> neighbors){
+    private void removeOccupiedCells(List<Cell> neighbors){
         ArrayList<Cell> toRemove = new ArrayList<Cell>();
         for (Cell cell: neighbors){
             if (ifOccupiedInNextState(cell)){ // if the
@@ -172,7 +172,7 @@ public class PredatorPrey extends Simulation {
         }
     }
 
-    private void removeNonFish(ArrayList<Cell> neighbors){
+    private void removeNonFish(List<Cell> neighbors){
         ArrayList<Cell> toRemove = new ArrayList<Cell>();
 
         for (Cell cell: neighbors){
@@ -185,7 +185,7 @@ public class PredatorPrey extends Simulation {
         }
     }
 
-    private void removeNonWater(ArrayList<Cell> neighbors){
+    private void removeNonWater(List<Cell> neighbors){
         ArrayList<Cell> toRemove = new ArrayList<Cell>();
 
         for (Cell cell: neighbors){
@@ -207,7 +207,7 @@ public class PredatorPrey extends Simulation {
 
     }
 
-    private boolean doesContainFish(ArrayList<Cell> neighbors){
+    private boolean doesContainFish(List<Cell> neighbors){
         for (Cell cell: neighbors){
             if (isFish(cell)){
                 return true;

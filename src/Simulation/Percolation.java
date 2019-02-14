@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
-/**
- * @author:  Justin Kim
- */
+
 public class Percolation extends Simulation {
+    /**
+     * @author:  Justin Kim
+     */
 
     final Map<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("opened", 1);

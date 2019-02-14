@@ -8,6 +8,9 @@ import view.ShapeMaker;
 
 public class TriangleGrid extends Grid {
 
+    /**
+     * @author Justin Kim
+     */
     private int myTriangleLength; // triangle has height of distance, base of 2 * length
     private int GridStartingPoint_X;
     private int GridStartingPoint_Y;

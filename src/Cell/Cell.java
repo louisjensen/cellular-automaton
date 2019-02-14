@@ -5,6 +5,10 @@ import javafx.scene.shape.Polygon;
 
 public class Cell{
 
+    /**
+     * @author Justin Kim
+     */
+
     public int myState;
     public Polygon myShape;
     public int myRow;

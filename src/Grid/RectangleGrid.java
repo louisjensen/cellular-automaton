@@ -8,6 +8,9 @@ import java.awt.Point;
 
 public class RectangleGrid extends Grid {
 
+    /**
+     * @author Justin Kim
+     */
     private int myRectangleHeight;
     private int myRectangleWidth;
     private int GridStartingPoint_X;

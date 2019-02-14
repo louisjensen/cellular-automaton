@@ -7,6 +7,9 @@ import view.ShapeMaker;
 import java.awt.*;
 
 public class HexagonGrid extends Grid {
+    /**
+     * @author Louis Lee
+     */
 
     private int d;
     private int GridStartingPoint_X;

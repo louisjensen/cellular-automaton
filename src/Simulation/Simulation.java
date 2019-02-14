@@ -61,7 +61,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
     public void update(){
         Cell cellToUpdate;
         Cell currentCell;
-        ArrayList<Cell> neighbors;
+        List<Cell> neighbors;
         for (int row = 0; row < myCurrentGrid.length; row++){
             for (int col = 0; col < myCurrentGrid[0].length; col++){
 
@@ -81,7 +81,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * @param cell
      * @return list of possible points(neighbors)
      */
-    public ArrayList<Cell> getNeighbors(Cell cell){
+    public List<Cell> getNeighbors(Cell cell){
         return myNeighborsMaker.getNeighbors(cell, myCurrentGrid);
     }
 

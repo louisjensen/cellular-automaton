@@ -295,7 +295,7 @@ public class ForagingAnts extends Simulation {
     }
 
     private void generateAntsAtNest(){
-        ArrayList<Cell> neighbors;
+        List<Cell> neighbors;
         ForagingAntsCell randomCell;
         Random random = new Random();
         for (int i = 0; i < myAntsPerTick; i ++){

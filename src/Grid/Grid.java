@@ -15,8 +15,12 @@ import java.util.Collections;
 
 import java.util.List;
 
+
 public abstract class Grid {
 
+    /**
+     * @author Justin Kim, Louis Lee, Louis Jensen
+     */
     public Cell[][] myCurrentState;
     public Cell[][] myNextState;
     public Simulation mySimulation;

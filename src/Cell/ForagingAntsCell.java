@@ -6,9 +6,14 @@ import java.util.List;
 
 public class ForagingAntsCell extends Cell {
 
-    List<Ants> myAntsList;
-    double myHomePheromone;
-    double myFoodPheromone;
+    /**
+     * @author Louis Lee, Justin Kim
+     */
+
+    private List<Ants> myAntsList;
+    private double myHomePheromone;
+    private double myFoodPheromone;
+
     final static int howmuchpheromone = 2;
     final static double evaporationrate = 0.03;
 

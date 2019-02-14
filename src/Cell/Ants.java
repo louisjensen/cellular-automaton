@@ -4,6 +4,9 @@ import java.awt.*;
 
 public class Ants {
 
+    /**
+     * @author:  Louis Lee, Justin Kim
+     */
     private boolean hasFood;
     private Point myDirection;
     private int myLives;
