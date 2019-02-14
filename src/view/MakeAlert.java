@@ -47,21 +47,27 @@ public class MakeAlert {
         alert.show();
     }
 
-    /*s
-    Below methods all alert messages based on the type of errors
+    /**
+     * make alert for input error
      */
     public void makeAlert(){
         makeAnAlert(INPUT_ERROR_TITLE, INPUT_ERROR_HEADER, INPUT_ERROR_CONTENT);
     }
-
+    /**
+     * make alert for invalid file
+     */
     public void makeInvalidFileError(){
         makeAnAlert(INVALID_FILE_TITLE, INVALID_FILE_HEADER, INVALID_FILE_CONTENT);
     }
-
+    /**
+     * make alert for initialization
+     */
     public void makeInitialize(){
         makeAnAlert(INITIALIZATOIN_ERROR_TITLE, INITIALIZATOIN_ERROR_HEADER, INITIALIZATOIN_ERROR_CONTENT);
     }
-
+    /**
+     * make alert for game ending
+     */
     public void makeGameEnding(){
         makeAnAlert(SIMULATION_OVER_TITLE, SIMULATION_OVER_HEADER, SIMULATION_OVER_CONTENT);
     }

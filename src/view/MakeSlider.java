@@ -9,8 +9,9 @@ import javafx.scene.control.Slider;
 public class MakeSlider {
     private final int ScreenSIZE = 580;
 
-    /*
-    makes a slider 
+    /**
+     * makes a slider
+     * @return
      */
     public Slider makeSlider(){
         Slider mySlider = new Slider(0,20,1);

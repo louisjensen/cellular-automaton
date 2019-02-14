@@ -16,8 +16,13 @@ public class MakeChart {
     private final int fontsize1 = ScreenSIZE/20;
     private final int PieChartSize = ScreenSIZE/5;
 
-    /*
-    Creates chart based on the grid
+
+    /**
+     * Creates chart based on the grid
+     * @param myGrid
+     * @param Gridnumber
+     * @param Position_X
+     * @return
      */
     public PieChart setupChart(Grid myGrid, int Gridnumber, int Position_X) {
         PieChart myChart = new PieChart();

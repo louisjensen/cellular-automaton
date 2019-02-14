@@ -18,7 +18,13 @@ public class MakeText {
 
     private final String DEFAULT_FONT = "Times New Roman";
 
-    /*Makes text object with given string
+    /**
+     * Makes text object with given string
+     * @param message
+     * @param x
+     * @param y
+     * @param FontSize
+     * @return
      */
     public Text MakeText(String message, int x, int y, int FontSize) {
         Text text = new Text();
