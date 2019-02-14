@@ -11,14 +11,20 @@ public class ForagingAntsCell extends Cell {
     final static int howmuchpheromone = 2;
     final static double evaporationrate = 0.03;
 
+    /**
+     * Sets shape and initializes an ArrayList to hold the ants
+     * @param shape
+     */
     public ForagingAntsCell(Polygon shape){
-
         super(shape);
         myAntsList = new ArrayList<Ants>();
         myHomePheromone = 0;
         myFoodPheromone = 0;
     }
 
+    /**
+     * increases myHomePheromone based on how many ants are looking for home in the cell
+     */
     public void increaseHomePheromone(){
         int HomeAnts=0;
         for(int a=0; a<myAntsList.size(); a++){
@@ -30,6 +36,9 @@ public class ForagingAntsCell extends Cell {
 
     }
 
+    /**
+     * increases myFoodPheromone based on how many ants are looking for food in the cell
+     */
     public void increaseFoodPheromone(){
         int FoodAnts=0;
         for(int a=0; a<myAntsList.size(); a++){
@@ -40,32 +49,66 @@ public class ForagingAntsCell extends Cell {
         myFoodPheromone += howmuchpheromone * FoodAnts;
     }
 
+    /**
+     * decrements myHomePheromone and myFoodPheromone
+     */
     public void evaporate(){
         myHomePheromone = myHomePheromone * (1-evaporationrate);
         myFoodPheromone = myFoodPheromone * (1-evaporationrate);
     }
 
+    /**
+     * return list of ants in the cell
+     * @return
+     */
     public ArrayList<Ants> getMyAntsList() {
         return myAntsList;
     }
 
+    /**
+     * gets the amount of home pheromone in the cell
+     * @return myHomePheromone
+     */
     public double getHomePheromone(){
         return myHomePheromone;
     }
+
+    /**
+     * sets the amount of home pheromone in the cell
+     * @param p
+     */
     public void setHomePheromone(double p){
         myHomePheromone = p;
     }
 
+    /**
+     * gets the amount of food pheromone in the cell
+     * @return myFoodPheromone
+     */
     public double getFoodPheromone(){
         return myFoodPheromone;
     }
+
+    /**
+     * sets the amount of food pheromone in the cell
+     * @param p
+     */
     public void setFoodPheromone(double p){
         myFoodPheromone = p;
     }
 
+    /**
+     * add an additional ant object to the list of ants in the cell
+     * @param myAnt
+     */
     public void addAnt(Ants myAnt){
         myAntsList.add(myAnt);
     }
+
+    /**
+     * remove an ant instance from the list of ants in the cell
+     * @param myAnt
+     */
     public  void removeAnt(Ants myAnt){
         myAntsList.remove(myAnt);
     }

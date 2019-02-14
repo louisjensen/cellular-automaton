@@ -27,6 +27,9 @@ public class RectangleGrid extends Grid {
         calculateMyRectangleWidth();
     }
 
+    /**
+     * initializes a set of rectangles on a grid
+     */
     @Override
     public void initialize(){
         int pixelX = GridStartingPoint_X;

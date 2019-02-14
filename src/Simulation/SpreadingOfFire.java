@@ -6,6 +6,8 @@ import view.NeighborsMaker;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Map;
+import java.util.List;
 
 /**
  * @author:  Justin Kim, Louis Jensen, Louis Lee
@@ -14,21 +16,20 @@ public class SpreadingOfFire extends Simulation {
 
     private double probCatch;
     private Random random = new Random();
-    int randomInt;
 
-    final HashMap<String, Integer> stateLookupTable = new HashMap<>() {{
+    final Map<String, Integer> stateLookupTable = new HashMap<>() {{
         put("alive", 0);
         put("dead", 1);
         put("burning", 2);
     }};
 
-    final HashMap<Integer, Color> colorLookupTable = new HashMap<>() {{
+    final Map<Integer, Color> colorLookupTable = new HashMap<>() {{
         put(0, Color.GREEN);
         put(1, Color.YELLOW);
         put(2, Color.RED);
     }};
 
-    public SpreadingOfFire(HashMap<String, Double> map, Cell[][] current, Cell[][] next, NeighborsMaker nm) {
+    public SpreadingOfFire(Map<String, Double> map, Cell[][] current, Cell[][] next, NeighborsMaker nm) {
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
         myNeighborsMaker = nm;
@@ -41,9 +42,10 @@ public class SpreadingOfFire extends Simulation {
     /**
      * Algorithm for updating the grid
      */
-    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
+    public int getNextStateOfCell(Cell cell, List<Cell> neighbors) {
         int numFire = 0;
         int nextState;
+        int randomInt;
 
         for (Cell neighbor : neighbors) {
             if (neighbor.getState() == 2)

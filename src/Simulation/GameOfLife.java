@@ -5,6 +5,8 @@ import java.util.HashMap;
 import view.NeighborsMaker;
 import Cell.Cell;
 import javafx.scene.paint.Color;
+import java.util.Map;
+import java.util.List;
 
 /**
  * @author:  Justin Kim, Louis Jensen, Louis Lee
@@ -12,12 +14,12 @@ import javafx.scene.paint.Color;
 
 public class GameOfLife extends Simulation{
 
-    final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
+    final Map<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("dead",  0);
         put("alive", 1);
     }};
 
-    final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
+    final Map<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
         put(0, Color.WHITE);
         put(1, Color.BLACK);
     }};
@@ -38,7 +40,7 @@ public class GameOfLife extends Simulation{
     /**
      * Rules for updating the grid
      */
-    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
+    public int getNextStateOfCell(Cell cell, List<Cell> neighbors) {
         int numAlive = 0;
         int nextState;
 

@@ -33,6 +33,9 @@ public class HexagonGrid extends Grid {
         d = myDisplaySize/ (3 * myCurrentState[0].length);
     }
 
+    /**
+     * Initializes a set of hexagons on a grid
+     */
     @Override
     public void initialize(){
         //Starting Points

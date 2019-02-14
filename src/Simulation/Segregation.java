@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import view.NeighborsMaker;
+import java.util.Map;
+import java.util.List;
 
 /**
  * @author:  Justin Kim, Louis Jensen, Louis Lee
@@ -13,22 +15,14 @@ import view.NeighborsMaker;
 
 public class Segregation extends Simulation {
 
-    Cell cellEmpty;
-    Cell cellMoving;
-    Cell nextStateMove;
-    Cell nextStateEmpty;
-    int randomIntEmpty;
-    int randomIntMoving;
-    int emptyCellsSize;
-    int dissatisfiedCellsSize;
 
-    final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
+    final Map<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("empty",  0);
         put("blue",   1);
         put("red",    2);
     }};
 
-    final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
+    final Map<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
         put(0, Color.WHITE);
         put(1, Color.BLUE);
         put(2, Color.RED);
@@ -37,7 +31,7 @@ public class Segregation extends Simulation {
     private double myTolerance;
     private Random random = new Random();
 
-    public Segregation(HashMap<String, Double> moreInfoLookupTable, Cell[][] current, Cell[][] next, NeighborsMaker nm){
+    public Segregation(Map<String, Double> moreInfoLookupTable, Cell[][] current, Cell[][] next, NeighborsMaker nm){
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
         myMoreInfoLookupTable = moreInfoLookupTable;
@@ -51,7 +45,7 @@ public class Segregation extends Simulation {
         return stateLookupTable.get(stateString);
     }
 
-    private boolean checkIfSatisfied(Cell cell,  ArrayList<Cell> neighbors){
+    private boolean checkIfSatisfied(Cell cell,  List<Cell> neighbors){
         int myState = cell.getState(); // get red or blue
         int numMyState = 0; // if red, count how many red neighbors.
         int numOtherState = 0;
@@ -94,7 +88,7 @@ public class Segregation extends Simulation {
 
     }
 
-    private void getDissatisfiedAndEmpty(ArrayList<Cell> dissatisfiedCells, ArrayList<Cell> emptyCells){
+    private void getDissatisfiedAndEmpty(List<Cell> dissatisfiedCells, List<Cell> emptyCells){
         ArrayList<Cell> neighbors;
         Cell current;
         for(int i=0 ; i<myCurrentGrid.length ; i ++){
@@ -111,7 +105,16 @@ public class Segregation extends Simulation {
         }
     }
 
-    private void moveDissatisfiedToEmpty(ArrayList<Cell> dissatisfiedCells, ArrayList<Cell> emptyCells){
+    private void moveDissatisfiedToEmpty(List<Cell> dissatisfiedCells, List<Cell> emptyCells){
+        Cell cellEmpty;
+        Cell cellMoving;
+        Cell nextStateMove;
+        Cell nextStateEmpty;
+        int randomIntEmpty;
+        int randomIntMoving;
+        int emptyCellsSize;
+        int dissatisfiedCellsSize;
+
         if(!dissatisfiedCells.isEmpty()){
             for (int i = 0; i < dissatisfiedCells.size(); i++){
                 dissatisfiedCellsSize = dissatisfiedCells.size();
@@ -147,7 +150,7 @@ public class Segregation extends Simulation {
     }
 
     @Override
-    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
+    public int getNextStateOfCell(Cell cell, List<Cell> neighbors) {
         return 1;
     }
 

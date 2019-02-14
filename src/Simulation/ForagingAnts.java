@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.awt.*;
+import java.util.Map;
+import java.util.List;
 
 /**
  * @author:  Justin Kim, Louis Lee
@@ -16,7 +18,7 @@ import java.awt.*;
 
 public class ForagingAnts extends Simulation {
 
-    final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>() {{
+    final Map<String, Integer> stateLookupTable = new HashMap<String, Integer>() {{
         put("empty", 0);
         put("nest", 1);
         put("food", 2);
@@ -25,7 +27,7 @@ public class ForagingAnts extends Simulation {
         put("foodWAnts", 5);
     }};
 
-    final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>() {{
+    final Map<Integer, Color> colorLookupTable = new HashMap<Integer, Color>() {{
         put(0, Color.WHITE);
         put(1, Color.BROWN);
         put(2, Color.GREEN);
@@ -42,7 +44,7 @@ public class ForagingAnts extends Simulation {
     private int myAntsMaxLives;
     private int myMaxAntsPerCell;
 
-    public ForagingAnts(HashMap<String, Double> moreInfoLookupTable, Cell[][] current, Cell[][] next, NeighborsMaker nm) {
+    public ForagingAnts(Map<String, Double> moreInfoLookupTable, Cell[][] current, Cell[][] next, NeighborsMaker nm) {
         myMoreInfoLookupTable = moreInfoLookupTable;
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
@@ -65,7 +67,7 @@ public class ForagingAnts extends Simulation {
     /**
      * No need to inherit this.
      */
-    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
+    public int getNextStateOfCell(Cell cell, List<Cell> neighbors) {
         return 1;
     }
 
@@ -150,7 +152,6 @@ public class ForagingAnts extends Simulation {
                                 nextCell = (ForagingAntsCell) forwardNeighbors.get(rand);
                             }
 
-
                         }
                         boolean canMove = false;
                         for (Cell cell: forwardNeighbors){
@@ -163,20 +164,14 @@ public class ForagingAnts extends Simulation {
                             nextCell.addAnt(myAnt);
                         }
                         myAnt.loseLife();
-
-                        //currentCell.removeAnt(myAnt);
-
                         direction = new Point (nextCell.getRow() - currentCell.getRow(),nextCell.getCol() - currentCell.getCol());
                         myAnt.setDirection(direction);
                     }
                     else { // ant is dead
                         antsToRemove.add(myAnt);
-                        //currentCell.removeAnt(myAnt);
-                        //myTotalAnts --;
                     }
                 }
                 removeAntsFromCell(currentCell, antsToRemove);
-                //antsArrayList.clear();
             }
         }
 
@@ -195,26 +190,6 @@ public class ForagingAnts extends Simulation {
         antsToRemove.clear();
     }
 
-    private void printNextStates(){
-        ForagingAntsCell next;
-
-        for (int row = 0; row < myNextGrid.length; row++) {
-            for (int col = 0; col < myNextGrid[0].length; col++) {
-                next = (ForagingAntsCell) myNextGrid[row][col];
-                System.out.println("row: " + row  + " col: " + col + " state: "+ next.getState());
-            }
-        }
-    }
-
-    private void printCurrentStates(){
-        ForagingAntsCell current;
-        for (int row = 0; row < myCurrentGrid.length; row++) {
-            for (int col = 0; col < myCurrentGrid[0].length; col++) {
-                current = (ForagingAntsCell) myCurrentGrid[row][col];
-                System.out.println("row: " + row  + " col: " + col + " state: "+ current.getState() + " numAnts: " + current.getMyAntsList().size());
-            }
-        }
-    }
 
     @Override
     /**

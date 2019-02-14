@@ -5,6 +5,8 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import view.NeighborsMaker;
+import java.util.Map;
+import java.util.List;
 
 /**
  * @author:  Justin Kim, Louis Jensen, Louis Lee
@@ -15,9 +17,9 @@ import view.NeighborsMaker;
 
 
 public abstract class Simulation { // since this doesn't have any instance variables, perhaps make this an enum class
-    public HashMap<Integer, Color> myColorLookupTable;
-    public HashMap<String, Integer> myStateLookupTable;
-    public HashMap<String, Double> myMoreInfoLookupTable;
+    public Map<Integer, Color> myColorLookupTable;
+    public Map<String, Integer> myStateLookupTable;
+    public Map<String, Double> myMoreInfoLookupTable;
     public NeighborsMaker myNeighborsMaker;
     public Cell[][] myCurrentGrid;
     public Cell[][] myNextGrid;
@@ -28,7 +30,7 @@ public abstract class Simulation { // since this doesn't have any instance varia
      * @param neighbors what are the "neighbors" of cell. Determined by the Simulation type.
      * @return next state of cell
      */
-    public abstract int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors);
+    public abstract int getNextStateOfCell(Cell cell, List<Cell> neighbors);
 
     /**
      * sets myCurrentGrid to myCurrentState from the Grid class
@@ -110,11 +112,11 @@ public abstract class Simulation { // since this doesn't have any instance varia
         }
     }
 
-    public HashMap<Integer, Color> getMyColorLookupTable(){
+    public Map<Integer, Color> getMyColorLookupTable(){
         return myColorLookupTable;
     }
 
-    public HashMap<String, Integer> getMyStateLookupTable(){
+    public Map<String, Integer> getMyStateLookupTable(){
         return myStateLookupTable;
     }
 

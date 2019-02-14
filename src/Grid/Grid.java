@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.HashMap;
+import java.util.Map;
 import javafx.scene.Group;
 import view.*;
 import java.util.Collections;
@@ -23,6 +24,11 @@ public abstract class Grid {
     public XMLParser myXML;
     public NeighborsMaker myNeighborsMaker;
 
+    /**
+     * initializes a grid object with a specific display size and other parameters based on the xml file given by the filepath
+     * @param filePath
+     * @param displaySize
+     */
     public Grid(String filePath, int displaySize) {
         myXML = new XMLParser(filePath);
         if(myXML == null){
@@ -32,13 +38,22 @@ public abstract class Grid {
         myDisplaySize = displaySize;
     }
 
+    /**
+     * places all of the shapes for each cell on a 2D grid (different initialization method for all three shapes)
+     */
     public abstract void initialize();
 
-    public HashMap<String, Integer> getSimulationMap(){
+    public Map<String, Integer> getSimulationMap(){
         return mySimulation.myStateLookupTable;
     }
 
-    public Simulation getSimulation(String sim, HashMap<String, Double> map) {
+    /**
+     * creates a new instance of a simulation based on the simulation string type
+     * @param sim string code for simulation
+     * @param map additional parameters for the state of the simulation
+     * @return specific simulation instance
+     */
+    public Simulation getSimulation(String sim, Map<String, Double> map) {
         if (sim.equals("GameOfLife")) {
             return new GameOfLife(myCurrentState, myNextState, myNeighborsMaker);
         }
@@ -62,6 +77,11 @@ public abstract class Grid {
         }
     }
 
+    /**
+     * creates a new instance of a cell based on the simulation type
+     * @param shape
+     * @return specific cell instance
+     */
     public Cell getSpecificCell(Polygon shape) {
         if (myXML.getSimulationType().equals("GameOfLife")) {
             return new GameOfLifeCell(shape);
@@ -86,6 +106,12 @@ public abstract class Grid {
         }
     }
 
+    /**
+     * initializes the cell object for each grid index in myCurrentState and myNextState
+     * @param shape Polygon object to be used for the cell
+     * @param row row index in the grid
+     * @param col col index in the grid
+     */
     public void initializeCurrentNext(Polygon shape, int row, int col){
         myCurrentState[row][col] = getSpecificCell(shape);
         Cell current = myCurrentState[row][col];
@@ -102,10 +128,17 @@ public abstract class Grid {
         cell.setCol(col);
     }
 
+    /**
+     * calls the simulation's moveNextToCurrent method. Transfers information from the next grid state to the current state and resets the cells in next state
+     */
     public void moveNexttoCurrent() {
         mySimulation.moveNextToCurrent();
     }
 
+    /**
+     * returns true if the information in myNextState is the same as the information in myCurrentState (this occurs before moveNexttoCurrent is called
+     * @return
+     */
     public boolean checkGameEnding() {
         for (int i = 0; i < myCurrentState.length; i++) {
             for (int j = 0; j < myCurrentState[0].length; j++) {
@@ -119,18 +152,33 @@ public abstract class Grid {
         return true;
     }
 
+    /**
+     * returns myCurrentState
+     * @return
+     */
     public Cell[][] getMyCurrentState() {
         return myCurrentState;
     }
 
+    /**
+     * calls the simulation's update method
+     */
     public void updateGrid() {
         mySimulation.update();
     }
 
+    /**
+     * gets the name of the simulation
+     * @return
+     */
     public String getSimulationName() {
         return myXML.getSimulationType();
     }
 
+    /**
+     * adds all of the Polygon objects in myCurrentState to root
+     * @param root
+     */
     public void display(Group root) {
         Cell current;
         for (int i = 0; i < myCurrentState.length; i++) {
@@ -143,6 +191,10 @@ public abstract class Grid {
         }
     }
 
+    /**
+     * removes all of the Polygon objects in myCurrentState from root
+     * @param root
+     */
     public void unDisplay(Group root) {
         Cell current;
         for (int i = 0; i < myCurrentState.length; i++) {
@@ -155,6 +207,9 @@ public abstract class Grid {
         }
     }
 
+    /**
+     * sets the initial grid colors
+     */
     public void setInitialGridColors() {
         if (myXML.isItBasedOnStates()){
             setColorsBasedOnStates();
@@ -167,7 +222,7 @@ public abstract class Grid {
         int cell = 0;
         Cell current;
         List<Double> proportionStates = myXML.getStateProportions();
-        HashMap<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
+        Map<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
         for (int i = 0; i < myCurrentState.length; i++) {
             for (int j = 0; j < myCurrentState[0].length; j++) {
                 current = myCurrentState[i][j];
@@ -178,13 +233,14 @@ public abstract class Grid {
         }
     }
 
+    // sets initial states of the grid. For example, in a 10x10 Spreading of Fire simulation, there should be X green, Y yellow, and Z red cells. Where X + Y + Z = 10x10
     private void setColorsBasedOnNumbers(){
         List<Double> proportionStates = myXML.getStateProportions();
         List<Integer> percentageStates = new ArrayList<>();
 
-        HashMap<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
+        Map<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
         List<String> states = myXML.getStates();
-        HashMap<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
+        Map<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
 
         Random rand = new Random();
         int randInt;

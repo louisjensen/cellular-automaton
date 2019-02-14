@@ -6,6 +6,8 @@ import view.NeighborsMaker;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Map;
+import java.util.List;
 
 /**
  * @author:  Justin Kim
@@ -15,20 +17,20 @@ public class RPS extends Simulation {
 
     private double myThreshold;
 
-    final HashMap<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
+    final Map<String, Integer> stateLookupTable = new HashMap<String, Integer>(){{
         put("rock",  0);
         put("paper", 1);
         put("scissors", 2);
 
     }};
 
-    final HashMap<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
+    final Map<Integer, Color> colorLookupTable = new HashMap<Integer, Color>(){{
         put(0, Color.GREEN);
         put(1, Color.BLUE);
         put(2, Color.RED);
     }};
 
-    public RPS(HashMap<String, Double> moreInfoLookupTable, Cell[][] current, Cell[][] next, NeighborsMaker nm){
+    public RPS(Map<String, Double> moreInfoLookupTable, Cell[][] current, Cell[][] next, NeighborsMaker nm){
         myMoreInfoLookupTable = moreInfoLookupTable;
         myStateLookupTable = stateLookupTable;
         myColorLookupTable = colorLookupTable;
@@ -46,7 +48,7 @@ public class RPS extends Simulation {
     /**
      * Differnt rule for updating the cell.
      */
-    public int getNextStateOfCell(Cell cell, ArrayList<Cell> neighbors) {
+    public int getNextStateOfCell(Cell cell, List<Cell> neighbors) {
         int opponentState = getOpponent(cell.getState());
         int numOpponents = countOpponents(cell, neighbors);
         if ((double)numOpponents/neighbors.size() >= myThreshold + generateRandomDouble()){
@@ -57,7 +59,7 @@ public class RPS extends Simulation {
         }
     }
 
-    private int countOpponents(Cell cell, ArrayList<Cell> neighbors){
+    private int countOpponents(Cell cell, List<Cell> neighbors){
         int count = 0;
         int opponentState = getOpponent(cell.getState());
         for (Cell neighbor : neighbors) {
