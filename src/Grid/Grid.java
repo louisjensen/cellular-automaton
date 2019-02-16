@@ -241,27 +241,18 @@ public abstract class Grid {
     private void setColorsBasedOnNumbers(){
         List<Double> proportionStates = myXML.getStateProportions();
         List<Integer> percentageStates = new ArrayList<>();
-
         Map<String, Integer> stateLookupTable = mySimulation.getMyStateLookupTable();
         List<String> states = myXML.getStates();
         Map<Integer, Color> stateToColorMap = mySimulation.getMyColorLookupTable();
-
         Random rand = new Random();
         int randInt;
-        int currentTotal = 0;
-        int percentage;
-        int totalNum = 0;
-        for(int i = 0; i < proportionStates.size(); i++){
-            totalNum += proportionStates.get(i);
-        }
+        int currentTotal = setPercentagesAndReturnTotal(proportionStates, percentageStates);
+        setStatesFromProprotions(rand, currentTotal, proportionStates, percentageStates, stateLookupTable, stateToColorMap, states);
+    }
 
-        for (int i = 0; i < proportionStates.size(); i++) {
-            percentage = (currentTotal + (proportionStates.get(i)).intValue());
-            percentageStates.add(percentage);
-            //System.out.println(percentage + "percentages");
-            currentTotal = percentage;
-        }
-
+    private void setStatesFromProprotions(Random rand, int currentTotal, List<Double> proportionStates, List<Integer> percentageStates, Map<String, Integer> stateLookupTable,
+        Map<Integer, Color> stateToColorMap, List<String> states){
+        int randInt;
         List<Cell> allCells = getAllCells();
         for (Cell current: allCells) {
             if (current.getState() != -2) {
@@ -278,7 +269,24 @@ public abstract class Grid {
                 }
             }
         }
+    }
 
+    private int setPercentagesAndReturnTotal(List<Double> proportionStates, List<Integer> percentageStates){
+        Random rand = new Random();
+        int randInt;
+        int currentTotal = 0;
+        int percentage;
+        int totalNum = 0;
+        for(int i = 0; i < proportionStates.size(); i++){
+            totalNum += proportionStates.get(i);
+        }
+        for (int i = 0; i < proportionStates.size(); i++) {
+            percentage = (currentTotal + (proportionStates.get(i)).intValue());
+            percentageStates.add(percentage);
+            //System.out.println(percentage + "percentages");
+            currentTotal = percentage;
+        }
+        return currentTotal;
     }
 
     private List<Cell> getAllCells() {
