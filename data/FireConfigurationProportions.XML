@@ -6,8 +6,8 @@
     <basedOnStates>No</basedOnStates>
     <specifics>
         <property>alive 390</property>
-        <property>dead 5</property>
-        <property>burning 5</property>
+        <property>dead 0</property>
+        <property>burning 10</property>
     </specifics>
     <moreInfo>
         <info>probCatch 0.5</info>
