@@ -14,8 +14,13 @@ Hours Spent: 70+ (each)
 
 ### Primary Roles
 
-We worked as a group for the whole project and all contributed 
-to each portion.
+In the first sprint our primary roles were as follows:
+* Justin Kim: Simulation
+* Louis Lee: Visualization
+* Louis Jensen: Configuration
+
+In the second sprint we began to work together more and 
+contributed to all parts.
 
 ### Resources Used
 
