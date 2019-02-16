@@ -48,7 +48,7 @@ public class XMLParser {
 
             NodeList list = doc.getElementsByTagName("property");
             readCells(list);
-           
+
             NodeList list2 = doc.getElementsByTagName("info");
             readOtherInfo(list2);
         }
@@ -81,26 +81,50 @@ public class XMLParser {
         return simulationType;
     }
 
+    /**
+     * X length of grid
+     * @return the width of the grid as an integer
+     */
     public int getGridX(){
         return xSize;
     }
 
+    /**
+     * Y length of grid
+     * @return the height of the grid as an integer
+     */
     public int getGridY(){
         return ySize;
     }
 
+    /**
+     * Gives a map that has all the specific information unique to the simulation
+     * @return map describing each parameters
+     */
     public Map getRandomInfo(){
         return randomInfo;
     }
 
+    /**
+     * Possible states of each cell
+     * @return List to maintain order
+     */
     public List getStates(){
         return states;
     }
 
+    /**
+     * The proportion of each state present
+     * @return List to maintain order
+     */
     public List getStateProportions() {
         return stateProportions;
     }
 
+    /**
+     * Is this XML file giving the state of every single cell?
+     * @return boolean
+     */
     public boolean isItBasedOnStates(){
         return basedOnStates.equals("Yes");
     }
