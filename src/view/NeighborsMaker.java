@@ -7,7 +7,7 @@ import Cell.*;
 import java.util.List;
 
 /**
- * @author:  Justin Kim, Louis Lee
+ * @author:  Justin Kim, Louis Lee, Louis Jensen
  */
 
 public class NeighborsMaker {

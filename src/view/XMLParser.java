@@ -52,7 +52,10 @@ public class XMLParser {
             }
         }
         catch (Exception e) {
-           //Should Never happen - no response
+           //Should Never happen, set blank defaults in case
+            //Setting this simulation type will cuase an error to be generated
+            //to the user from the visualiztion class.
+            simulationType = "Invalid Simulation Type";
         }
     }
 
