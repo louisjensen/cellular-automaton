@@ -27,6 +27,11 @@ public class XMLParser {
     private ArrayList<Double> stateProportions = new ArrayList<>();
     private String basedOnStates;
 
+    /**
+     * Reads a file and constructs an object with the information necessary to
+     * build an initial simulation grid
+     * @param filepath filepath of the file that is being read by the XML parser
+     */
     public XMLParser(String filepath){
         File file = new File(filepath);
         try {
@@ -40,25 +45,35 @@ public class XMLParser {
             simulationType = doc.getElementsByTagName("type").item(0).getTextContent();
             xSize = Integer.parseInt(doc.getElementsByTagName("horizontalSize").item(0).getTextContent());
             ySize = Integer.parseInt(doc.getElementsByTagName("verticalSize").item(0).getTextContent());
+
             NodeList list = doc.getElementsByTagName("property");
-            for(int i = 0; i < list.getLength(); i++){
-                String s = list.item(i).getTextContent();
-                String[] split = s.split(" ");
-                states.add(split[0]);
-                stateProportions.add(Double.parseDouble(split[1]));
-            }
+            readCells(list);
+           
             NodeList list2 = doc.getElementsByTagName("info");
-            for(int i = 0; i < list2.getLength(); i++){
-                String s2 = list2.item(i).getTextContent();
-                String[] split2 = s2.split(" ");
-                randomInfo.put(split2[0], Double.parseDouble(split2[1]));
-            }
+            readOtherInfo(list2);
         }
         catch (Exception e) {
            //Should Never happen, set blank defaults in case
             //Setting this simulation type will cuase an error to be generated
             //to the user from the visualiztion class.
             simulationType = "Invalid Simulation Type";
+        }
+    }
+
+    private void readCells(NodeList list){
+        for(int i = 0; i < list.getLength(); i++){
+            String s = list.item(i).getTextContent();
+            String[] split = s.split(" ");
+            states.add(split[0]);
+            stateProportions.add(Double.parseDouble(split[1]));
+        }
+    }
+
+    private void readOtherInfo(NodeList list2){
+        for(int i = 0; i < list2.getLength(); i++){
+            String s2 = list2.item(i).getTextContent();
+            String[] split2 = s2.split(" ");
+            randomInfo.put(split2[0], Double.parseDouble(split2[1]));
         }
     }
 
