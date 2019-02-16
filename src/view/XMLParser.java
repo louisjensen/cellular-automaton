@@ -9,6 +9,9 @@ import java.io.File;
 import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.List;
+
 /**
  * @author:  Louis Jensen
  * This class reads in all the xml configuration files and stores the info in the map
@@ -71,15 +74,15 @@ public class XMLParser {
         return ySize;
     }
 
-    public HashMap<String, Double> getRandomInfo(){
+    public Map getRandomInfo(){
         return randomInfo;
     }
 
-    public ArrayList<String> getStates(){
+    public List getStates(){
         return states;
     }
 
-    public ArrayList<Double> getStateProportions() {
+    public List getStateProportions() {
         return stateProportions;
     }
 
