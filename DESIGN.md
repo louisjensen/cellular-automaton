@@ -6,9 +6,9 @@ CompSci 308: Simulation Project Analysis
 Design Review
 =======
 
-### Overall Design
+### High Level Design
 
-1. Our code has four main components(Visualization, Configuration, Simulation, Grid). 
+Our code has four main components(Visualization, Configuration, Simulation, Grid). 
 * Visualization handles everything related to GUI but does not hold any substantial data. Visualization only stores data 
 about edgetype, shapetype, number of simulations in strings so they can used to make actual grid. 
 
@@ -22,11 +22,28 @@ each cells based on the simulation. Then it will update the cells and send that 
 * Simulation doesn't hold data but has all the rules how grids should be updated. Thus we have a abstract simulation class and 
 each time we implement a new game, we just have to make new class extending simulation class. 
 
-2. To add a new kind of simulation, we have to modify xml parser class and add a new simulation class. Because we store info of xml
+### Adding New Features
+To add a new kind of simulation, we have to modify xml parser class and add a new simulation and cell class. Because we store info of xml
 parser in a map, if the new simulation doesn't have more variables than what we currently have, xml parser doesn't have to be modified. 
 New simulation class will have algorithms how to update the grid. This can be done through overriding getNextCell and Update method
 
-3. Code is generally consistent. This is mainly because we always worked in a group, so we could discuss and review our code everyday. Moreover, 
-because Justin and I both worked on simulation, it was necessary for us to maintain same logic. 
-As for the variable names, when we were planning the project, we wrote down all the variables as much as possible so we would be using 
-same naming conventions. I think this went very well. 
+### Major Design Choices
+The biggest design decisions we made were how to implement 
+the grid of cells and how to implement each simulation.
+For the grid of cells we decided to use a 2D array to keep
+track of each cell. We made that choice so that we would
+be able to loop through the 2D array to update the states of each cell.
+ We also considered keeping track of the grid using a map
+ but we concluded that it would be easier for us to monitor
+ neighbors of each cell within a 2D array. 
+ 
+ The other major design choice we made was to implement an
+ abstract simulation class and extend it for each simulation
+ that we we're going to run in our code. That way we could use
+ methods that would all be the same for each simulation but override
+ the methods that would be different, such as how to update the grid.
+ 
+ ### Assumptions
+ In our code we assume that any XML file with one of the seven valid
+ simulation names will contain valid information about the
+ states and parameters will be correct. 
